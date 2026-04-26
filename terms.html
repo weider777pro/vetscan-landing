@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0064FF">
+<title>Terms of Use — VetScan</title>
+<meta name="description" content="VetScan Terms of Use — the rules and conditions of using our service.">
+<link rel="icon" type="image/svg+xml" href="vetscan-favicon-32.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin>
+
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text-primary: #0A0A0F;
+  --text-secondary: #4A4A55;
+  --text-tertiary: #8E8E99;
+  --accent: #0064FF;
+  --accent-2: #7C5CFF;
+  --separator: rgba(10, 10, 15, 0.08);
+  --surface: #F8F8FB;
+  --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+.legal-header {
+  border-bottom: 1px solid var(--separator);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text-primary);
+  font-weight: 700; font-size: 17px; letter-spacing: -0.02em;
+}
+.logo-mark {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 100, 255, 0.25);
+  position: relative; overflow: hidden;
+}
+.logo-mark svg { width: 22px; height: 22px; }
+.logo-mark::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 70%);
+}
+.back-link {
+  font-size: 14px; color: var(--accent); text-decoration: none;
+  font-weight: 500; display: inline-flex; align-items: center; gap: 4px;
+}
+.back-link:hover { text-decoration: underline; }
+.legal-article { max-width: 720px; margin: 0 auto; padding: 64px 24px 80px; }
+@media (max-width: 600px) { .legal-article { padding: 40px 20px 60px; } }
+.legal-eyebrow {
+  font-size: 13px; font-weight: 600; color: var(--accent);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px;
+}
+h1 {
+  font-size: 42px; line-height: 1.15; letter-spacing: -0.025em;
+  font-weight: 800; margin-bottom: 12px;
+}
+@media (max-width: 600px) { h1 { font-size: 32px; } }
+.last-updated {
+  color: var(--text-tertiary); font-size: 14px; margin-bottom: 48px;
+  padding-bottom: 24px; border-bottom: 1px solid var(--separator);
+}
+h2 {
+  font-size: 24px; font-weight: 700; letter-spacing: -0.015em;
+  margin: 48px 0 16px; line-height: 1.3;
+}
+h2:first-of-type { margin-top: 0; }
+h3 {
+  font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin: 28px 0 10px;
+}
+p { color: var(--text-secondary); margin-bottom: 16px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--accent-2); }
+ul, ol { color: var(--text-secondary); margin: 0 0 16px 24px; }
+li { margin-bottom: 8px; }
+strong { color: var(--text-primary); font-weight: 600; }
+.callout {
+  background: var(--surface); border-left: 3px solid var(--accent);
+  padding: 16px 20px; border-radius: 0 12px 12px 0;
+  margin: 24px 0; font-size: 15px;
+}
+.callout strong { display: block; margin-bottom: 4px; }
+.callout-warning {
+  background: #FFF5E6; border-left-color: #FF9500;
+}
+.legal-footer {
+  border-top: 1px solid var(--separator); padding: 32px 24px;
+  text-align: center; color: var(--text-tertiary); font-size: 13px; margin-top: 48px;
+}
+.legal-footer a { color: var(--text-tertiary); text-decoration: none; margin: 0 12px; }
+.legal-footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="legal-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g fill="white">
+            <ellipse cx="50" cy="62" rx="16" ry="13"/>
+            <ellipse cx="28" cy="46" rx="7" ry="9"/>
+            <ellipse cx="72" cy="46" rx="7" ry="9"/>
+            <ellipse cx="38" cy="30" rx="6" ry="8"/>
+            <ellipse cx="62" cy="30" rx="6" ry="8"/>
+          </g>
+        </svg>
+      </span>
+      VetScan
+    </a>
+    <a href="index.html" class="back-link">← Back to home</a>
+  </div>
+</header>
+
+<article class="legal-article">
+  <div class="legal-eyebrow">Legal</div>
+  <h1>Terms of Use</h1>
+  <p class="last-updated">Last updated: April 26, 2026</p>
+
+  <div class="callout callout-warning">
+    <strong>Important</strong>
+    VetScan is not a substitute for veterinary care. Read our <a href="disclaimer.html">Medical Disclaimer</a> before using the Service.
+  </div>
+
+  <h2>1. Acceptance of Terms</h2>
+  <p>Welcome to VetScan. These Terms of Use ("Terms") govern your access to and use of the VetScan website at <a href="https://vetscan.app">vetscan.app</a>, mobile applications, and related services (collectively, the "Service") operated by VetScan ("we", "us", "our").</p>
+  <p>By accessing or using the Service, you agree to be bound by these Terms. If you do not agree, do not use the Service.</p>
+
+  <h2>2. Eligibility</h2>
+  <p>You must be at least 18 years old to use the Service. By using the Service, you represent and warrant that:</p>
+  <ul>
+    <li>You are 18 years of age or older</li>
+    <li>You have the legal capacity to enter into this agreement</li>
+    <li>Your use of the Service does not violate any applicable law</li>
+  </ul>
+
+  <h2>3. Description of Service</h2>
+  <p>VetScan provides AI-assisted health triage information for dog owners. The Service includes:</p>
+  <ul>
+    <li>A symptom assessment tool that suggests urgency levels (e.g., "watch and wait", "see a vet within 48 hours", "emergency")</li>
+    <li>General educational information about dog health</li>
+    <li>Guidance on when to seek professional veterinary care</li>
+  </ul>
+  <p><strong>The Service is informational only and does not provide veterinary diagnosis, treatment, or medical advice.</strong> See our <a href="disclaimer.html">Medical Disclaimer</a>.</p>
+
+  <h2>4. Accounts and Registration</h2>
+  <p>If you create an account or join our waitlist, you agree to:</p>
+  <ul>
+    <li>Provide accurate, current, and complete information</li>
+    <li>Keep your account credentials secure and confidential</li>
+    <li>Be responsible for all activity that occurs under your account</li>
+    <li>Notify us immediately of any unauthorized access</li>
+  </ul>
+
+  <h2>5. Acceptable Use</h2>
+  <p>You agree not to:</p>
+  <ul>
+    <li>Use the Service for any unlawful purpose</li>
+    <li>Attempt to gain unauthorized access to any part of the Service</li>
+    <li>Interfere with or disrupt the Service or servers</li>
+    <li>Use the Service to transmit malware, spam, or harmful content</li>
+    <li>Reverse engineer, decompile, or disassemble any part of the Service</li>
+    <li>Scrape, harvest, or collect data from the Service without permission</li>
+    <li>Resell or commercially exploit the Service without our written consent</li>
+    <li>Provide false information about your dog or symptoms in a way that could harm others</li>
+    <li>Use the Service to make decisions about animals other than your own pet without authority to do so</li>
+  </ul>
+
+  <h2>6. Intellectual Property</h2>
+  <p>All content on the Service, including text, graphics, logos, illustrations, animations, software, and the AI models powering our triage system, are owned by VetScan or its licensors and are protected by intellectual property laws.</p>
+  <p>You may not copy, modify, distribute, sell, or create derivative works without our express written permission.</p>
+  <p>The "VetScan" name and logo are trademarks of VetScan. You may not use them without our prior written consent.</p>
+
+  <h2>7. User Content</h2>
+  <p>If you submit feedback, suggestions, symptoms, photos, or other content to the Service ("User Content"), you grant us a worldwide, royalty-free, non-exclusive license to use, reproduce, modify, and display that content for the purpose of operating and improving the Service.</p>
+  <p>You represent that you have all rights necessary to grant this license and that your User Content does not violate any third-party rights.</p>
+
+  <h2>8. AI-Generated Output</h2>
+  <p>The Service uses artificial intelligence to generate responses. You acknowledge that:</p>
+  <ul>
+    <li>AI-generated output may contain inaccuracies or errors</li>
+    <li>The AI is not a licensed veterinarian and cannot diagnose medical conditions</li>
+    <li>You are solely responsible for any decisions you make based on AI output</li>
+    <li>In any emergency, contact a veterinarian or emergency animal hospital immediately</li>
+  </ul>
+
+  <h2>9. Subscription and Payments (Future)</h2>
+  <p>The current Service is provided free of charge during the beta period. After launch, certain features may require a paid subscription. We will notify you of pricing before any charges. Subscription terms, refund policies, and cancellation procedures will be detailed at the time of purchase.</p>
+
+  <h2>10. Disclaimer of Warranties</h2>
+  <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION:</p>
+  <ul>
+    <li>Warranties of merchantability</li>
+    <li>Fitness for a particular purpose</li>
+    <li>Non-infringement</li>
+    <li>Accuracy or reliability of information</li>
+    <li>Uninterrupted or error-free operation</li>
+  </ul>
+  <p>We make no warranty that the Service will meet your requirements or that any defects will be corrected.</p>
+
+  <h2>11. Limitation of Liability</h2>
+  <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, VETSCAN AND ITS AFFILIATES, OFFICERS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY:</p>
+  <ul>
+    <li>Indirect, incidental, special, consequential, or punitive damages</li>
+    <li>Loss of profits, revenue, data, or use</li>
+    <li>Damage to your pet's health resulting from reliance on Service output</li>
+    <li>Damages arising from delays, errors, or omissions in the Service</li>
+  </ul>
+  <p>Our total cumulative liability under these Terms shall not exceed the greater of (a) the amount you paid us in the 12 months preceding the claim, or (b) one hundred U.S. dollars ($100).</p>
+
+  <h2>12. Indemnification</h2>
+  <p>You agree to indemnify, defend, and hold harmless VetScan and its affiliates from any claims, damages, losses, or expenses (including reasonable attorneys' fees) arising out of or relating to:</p>
+  <ul>
+    <li>Your use of the Service</li>
+    <li>Your violation of these Terms</li>
+    <li>Your violation of any third-party right</li>
+    <li>Decisions you make about your pet's health based on Service output</li>
+  </ul>
+
+  <h2>13. Termination</h2>
+  <p>We may suspend or terminate your access to the Service at any time, with or without notice, for any reason, including violation of these Terms. Upon termination, your right to use the Service will immediately cease.</p>
+  <p>You may terminate your account at any time by contacting us at <a href="mailto:hello@vetscan.app">hello@vetscan.app</a>.</p>
+
+  <h2>14. Changes to the Service</h2>
+  <p>We reserve the right to modify, suspend, or discontinue any part of the Service at any time, with or without notice. We are not liable to you or any third party for any modification, suspension, or discontinuation.</p>
+
+  <h2>15. Changes to These Terms</h2>
+  <p>We may update these Terms from time to time. The "Last updated" date at the top reflects the most recent changes. Continued use of the Service after changes means you accept the new Terms.</p>
+
+  <h2>16. Governing Law</h2>
+  <p>These Terms are governed by the laws of the State of Delaware, United States, without regard to conflict of laws principles. Any disputes shall be resolved in the state or federal courts located in Delaware, and you consent to the personal jurisdiction of those courts.</p>
+
+  <h2>17. Severability</h2>
+  <p>If any provision of these Terms is found unenforceable or invalid, the remaining provisions will remain in full force and effect.</p>
+
+  <h2>18. Entire Agreement</h2>
+  <p>These Terms, together with our <a href="privacy.html">Privacy Policy</a>, <a href="disclaimer.html">Medical Disclaimer</a>, and <a href="cookies.html">Cookie Policy</a>, constitute the entire agreement between you and VetScan regarding the Service.</p>
+
+  <h2>19. Contact Us</h2>
+  <p>For questions about these Terms, please contact us:</p>
+  <div class="callout">
+    <strong>VetScan Legal</strong>
+    Email: <a href="mailto:legal@vetscan.app">legal@vetscan.app</a><br>
+    General: <a href="mailto:hello@vetscan.app">hello@vetscan.app</a>
+  </div>
+
+</article>
+
+<footer class="legal-footer">
+  <a href="privacy.html">Privacy</a>
+  <a href="terms.html">Terms</a>
+  <a href="disclaimer.html">Disclaimer</a>
+  <a href="cookies.html">Cookies</a>
+  <br><br>
+  © 2026 VetScan
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0064FF">
+<title>FAQ — VetScan</title>
+<meta name="description" content="Frequently asked questions about VetScan — product, privacy, AI accuracy, pricing, and veterinary care.">
+<link rel="icon" type="image/svg+xml" href="vetscan-favicon-32.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin>
+
+<style>
+:root {
+  --bg: #FFFFFF;
+  --surface: #F8F8FB;
+  --text-primary: #0A0A0F;
+  --text-secondary: #4A4A55;
+  --text-tertiary: #8E8E99;
+  --accent: #0064FF;
+  --accent-2: #7C5CFF;
+  --accent-3: #00D4B5;
+  --separator: rgba(10, 10, 15, 0.08);
+  --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+.legal-header {
+  border-bottom: 1px solid var(--separator);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  position: sticky; top: 0; z-index: 10;
+}
+.header-inner {
+  max-width: 800px; margin: 0 auto; padding: 16px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text-primary);
+  font-weight: 700; font-size: 17px; letter-spacing: -0.02em;
+}
+.logo-mark {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 100, 255, 0.25);
+  position: relative; overflow: hidden;
+}
+.logo-mark svg { width: 22px; height: 22px; }
+.logo-mark::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 70%);
+}
+.back-link { font-size: 14px; color: var(--accent); text-decoration: none; font-weight: 500; }
+.back-link:hover { text-decoration: underline; }
+.legal-article { max-width: 720px; margin: 0 auto; padding: 64px 24px 80px; }
+@media (max-width: 600px) { .legal-article { padding: 40px 20px 60px; } }
+.legal-eyebrow {
+  font-size: 13px; font-weight: 600; color: var(--accent);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px;
+}
+h1 {
+  font-size: 48px; line-height: 1.08; letter-spacing: -0.03em;
+  font-weight: 800; margin-bottom: 16px;
+}
+@media (max-width: 600px) { h1 { font-size: 34px; } }
+.lead {
+  font-size: 19px; color: var(--text-secondary); line-height: 1.55;
+  margin-bottom: 32px;
+}
+
+/* TOC */
+.faq-toc {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 48px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+@media (min-width: 600px) { .faq-toc { grid-template-columns: 1fr 1fr; } }
+.faq-toc-title {
+  grid-column: 1 / -1;
+  font-size: 13px; font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.faq-toc a {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: flex; align-items: center; gap: 8px;
+  transition: background 0.15s ease;
+}
+.faq-toc a:hover { background: rgba(0, 100, 255, 0.08); color: var(--accent); }
+.faq-toc-icon { font-size: 17px; }
+
+/* Category */
+.faq-category {
+  margin-top: 64px;
+  scroll-margin-top: 80px;
+}
+.faq-category:first-of-type { margin-top: 0; }
+
+.category-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.category-icon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.category-icon::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.25) 70%);
+}
+.category-icon.warm { background: linear-gradient(135deg, #FF6B6B, #FF9500); }
+.category-icon.mint { background: linear-gradient(135deg, var(--accent-3), var(--accent)); }
+.category-icon.purple { background: linear-gradient(135deg, var(--accent-2), #FF5FA8); }
+.category-icon.green { background: linear-gradient(135deg, #34C759, var(--accent-3)); }
+.category-icon svg { width: 22px; height: 22px; color: white; position: relative; z-index: 1; }
+
+h2 {
+  font-size: 26px; font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.2; margin: 0;
+}
+
+/* FAQ items */
+details {
+  background: var(--surface);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+details[open] {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  background: white;
+  border: 1px solid var(--separator);
+}
+summary {
+  padding: 18px 22px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  user-select: none;
+}
+summary::-webkit-details-marker { display: none; }
+.faq-icon-toggle {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(10, 10, 15, 0.04);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease, background 0.2s ease;
+}
+details[open] .faq-icon-toggle {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  transform: rotate(45deg);
+}
+.faq-answer {
+  padding: 0 22px 20px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.faq-answer p { color: inherit; margin-bottom: 12px; }
+.faq-answer p:last-child { margin-bottom: 0; }
+.faq-answer ul { color: inherit; margin: 8px 0 12px 20px; }
+.faq-answer a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+a { color: var(--accent); }
+strong { color: var(--text-primary); }
+
+.cta-card {
+  background: linear-gradient(135deg, #0F172A, #1E293B);
+  color: white;
+  padding: 32px 28px;
+  border-radius: 20px;
+  text-align: center;
+  margin: 64px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.cta-card::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -50px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(0, 100, 255, 0.4) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+.cta-card h3 {
+  color: white; font-size: 22px; margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
+.cta-card p {
+  color: rgba(255, 255, 255, 0.7); margin-bottom: 24px;
+  position: relative; z-index: 1;
+}
+.cta-btn {
+  display: inline-block; padding: 12px 28px;
+  background: white; color: var(--accent);
+  border-radius: 999px; font-weight: 700;
+  text-decoration: none; letter-spacing: -0.005em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative; z-index: 1;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 100, 255, 0.25);
+  color: var(--accent);
+}
+
+.legal-footer {
+  border-top: 1px solid var(--separator); padding: 32px 24px;
+  text-align: center; color: var(--text-tertiary); font-size: 13px; margin-top: 48px;
+}
+.legal-footer a { color: var(--text-tertiary); text-decoration: none; margin: 0 12px; }
+.legal-footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="legal-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g fill="white">
+            <ellipse cx="50" cy="62" rx="16" ry="13"/>
+            <ellipse cx="28" cy="46" rx="7" ry="9"/>
+            <ellipse cx="72" cy="46" rx="7" ry="9"/>
+            <ellipse cx="38" cy="30" rx="6" ry="8"/>
+            <ellipse cx="62" cy="30" rx="6" ry="8"/>
+          </g>
+        </svg>
+      </span>
+      VetScan
+    </a>
+    <a href="index.html" class="back-link">← Back to home</a>
+  </div>
+</header>
+
+<article class="legal-article">
+  <div class="legal-eyebrow">FAQ</div>
+  <h1>Frequently asked questions.</h1>
+  <p class="lead">Real questions from real dog parents. If yours isn't here, email us at <a href="mailto:hello@vetscan.app">hello@vetscan.app</a> and we'll add it.</p>
+
+  <!-- TOC -->
+  <nav class="faq-toc">
+    <div class="faq-toc-title">Jump to a category</div>
+    <a href="#product"><span class="faq-toc-icon">📱</span> Product &amp; Features</a>
+    <a href="#accuracy"><span class="faq-toc-icon">🎯</span> AI &amp; Accuracy</a>
+    <a href="#vet"><span class="faq-toc-icon">🩺</span> Veterinary Relationship</a>
+    <a href="#privacy"><span class="faq-toc-icon">🔒</span> Privacy &amp; Data</a>
+    <a href="#pricing"><span class="faq-toc-icon">💳</span> Pricing &amp; Access</a>
+    <a href="#technical"><span class="faq-toc-icon">⚙️</span> Technical</a>
+  </nav>
+
+  <!-- Category 1: Product -->
+  <section class="faq-category" id="product">
+    <div class="category-header">
+      <div class="category-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2.5"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      </div>
+      <h2>Product &amp; Features</h2>
+    </div>
+
+    <details>
+      <summary>What exactly is VetScan?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>VetScan is an AI-powered triage companion for new dog parents. You describe a symptom, the AI asks clarifying questions like a vet would, and gives you a clear urgency score: 🟢 watch and wait, 🟡 see a vet within 24-48 hours, or 🔴 emergency now.</p>
+        <p>It's designed for that anxious moment between "something seems off" and "should I rush to the ER?" — typically the moment first-time dog parents face frequently in the first 24 months.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is VetScan a replacement for my vet?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>No. We say this loudly because it's true. VetScan is a smart first step that helps you decide if and when to call your vet — not a substitute for professional veterinary care.</p>
+        <p>Your vet does things VetScan never will: physical exams, blood work, X-rays, surgery, prescriptions. We complement that, we don't replace it.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What kinds of symptoms does it cover?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>VetScan covers the most common symptoms that drive new dog parents to worry:</p>
+        <ul>
+          <li>Vomiting, diarrhea, appetite loss</li>
+          <li>Limping, lameness, mobility issues</li>
+          <li>Skin issues — itching, rashes, lumps</li>
+          <li>Eye and ear concerns</li>
+          <li>Behavior changes — lethargy, restlessness</li>
+          <li>Eating something they shouldn't have</li>
+          <li>Breathing changes</li>
+          <li>Urinary issues</li>
+        </ul>
+        <p>For uncommon symptoms or rare presentations, VetScan errs on the side of "see a vet" rather than guessing.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I upload photos?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Yes. For visible issues — skin conditions, eye irritation, wound assessment, posture concerns — you can snap a photo and the AI will use it as part of the triage. Photos help with assessment but never replace a hands-on vet exam.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How long does a check take?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>About 60 seconds for most checks. Describe what's happening, answer 3-5 follow-ups, get your urgency score and explanation. The whole experience is built for a stressed dog parent at midnight, not for a leisurely browse.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does VetScan track my dog's health over time?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Yes. Every check you run becomes part of your dog's health history in the app. Next time something happens, VetScan already knows context — breed, age, past symptoms, previous vet visits — to give more accurate guidance.</p>
+        <p>You can export this history to share with your vet, or delete it any time. It's your data.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- Category 2: AI & Accuracy -->
+  <section class="faq-category" id="accuracy">
+    <div class="category-header">
+      <div class="category-icon mint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      </div>
+      <h2>AI &amp; Accuracy</h2>
+    </div>
+
+    <details>
+      <summary>How accurate is the AI?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>For common, well-documented conditions, our internal testing shows VetScan's triage matches recommendations a licensed veterinarian would give in the same scenario. We continuously test against new cases reviewed by practicing vets.</p>
+        <p>For unusual or atypical presentations, VetScan defaults to "see a vet" rather than guessing. We'd rather send you to your vet unnecessarily once than miss something serious.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can the AI be wrong?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Yes. AI makes mistakes. Always trust your gut: if something feels off about your dog — even if VetScan says "watch and wait" — go to the vet. We will never get offended.</p>
+        <p>This is also why we cap urgency at "see a vet within 24-48 hours" for most ambiguous cases. We err toward more vet visits, not fewer.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How was the AI trained?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>VetScan combines large language models (similar to ChatGPT, but specialized) with a structured triage protocol developed with practicing small-animal veterinarians.</p>
+        <p>The protocol encodes the standard decision trees vets use during phone triage and intake assessments. The language model lets us interpret your natural-language descriptions and ask the right follow-up questions.</p>
+        <p>We're transparent about this: we're not making mystical "AI vet" claims. We're encoding existing clinical knowledge into an accessible interface.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What if my dog has a rare condition?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>For rare or unusual presentations, VetScan defaults to recommending a vet visit. We don't try to diagnose rare conditions — that's a job for veterinary specialists with diagnostic equipment.</p>
+        <p>If you've already been diagnosed with a chronic condition (e.g., kidney disease, diabetes, allergies), you can add it to your dog's profile. The AI will factor that in for future symptom checks.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Will it work for my breed?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>VetScan supports all dog breeds. The AI considers breed-specific risk factors — for example, French Bulldogs are flagged differently for breathing issues than Greyhounds, and large breed puppies get specific guidance about joint development.</p>
+        <p>For mixed breeds, you can specify primary breed mix or "mixed/unknown" — the AI handles both.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- Category 3: Vet Relationship -->
+  <section class="faq-category" id="vet">
+    <div class="category-header">
+      <div class="category-icon warm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+      </div>
+      <h2>Veterinary Relationship</h2>
+    </div>
+
+    <details>
+      <summary>Will my vet be okay with me using this?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Most vets we've spoken with welcome it. Their biggest frustration isn't dog parents using AI — it's dog parents using Google. VetScan helps you arrive at appointments more informed and less panicked, which makes the visit easier for everyone.</p>
+        <p>It also helps you avoid unnecessary emergency visits, freeing up your vet's time and your wallet for the cases that actually need them.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I share VetScan reports with my vet?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Yes. You can export any check or your dog's full health history as a PDF or shareable link. Many users share their VetScan reports with the vet at the start of an appointment to save time.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What if my vet disagrees with VetScan's assessment?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Always go with your vet. They've physically examined your dog, run tests, and have years of clinical training. VetScan operates on description and pattern matching — your vet operates on direct evidence.</p>
+        <p>If you find a recurring discrepancy, please email us at <a href="mailto:hello@vetscan.app">hello@vetscan.app</a> with details (with your vet's permission). It helps us improve.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Are veterinarians involved in building VetScan?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Yes. We work with practicing small-animal veterinarians who review our triage protocols, audit AI outputs, and advise on clinical accuracy. Their names and credentials will be published once we launch publicly.</p>
+        <p>If you're a practicing vet interested in collaborating, email <a href="mailto:hello@vetscan.app">hello@vetscan.app</a> — we'd love to talk.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- Category 4: Privacy -->
+  <section class="faq-category" id="privacy">
+    <div class="category-header">
+      <div class="category-icon purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h2>Privacy &amp; Data</h2>
+    </div>
+
+    <details>
+      <summary>Is my data private?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Yes. We never sell your dog's data to anyone — pet food companies, insurance providers, advertisers, no exceptions. You can export everything or delete your account at any time.</p>
+        <p>For details, see our <a href="privacy.html">Privacy Policy</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Do you train AI on my data?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Only with your explicit consent, and only in anonymized form. You can opt out at any time in settings. If you opt out, your past data will not be used for training, and your future data won't either.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I delete my account?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Yes, anytime. Settings → Account → Delete account. We delete all your data within 30 days. If you have specific GDPR or CCPA deletion requests, email <a href="mailto:privacy@vetscan.app">privacy@vetscan.app</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is VetScan GDPR / CCPA compliant?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Yes. We support all GDPR rights for EU/UK users (access, deletion, portability, objection) and CCPA rights for California residents (know, delete, opt-out). See our <a href="privacy.html">Privacy Policy</a> for details on how to exercise these rights.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- Category 5: Pricing -->
+  <section class="faq-category" id="pricing">
+    <div class="category-header">
+      <div class="category-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      </div>
+      <h2>Pricing &amp; Access</h2>
+    </div>
+
+    <details>
+      <summary>How much will VetScan cost?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>$9.99 per month after launch. <strong>Free during the entire beta period</strong> for everyone on the waitlist.</p>
+        <p>For perspective: a single emergency vet visit usually runs $300-$600. If VetScan helps you avoid even one unnecessary visit per year, it pays for itself for 30+ years.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Will there be a free version?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>We're still figuring this out. Likely yes, with limits (e.g., 3 free checks per month). The full subscription unlocks unlimited checks, photo uploads, full health timeline, and breed-specific guidance.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>When does it launch?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Private beta is rolling out now to early-access users on the waitlist. Public launch is targeted for late 2026, starting with US, Canada, and UK.</p>
+        <p><a href="index.html#waitlist">Join the waitlist</a> to be among the first.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What countries is it available in?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Initial launch: United States, Canada, United Kingdom. Other English-speaking countries (Australia, Ireland, NZ) come next. Localized versions for major European markets are on the roadmap for 2027.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I cancel anytime?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Yes. Monthly subscription, cancel any time, no contracts. Your data stays accessible until you choose to delete your account.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- Category 6: Technical -->
+  <section class="faq-category" id="technical">
+    <div class="category-header">
+      <div class="category-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </div>
+      <h2>Technical</h2>
+    </div>
+
+    <details>
+      <summary>What devices does VetScan work on?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>iOS and Android at launch. Web app comes later (web-first triage works in browser, but the full mobile experience is the priority).</p>
+        <ul>
+          <li><strong>iOS:</strong> 16.0 or later</li>
+          <li><strong>Android:</strong> 12.0 or later</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does it work offline?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Some features work offline: emergency symptom flagging, your saved reports and dog profile, pre-cached emergency vet contacts. Full AI-powered triage requires an internet connection.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How fast is it?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Each check takes about 60 seconds end-to-end. The AI thinking step itself takes 3-5 seconds. The rest is you describing the issue and answering follow-ups.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>I'm a vet — can I integrate VetScan with my clinic?
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Not yet, but it's on the roadmap. We're exploring partnerships with vet clinics to provide branded triage tools for their clients. If you're interested, email <a href="mailto:hello@vetscan.app">hello@vetscan.app</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>I have feedback / found a bug.
+        <span class="faq-icon-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+      </summary>
+      <div class="faq-answer">
+        <p>Email <a href="mailto:hello@vetscan.app">hello@vetscan.app</a>. The founder reads every email. We genuinely care about feedback — especially in beta.</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="cta-card">
+    <h3>Got more questions?</h3>
+    <p>Email us at hello@vetscan.app — we read every message.</p>
+    <a href="mailto:hello@vetscan.app" class="cta-btn">Email us</a>
+  </div>
+
+</article>
+
+<footer class="legal-footer">
+  <a href="about.html">About</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="faq.html">FAQ</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="terms.html">Terms</a>
+  <a href="disclaimer.html">Disclaimer</a>
+  <a href="cookies.html">Cookies</a>
+  <br><br>
+  © 2026 VetScan
+</footer>
+
+</body>
+</html>

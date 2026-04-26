@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0064FF">
+<title>Privacy Policy — VetScan</title>
+<meta name="description" content="VetScan Privacy Policy — how we collect, use, and protect your information.">
+<link rel="icon" type="image/svg+xml" href="vetscan-favicon-32.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin>
+
+<style>
+:root {
+  --bg: #FFFFFF;
+  --text-primary: #0A0A0F;
+  --text-secondary: #4A4A55;
+  --text-tertiary: #8E8E99;
+  --accent: #0064FF;
+  --accent-2: #7C5CFF;
+  --separator: rgba(10, 10, 15, 0.08);
+  --surface: #F8F8FB;
+  --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Header */
+.legal-header {
+  border-bottom: 1px solid var(--separator);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.header-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 100, 255, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+.logo-mark svg { width: 22px; height: 22px; }
+.logo-mark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 70%);
+}
+.back-link {
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.back-link:hover { text-decoration: underline; }
+
+/* Article container */
+.legal-article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+}
+
+@media (max-width: 600px) {
+  .legal-article { padding: 40px 20px 60px; }
+}
+
+/* Title */
+.legal-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+h1 {
+  font-size: 42px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+@media (max-width: 600px) { h1 { font-size: 32px; } }
+
+.last-updated {
+  color: var(--text-tertiary);
+  font-size: 14px;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--separator);
+}
+
+/* Headings */
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 48px 0 16px;
+  line-height: 1.3;
+}
+h2:first-of-type { margin-top: 0; }
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 28px 0 10px;
+}
+
+p {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--accent-2); }
+
+ul, ol {
+  color: var(--text-secondary);
+  margin: 0 0 16px 24px;
+}
+li {
+  margin-bottom: 8px;
+}
+
+strong { color: var(--text-primary); font-weight: 600; }
+
+.callout {
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px;
+  border-radius: 0 12px 12px 0;
+  margin: 24px 0;
+  font-size: 15px;
+}
+.callout strong { display: block; margin-bottom: 4px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+th, td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--separator);
+}
+th {
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--surface);
+}
+td { color: var(--text-secondary); }
+
+/* Footer */
+.legal-footer {
+  border-top: 1px solid var(--separator);
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 13px;
+  margin-top: 48px;
+}
+.legal-footer a {
+  color: var(--text-tertiary);
+  text-decoration: none;
+  margin: 0 12px;
+}
+.legal-footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="legal-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g fill="white">
+            <ellipse cx="50" cy="62" rx="16" ry="13"/>
+            <ellipse cx="28" cy="46" rx="7" ry="9"/>
+            <ellipse cx="72" cy="46" rx="7" ry="9"/>
+            <ellipse cx="38" cy="30" rx="6" ry="8"/>
+            <ellipse cx="62" cy="30" rx="6" ry="8"/>
+          </g>
+        </svg>
+      </span>
+      VetScan
+    </a>
+    <a href="index.html" class="back-link">← Back to home</a>
+  </div>
+</header>
+
+<article class="legal-article">
+  <div class="legal-eyebrow">Legal</div>
+  <h1>Privacy Policy</h1>
+  <p class="last-updated">Last updated: April 26, 2026</p>
+
+  <h2>1. Introduction</h2>
+  <p>VetScan ("we", "us", "our") respects your privacy. This Privacy Policy explains how we collect, use, share, and protect personal information when you visit our website at <a href="https://vetscan.app">vetscan.app</a>, sign up for our waitlist, or use the VetScan service (collectively, the "Service").</p>
+  <p>By using the Service, you agree to the collection and use of information in accordance with this policy.</p>
+
+  <h2>2. Who We Are</h2>
+  <p>VetScan is an early-stage product focused on helping new dog parents make informed decisions about their dog's health using AI-assisted triage. Our principal contact for privacy matters is:</p>
+  <p><strong>Email:</strong> <a href="mailto:privacy@vetscan.app">privacy@vetscan.app</a><br>
+  <strong>Website:</strong> <a href="https://vetscan.app">vetscan.app</a></p>
+
+  <h2>3. Information We Collect</h2>
+
+  <h3>3.1 Information You Provide</h3>
+  <ul>
+    <li><strong>Email address</strong> — when you sign up for our waitlist or contact us</li>
+    <li><strong>Dog and household details</strong> — if you choose to share them in surveys or interviews (entirely optional)</li>
+    <li><strong>Communications</strong> — records of any messages you send to us</li>
+  </ul>
+
+  <h3>3.2 Information Collected Automatically</h3>
+  <ul>
+    <li><strong>Device and browser data</strong> — IP address, browser type, OS, device identifiers</li>
+    <li><strong>Usage data</strong> — pages viewed, time on site, referrer, click events</li>
+    <li><strong>Cookies and similar technologies</strong> — see our <a href="cookies.html">Cookie Policy</a> for details</li>
+  </ul>
+
+  <h3>3.3 Information from Third Parties</h3>
+  <p>If you sign up via a social account or interact with our content on platforms like Facebook, we may receive limited profile information from those platforms in accordance with their privacy settings.</p>
+
+  <h2>4. How We Use Your Information</h2>
+  <p>We use your information to:</p>
+  <ul>
+    <li>Operate, maintain, and improve the Service</li>
+    <li>Send waitlist updates, beta access invitations, and product announcements</li>
+    <li>Respond to your inquiries and customer support requests</li>
+    <li>Conduct customer research with your explicit consent</li>
+    <li>Analyze usage patterns to improve product design</li>
+    <li>Show you relevant advertising on Facebook, Google, and similar platforms</li>
+    <li>Comply with legal obligations and enforce our terms</li>
+  </ul>
+
+  <h2>5. Legal Basis for Processing (GDPR)</h2>
+  <p>If you are in the European Economic Area, United Kingdom, or Switzerland, our legal bases for processing your personal data are:</p>
+  <ul>
+    <li><strong>Consent</strong> — when you opt into our waitlist or research</li>
+    <li><strong>Legitimate interests</strong> — for analytics, security, and service improvement</li>
+    <li><strong>Legal obligation</strong> — when required by applicable law</li>
+  </ul>
+
+  <h2>6. Sharing Your Information</h2>
+  <p>We do not sell your personal information. We share information only with:</p>
+
+  <table>
+    <tr>
+      <th>Recipient</th>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td>Email service providers (e.g., Mailchimp)</td>
+      <td>Sending waitlist updates and announcements</td>
+    </tr>
+    <tr>
+      <td>Analytics providers (Google Analytics)</td>
+      <td>Measuring website performance</td>
+    </tr>
+    <tr>
+      <td>Advertising platforms (Meta, Google Ads, Microsoft Ads)</td>
+      <td>Showing relevant ads and measuring campaign performance</td>
+    </tr>
+    <tr>
+      <td>Hosting providers (Vercel)</td>
+      <td>Operating the website</td>
+    </tr>
+    <tr>
+      <td>Research platforms (Respondent.io)</td>
+      <td>Recruiting customer interview participants</td>
+    </tr>
+    <tr>
+      <td>Legal authorities</td>
+      <td>If required by law or to protect rights</td>
+    </tr>
+  </table>
+
+  <p>Each of these processors is bound by contract to use your information only for the specified purpose and to apply appropriate security measures.</p>
+
+  <h2>7. International Transfers</h2>
+  <p>Your information may be transferred to and processed in countries other than your country of residence, including the United States. Where required, we use Standard Contractual Clauses or other lawful transfer mechanisms approved under GDPR.</p>
+
+  <h2>8. Data Retention</h2>
+  <p>We retain your information only as long as necessary for the purposes outlined in this policy, or as required by law. Specifically:</p>
+  <ul>
+    <li><strong>Waitlist emails</strong> — until you unsubscribe or request deletion</li>
+    <li><strong>Analytics data</strong> — up to 26 months (Google Analytics default)</li>
+    <li><strong>Research interview data</strong> — up to 2 years for product development purposes</li>
+    <li><strong>Logs and security data</strong> — up to 90 days</li>
+  </ul>
+
+  <h2>9. Your Rights</h2>
+
+  <h3>9.1 GDPR Rights (EU / UK / Switzerland)</h3>
+  <p>If you are in these regions, you have the right to:</p>
+  <ul>
+    <li>Access the personal data we hold about you</li>
+    <li>Request correction or deletion of your data</li>
+    <li>Object to or restrict processing</li>
+    <li>Receive your data in a portable format</li>
+    <li>Withdraw consent at any time</li>
+    <li>Lodge a complaint with your local data protection authority</li>
+  </ul>
+
+  <h3>9.2 CCPA Rights (California Residents)</h3>
+  <p>If you are a California resident, you have the right to:</p>
+  <ul>
+    <li>Know what personal information we collect and how it is used</li>
+    <li>Request deletion of your personal information</li>
+    <li>Opt out of the sale of personal information (we do not sell personal information)</li>
+    <li>Non-discrimination for exercising your rights</li>
+  </ul>
+
+  <p>To exercise any of these rights, email us at <a href="mailto:privacy@vetscan.app">privacy@vetscan.app</a>. We will respond within 30 days.</p>
+
+  <h2>10. Children's Privacy</h2>
+  <p>The Service is not directed to children under 13, and we do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us at <a href="mailto:privacy@vetscan.app">privacy@vetscan.app</a> and we will delete the data.</p>
+
+  <h2>11. Security</h2>
+  <p>We implement reasonable administrative, technical, and physical safeguards to protect your information. However, no method of transmission over the internet or electronic storage is 100% secure. We cannot guarantee absolute security.</p>
+
+  <h2>12. Cookies and Tracking</h2>
+  <p>We use cookies and similar technologies to operate the Service, analyze usage, and serve advertising. For details, see our <a href="cookies.html">Cookie Policy</a>.</p>
+
+  <h2>13. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page indicates the most recent revision. Material changes will be communicated via email or a prominent notice on our website.</p>
+
+  <h2>14. Contact Us</h2>
+  <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
+  <div class="callout">
+    <strong>VetScan Privacy Team</strong>
+    Email: <a href="mailto:privacy@vetscan.app">privacy@vetscan.app</a><br>
+    General contact: <a href="mailto:hello@vetscan.app">hello@vetscan.app</a>
+  </div>
+
+</article>
+
+<footer class="legal-footer">
+  <a href="privacy.html">Privacy</a>
+  <a href="terms.html">Terms</a>
+  <a href="disclaimer.html">Disclaimer</a>
+  <a href="cookies.html">Cookies</a>
+  <br><br>
+  © 2026 VetScan
+</footer>
+
+</body>
+</html>
