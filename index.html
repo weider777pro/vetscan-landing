@@ -759,6 +759,849 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Trust badges (under hero email form) */
+.trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 18px;
+  max-width: 480px;
+}
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 6px 11px 6px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--separator);
+  white-space: nowrap;
+}
+.trust-badge svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent-3);
+  flex-shrink: 0;
+}
+@media (max-width: 600px) {
+  .trust-badges {
+    margin-top: 14px;
+    gap: 6px 10px;
+    justify-content: flex-start;
+  }
+  .trust-badge {
+    font-size: 11.5px;
+    padding: 5px 10px 5px 8px;
+  }
+  .trust-badge svg { width: 12px; height: 12px; }
+}
+
+/* ============================================================
+   CERTIFICATION SEALS — trust strip below the dark trust bar
+   ============================================================ */
+.seals {
+  background: var(--bg);
+  padding: 36px 0 28px;
+  border-bottom: 1px solid var(--separator);
+}
+.seals-label {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 22px;
+}
+.seals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 12px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+@media (min-width: 600px) {
+  .seals-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 900px) {
+  .seals-grid { grid-template-columns: repeat(6, 1fr); }
+}
+.seal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--separator);
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.seal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(10, 10, 15, 0.06);
+}
+.seal-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, rgba(0, 100, 255, 0.1), rgba(124, 92, 255, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.seal-icon svg { width: 16px; height: 16px; }
+.seal-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.seal-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.seal-sub {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  line-height: 1.2;
+}
+.seal-progress .seal-icon {
+  background: linear-gradient(135deg, rgba(255, 165, 0, 0.12), rgba(255, 200, 0, 0.12));
+  color: #B87800;
+}
+@media (max-width: 600px) {
+  .seals { padding: 28px 0 22px; }
+  .seal { padding: 10px 12px; gap: 8px; }
+  .seal-icon { width: 28px; height: 28px; }
+  .seal-icon svg { width: 14px; height: 14px; }
+  .seal-name { font-size: 12px; }
+  .seal-sub { font-size: 10.5px; }
+}
+
+/* ============================================================
+   SAVINGS CALCULATOR
+   ============================================================ */
+.calc-section {
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.calc-section h2 {
+  text-align: center;
+  margin-bottom: 12px;
+}
+.calc-section .section-eyebrow {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.calc-section .section-sub {
+  text-align: center;
+  margin-bottom: 48px;
+  font-size: 18px;
+  color: var(--text-secondary);
+}
+.calc-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--separator);
+  border-radius: 24px;
+  padding: 40px 36px;
+  box-shadow: 0 12px 40px rgba(10, 10, 15, 0.06);
+}
+.calc-question { margin-bottom: 28px; }
+.calc-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.5;
+  text-align: center;
+}
+.calc-slider-wrap {
+  margin: 24px 0 36px;
+  position: relative;
+}
+.calc-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+}
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--accent);
+  cursor: grab;
+  box-shadow: 0 4px 12px rgba(0, 100, 255, 0.3);
+  transition: transform 0.15s ease;
+}
+.calc-slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
+.calc-slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.05); }
+.calc-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--accent);
+  cursor: grab;
+  box-shadow: 0 4px 12px rgba(0, 100, 255, 0.3);
+}
+.calc-slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 0 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+.calc-readout {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 28px 0;
+  border-top: 1px solid var(--separator);
+  border-bottom: 1px solid var(--separator);
+}
+.calc-stat { text-align: center; }
+.calc-stat-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+.calc-stat-value {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 6px;
+  transition: color 0.3s ease;
+}
+.calc-stat-vet {
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.calc-stat-unit {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  -webkit-text-fill-color: var(--text-tertiary);
+  margin-left: 2px;
+}
+.calc-stat-sub {
+  font-size: 11.5px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+.calc-divider {
+  width: 1px;
+  height: 80px;
+  background: var(--separator);
+}
+.calc-result {
+  margin-top: 28px;
+  text-align: center;
+}
+.calc-result-label {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+.calc-result-label strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.calc-savings {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, rgba(0, 212, 181, 0.12), rgba(0, 100, 255, 0.08));
+  border: 1px solid rgba(0, 212, 181, 0.25);
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.calc-savings-amount {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  background: linear-gradient(120deg, #00B89E, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.calc-savings-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.calc-result-foot {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.calc-result-foot strong {
+  color: var(--accent);
+  font-weight: 800;
+}
+.calc-disclaimer {
+  margin-top: 24px;
+  font-size: 11.5px;
+  color: var(--text-tertiary);
+  text-align: center;
+  line-height: 1.5;
+  padding-top: 20px;
+  border-top: 1px solid var(--separator);
+}
+@media (max-width: 700px) {
+  .calc-section { padding: 56px 0; }
+  .calc-card { padding: 28px 22px; border-radius: 20px; }
+  .calc-readout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 22px 0;
+  }
+  .calc-divider {
+    width: 60%;
+    height: 1px;
+    margin: 0 auto;
+  }
+  .calc-stat-value { font-size: 32px; }
+  .calc-savings-amount { font-size: 30px; }
+  .calc-savings { padding: 12px 18px; }
+}
+
+/* ============================================================
+   EXIT-INTENT POPUP
+   ============================================================ */
+.exit-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+}
+.exit-popup.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.exit-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.exit-card {
+  position: relative;
+  z-index: 1;
+  background: white;
+  border-radius: 24px;
+  max-width: 540px;
+  width: 100%;
+  padding: 36px 32px 28px;
+  box-shadow: 0 24px 80px rgba(10, 10, 15, 0.3);
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: center;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+.exit-popup.open .exit-card {
+  transform: translateY(0) scale(1);
+}
+.exit-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--surface);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.exit-close:hover {
+  background: var(--separator);
+  color: var(--text-primary);
+}
+.exit-close svg { width: 16px; height: 16px; }
+
+.exit-mascot {
+  width: 100px;
+  height: 110px;
+  margin: 0 auto 12px;
+}
+.exit-mascot svg { width: 100%; height: 100%; }
+
+.exit-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.exit-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.exit-sub {
+  font-size: 15.5px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 22px;
+}
+.exit-form {
+  margin-bottom: 16px;
+}
+.exit-form .email-input-wrap {
+  background: var(--surface);
+  border-color: var(--separator);
+}
+.exit-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 14px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+.exit-decline {
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-family: inherit;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: color 0.2s ease;
+}
+.exit-decline:hover { color: var(--text-secondary); }
+@media (max-width: 600px) {
+  .exit-card { padding: 28px 22px 22px; border-radius: 20px; }
+  .exit-mascot { width: 80px; height: 88px; }
+  .exit-title { font-size: 22px; }
+  .exit-sub { font-size: 14.5px; }
+  .exit-badges { font-size: 11.5px; }
+}
+
+/* ============================================================
+   INTERACTIVE DEMO
+   ============================================================ */
+.demo-section {
+  padding: 80px 0;
+}
+.demo-section h2,
+.demo-section .section-eyebrow,
+.demo-section .section-sub {
+  text-align: center;
+}
+.demo-section .section-sub {
+  margin-bottom: 48px;
+  font-size: 18px;
+  color: var(--text-secondary);
+}
+.demo-stage {
+  max-width: 720px;
+  margin: 0 auto;
+  background: white;
+  border: 1px solid var(--separator);
+  border-radius: 28px;
+  padding: 40px 36px;
+  box-shadow: 0 16px 48px rgba(10, 10, 15, 0.08);
+}
+.demo-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 36px;
+  gap: 4px;
+}
+.demo-progress-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  transition: background 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+.demo-progress-step span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: white;
+  color: var(--text-tertiary);
+  font-size: 11px;
+  font-weight: 700;
+  border: 2px solid var(--separator);
+  transition: all 0.3s ease;
+}
+.demo-progress-step.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+}
+.demo-progress-step.active span {
+  background: white;
+  color: var(--accent);
+  border-color: white;
+}
+.demo-progress-step.done {
+  background: rgba(0, 212, 181, 0.12);
+  color: #00B89E;
+}
+.demo-progress-step.done span {
+  background: #00B89E;
+  color: white;
+  border-color: #00B89E;
+}
+.demo-progress-line {
+  width: 24px;
+  height: 2px;
+  background: var(--separator);
+}
+.demo-step {
+  display: none;
+  animation: demoStepIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.demo-step.demo-step-active {
+  display: block;
+}
+@keyframes demoStepIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.demo-prompt {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 6px;
+}
+.demo-prompt-sub {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  text-align: center;
+  margin-bottom: 24px;
+}
+.demo-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (max-width: 600px) {
+  .demo-options { grid-template-columns: 1fr; }
+}
+.demo-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 16px 16px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--separator);
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.demo-opt:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: white;
+}
+.demo-opt-emoji {
+  font-size: 22px;
+  margin-bottom: 2px;
+}
+.demo-opt-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.demo-opt-detail {
+  font-size: 12.5px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+/* Profile step */
+.demo-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1.5px solid var(--separator);
+  border-radius: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.demo-profile-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F8CB7C, #E89D4F);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  flex-shrink: 0;
+}
+.demo-profile-text { flex-grow: 1; min-width: 140px; }
+.demo-profile-name {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.demo-profile-meta {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  margin-top: 2px;
+}
+.demo-profile-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.demo-tag {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #00B89E;
+  background: rgba(0, 212, 181, 0.12);
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+.demo-profile-note {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  text-align: center;
+  margin-bottom: 22px;
+  padding: 0 8px;
+  line-height: 1.5;
+}
+.demo-next-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 14px;
+  background: var(--text-primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+.demo-next-btn:hover { transform: translateY(-1px); opacity: 0.92; }
+
+/* Result step */
+.demo-result {
+  border-radius: 16px;
+  padding: 24px 22px;
+  margin-bottom: 18px;
+  border: 2px solid;
+  text-align: center;
+}
+.demo-result.urgent-low {
+  background: linear-gradient(135deg, rgba(0, 212, 181, 0.08), rgba(0, 200, 100, 0.05));
+  border-color: rgba(0, 200, 100, 0.35);
+}
+.demo-result.urgent-mid {
+  background: linear-gradient(135deg, rgba(255, 175, 0, 0.10), rgba(255, 140, 0, 0.05));
+  border-color: rgba(255, 175, 0, 0.4);
+}
+.demo-result.urgent-high {
+  background: linear-gradient(135deg, rgba(255, 60, 60, 0.08), rgba(255, 100, 100, 0.05));
+  border-color: rgba(255, 60, 60, 0.4);
+}
+.demo-result-tier {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.urgent-low .demo-result-tier { background: rgba(0, 200, 100, 0.18); color: #007D40; }
+.urgent-mid .demo-result-tier { background: rgba(200, 130, 0, 0.18); color: #8A5500; }
+.urgent-high .demo-result-tier { background: rgba(220, 50, 50, 0.18); color: #B30000; }
+.demo-result-tier-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.urgent-low .demo-result-tier-dot { background: #00B85F; }
+.urgent-mid .demo-result-tier-dot { background: #E69500; }
+.urgent-high .demo-result-tier-dot { background: #DC3232; }
+.demo-result-headline {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+.demo-result-body {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 12px;
+  text-align: left;
+}
+.demo-result-body strong { color: var(--text-primary); }
+.demo-result-actions {
+  text-align: left;
+  font-size: 14px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.6);
+  padding: 12px 14px;
+  border-radius: 10px;
+  line-height: 1.5;
+}
+.demo-result-actions strong {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+.demo-cta-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.demo-restart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 18px;
+  background: var(--surface);
+  border: 1.5px solid var(--separator);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.demo-restart-btn:hover {
+  background: white;
+  color: var(--text-primary);
+}
+.demo-signup-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+  box-shadow: 0 6px 16px rgba(0, 100, 255, 0.25);
+}
+.demo-signup-btn:hover { transform: translateY(-2px); }
+.demo-footer-note {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+  padding: 16px 16px 0;
+  border-top: 1px solid var(--separator);
+}
+@media (max-width: 700px) {
+  .demo-section { padding: 56px 0; }
+  .demo-stage { padding: 28px 22px; border-radius: 24px; }
+  .demo-progress { gap: 2px; }
+  .demo-progress-step { padding: 6px 10px; font-size: 12px; }
+  .demo-progress-step span { width: 18px; height: 18px; font-size: 10px; }
+  .demo-progress-line { width: 12px; }
+  .demo-prompt { font-size: 18px; }
+  .demo-result-headline { font-size: 19px; }
+}
+
 /* Email form */
 .email-form {
   display: flex;
@@ -3233,6 +4076,26 @@ body.page-hidden *::after {
           </div>
           <div class="form-hint" data-hint-for="top"></div>
           <div class="email-microcopy">Free during beta · No spam, ever</div>
+
+          <!-- Trust badges row -->
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+              <span>Cancel anytime</span>
+            </div>
+            <div class="trust-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <span>Free emergency mode forever</span>
+            </div>
+            <div class="trust-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><line x1="2" y1="11" x2="22" y2="11"/></svg>
+              <span>No credit card needed</span>
+            </div>
+            <div class="trust-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>GDPR &amp; CCPA compliant</span>
+            </div>
+          </div>
         </form>
       </div>
 
@@ -3467,6 +4330,76 @@ body.page-hidden *::after {
 </section>
 
 <!-- ========================================================= -->
+<!-- CERTIFICATION SEALS -->
+<!-- ========================================================= -->
+<section class="seals" aria-label="Certifications and standards">
+  <div class="container">
+    <div class="seals-label">Built to enterprise security &amp; privacy standards</div>
+    <div class="seals-grid">
+      <div class="seal">
+        <div class="seal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="seal-text">
+          <div class="seal-name">SSL / TLS 1.3</div>
+          <div class="seal-sub">256-bit encryption</div>
+        </div>
+      </div>
+
+      <div class="seal">
+        <div class="seal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div class="seal-text">
+          <div class="seal-name">GDPR</div>
+          <div class="seal-sub">EU compliant</div>
+        </div>
+      </div>
+
+      <div class="seal">
+        <div class="seal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="seal-text">
+          <div class="seal-name">CCPA</div>
+          <div class="seal-sub">California compliant</div>
+        </div>
+      </div>
+
+      <div class="seal seal-progress">
+        <div class="seal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="seal-text">
+          <div class="seal-name">SOC 2 Type II</div>
+          <div class="seal-sub">Audit in progress</div>
+        </div>
+      </div>
+
+      <div class="seal">
+        <div class="seal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="seal-text">
+          <div class="seal-name">Vet-reviewed</div>
+          <div class="seal-sub">Licensed DVMs</div>
+        </div>
+      </div>
+
+      <div class="seal">
+        <div class="seal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <div class="seal-text">
+          <div class="seal-name">No data sales</div>
+          <div class="seal-sub">Subscription-only</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================= -->
 <!-- PROBLEM -->
 <!-- ========================================================= -->
 <section class="atmo-blue">
@@ -3515,6 +4448,67 @@ body.page-hidden *::after {
     <div class="problem-conclusion reveal">
       You spend an hour googling. Reddit gives 50 contradictory answers.<br>
       You pay <strong>$400 just in case</strong> — or wait, worry, and feel guilty either way.
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================= -->
+<!-- SAVINGS CALCULATOR -->
+<!-- ========================================================= -->
+<section class="calc-section atmo-mint" aria-label="Savings calculator">
+  <div class="container">
+    <div class="section-eyebrow reveal">The math</div>
+    <h2 class="reveal">One avoided ER visit pays for years of VetScan.</h2>
+    <p class="section-sub reveal">Move the slider. See your potential savings.</p>
+
+    <div class="calc-card reveal">
+      <div class="calc-question">
+        <label for="erVisits" class="calc-label">
+          How many times per year do you (or might you) take your dog to the ER for something that turns out to be minor?
+        </label>
+      </div>
+
+      <div class="calc-slider-wrap">
+        <input type="range" id="erVisits" min="0" max="6" value="2" step="1" class="calc-slider" aria-valuemin="0" aria-valuemax="6" aria-valuenow="2">
+        <div class="calc-slider-ticks">
+          <span>0</span>
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+          <span>5</span>
+          <span>6+</span>
+        </div>
+      </div>
+
+      <div class="calc-readout">
+        <div class="calc-stat">
+          <div class="calc-stat-label">You spend in ER visits</div>
+          <div class="calc-stat-value" id="calcSpend">$1,000<span class="calc-stat-unit">/year</span></div>
+          <div class="calc-stat-sub">avg. $500 per non-emergency vet ER visit</div>
+        </div>
+        <div class="calc-divider"></div>
+        <div class="calc-stat">
+          <div class="calc-stat-label">VetScan costs</div>
+          <div class="calc-stat-value calc-stat-vet">$99<span class="calc-stat-unit">/year</span></div>
+          <div class="calc-stat-sub">annual plan, post-beta</div>
+        </div>
+      </div>
+
+      <div class="calc-result" id="calcResult">
+        <div class="calc-result-label">If VetScan helps you avoid even <strong id="avoidedCount">1</strong> unnecessary visit:</div>
+        <div class="calc-savings">
+          <span class="calc-savings-amount" id="calcSavings">$401</span>
+          <span class="calc-savings-text">saved per year</span>
+        </div>
+        <div class="calc-result-foot">
+          <strong id="calcMultiple">4x</strong> what you'll pay for the entire app — for the rest of the year.
+        </div>
+      </div>
+
+      <div class="calc-disclaimer">
+        Estimate only. Average US emergency vet visit cost: $500-$1,500 (American Animal Hospital Association, 2024). VetScan does not replace veterinary care.
+      </div>
     </div>
   </div>
 </section>
@@ -3570,6 +4564,103 @@ body.page-hidden *::after {
         <br><br>
         <strong>Today:</strong> Ice the leg for 10 minutes, every 4 hours. Limit running, jumping, and stairs. Watch for swelling.
       </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================= -->
+<!-- INTERACTIVE DEMO -->
+<!-- ========================================================= -->
+<section class="demo-section atmo-mint" aria-label="Try the demo">
+  <div class="container">
+    <div class="section-eyebrow reveal">Try it yourself</div>
+    <h2 class="reveal">A 30-second taste of how it actually works.</h2>
+    <p class="section-sub reveal">Click through a real example. Nothing to download.</p>
+
+    <div class="demo-stage reveal">
+
+      <!-- Step indicator -->
+      <div class="demo-progress" aria-hidden="true">
+        <div class="demo-progress-step active" data-step="1"><span>1</span> Symptom</div>
+        <div class="demo-progress-line"></div>
+        <div class="demo-progress-step" data-step="2"><span>2</span> Profile</div>
+        <div class="demo-progress-line"></div>
+        <div class="demo-progress-step" data-step="3"><span>3</span> Result</div>
+      </div>
+
+      <!-- ============ STEP 1 — Symptom selection ============ -->
+      <div class="demo-step demo-step-active" id="demoStep1">
+        <div class="demo-prompt">What's going on with your dog?</div>
+        <div class="demo-prompt-sub">Pick the closest match. You can refine later.</div>
+        <div class="demo-options">
+          <button class="demo-opt" data-symptom="vomiting">
+            <span class="demo-opt-emoji">🤢</span>
+            <span class="demo-opt-label">Vomiting</span>
+            <span class="demo-opt-detail">Threw up 2-3 times today</span>
+          </button>
+          <button class="demo-opt" data-symptom="limping">
+            <span class="demo-opt-emoji">🐾</span>
+            <span class="demo-opt-label">Limping</span>
+            <span class="demo-opt-detail">Favoring one leg, no obvious injury</span>
+          </button>
+          <button class="demo-opt" data-symptom="lethargy">
+            <span class="demo-opt-emoji">😴</span>
+            <span class="demo-opt-label">Unusual tiredness</span>
+            <span class="demo-opt-detail">Sleeping more than usual, less playful</span>
+          </button>
+          <button class="demo-opt" data-symptom="appetite">
+            <span class="demo-opt-emoji">🍽️</span>
+            <span class="demo-opt-label">Lost appetite</span>
+            <span class="demo-opt-detail">Skipped 1-2 meals</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ============ STEP 2 — Profile ============ -->
+      <div class="demo-step" id="demoStep2">
+        <div class="demo-prompt">Tell us about your dog.</div>
+        <div class="demo-prompt-sub">For the demo, we'll use a sample profile.</div>
+        <div class="demo-profile-card">
+          <div class="demo-profile-avatar">🐕</div>
+          <div class="demo-profile-text">
+            <div class="demo-profile-name">Luna</div>
+            <div class="demo-profile-meta">Golden Retriever · 14 months · 28 kg</div>
+          </div>
+          <div class="demo-profile-tags">
+            <span class="demo-tag">Vaccinated</span>
+            <span class="demo-tag">No known allergies</span>
+          </div>
+        </div>
+        <div class="demo-profile-note">
+          In the real app, you'd build this profile once. After that, every triage uses it automatically.
+        </div>
+        <button class="demo-next-btn" id="demoNext2">
+          See result
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- ============ STEP 3 — Result ============ -->
+      <div class="demo-step" id="demoStep3">
+        <div class="demo-result" id="demoResultCard">
+          <!-- filled by JS based on chosen symptom -->
+        </div>
+
+        <div class="demo-cta-row">
+          <button class="demo-restart-btn" id="demoRestart">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+            Try another symptom
+          </button>
+          <a href="#waitlist" class="demo-signup-btn">
+            Get the real app
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="demo-footer-note">
+        This is a demo with simplified logic. The real app considers 40+ data points per assessment, including breed, age, vaccination status, and medical history.
+      </div>
     </div>
   </div>
 </section>
@@ -3890,7 +4981,325 @@ body.page-hidden *::after {
   </div>
 </div>
 
+<!-- ========================================================= -->
+<!-- EXIT-INTENT POPUP -->
+<!-- ========================================================= -->
+<div class="exit-popup" id="exitPopup" aria-hidden="true" role="dialog" aria-labelledby="exitPopupTitle" aria-describedby="exitPopupDesc">
+  <div class="exit-backdrop" id="exitBackdrop"></div>
+  <div class="exit-card">
+    <button class="exit-close" id="exitClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="exit-mascot" aria-hidden="true">
+      <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="exitBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#F8CB7C"/>
+            <stop offset="100%" stop-color="#E89D4F"/>
+          </linearGradient>
+          <linearGradient id="exitBellyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFE9C4"/>
+            <stop offset="100%" stop-color="#FFD89B"/>
+          </linearGradient>
+          <linearGradient id="exitEarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#C5803F"/>
+            <stop offset="100%" stop-color="#A66730"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="62" cy="178" rx="22" ry="20" fill="url(#exitBodyGrad)"/>
+        <ellipse cx="138" cy="178" rx="22" ry="20" fill="url(#exitBodyGrad)"/>
+        <ellipse cx="100" cy="158" rx="52" ry="42" fill="url(#exitBodyGrad)"/>
+        <ellipse cx="100" cy="172" rx="32" ry="22" fill="url(#exitBellyGrad)"/>
+        <ellipse cx="80" cy="198" rx="15" ry="12" fill="url(#exitBodyGrad)"/>
+        <ellipse cx="120" cy="198" rx="15" ry="12" fill="url(#exitBodyGrad)"/>
+        <path d="M 60 75 Q 38 78 36 110 Q 38 130 56 122 Q 70 105 72 80 Z" fill="url(#exitEarGrad)"/>
+        <path d="M 140 75 Q 162 78 164 110 Q 162 130 144 122 Q 130 105 128 80 Z" fill="url(#exitEarGrad)"/>
+        <circle cx="100" cy="92" r="56" fill="url(#exitBodyGrad)"/>
+        <ellipse cx="62" cy="105" rx="10" ry="6" fill="#FF9999" opacity="0.4"/>
+        <ellipse cx="138" cy="105" rx="10" ry="6" fill="#FF9999" opacity="0.4"/>
+        <ellipse cx="100" cy="112" rx="34" ry="26" fill="url(#exitBellyGrad)"/>
+        <!-- Sad eyes — droopy -->
+        <ellipse cx="80" cy="88" rx="5" ry="6" fill="#1A1A1A"/>
+        <ellipse cx="120" cy="88" rx="5" ry="6" fill="#1A1A1A"/>
+        <circle cx="82" cy="86" r="2" fill="white"/>
+        <circle cx="122" cy="86" r="2" fill="white"/>
+        <ellipse cx="100" cy="103" rx="7" ry="6" fill="#1A1A1A"/>
+        <ellipse cx="100" cy="101" rx="2.5" ry="1.5" fill="white" opacity="0.5"/>
+        <!-- Slight frown -->
+        <path d="M 90 118 Q 100 114 110 118" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="exit-content">
+      <div class="exit-eyebrow">Wait — before you go</div>
+      <h2 class="exit-title" id="exitPopupTitle">Don't leave your dog without a plan.</h2>
+      <p class="exit-sub" id="exitPopupDesc">
+        Most ER scares happen at 2 a.m. when nobody's around. Get free emergency triage — even before VetScan officially launches.
+      </p>
+
+      <form class="exit-form" id="exitForm">
+        <div class="email-input-wrap">
+          <input type="email" class="email-input" placeholder="your@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false">
+          <button type="submit" class="btn-primary">
+            Save my spot
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div class="form-hint" data-hint-for="exit"></div>
+      </form>
+
+      <div class="exit-badges">
+        <span>✓ Free during beta</span>
+        <span>✓ No credit card</span>
+        <span>✓ Emergency mode forever</span>
+      </div>
+
+      <button class="exit-decline" id="exitDecline">No thanks, I'll figure it out alone</button>
+    </div>
+  </div>
+</div>
+
 <script>
+// =========================================================
+// Savings Calculator — slider-driven readout
+// =========================================================
+(function() {
+  const slider = document.getElementById('erVisits');
+  const spendEl = document.getElementById('calcSpend');
+  const savingsEl = document.getElementById('calcSavings');
+  const avoidedCountEl = document.getElementById('avoidedCount');
+  const multipleEl = document.getElementById('calcMultiple');
+  const resultBlock = document.getElementById('calcResult');
+
+  if (!slider) return;
+
+  const ER_AVG = 500;       // avg ER visit cost
+  const VETSCAN_YEAR = 99;  // VetScan annual price
+
+  function fmt(n) {
+    return '$' + n.toLocaleString('en-US');
+  }
+
+  function update() {
+    const visits = parseInt(slider.value, 10);
+    const yearlySpend = visits * ER_AVG;
+    const avoided = visits === 0 ? 1 : visits;
+    const savings = (avoided * ER_AVG) - VETSCAN_YEAR;
+    const mult = savings > 0 ? Math.round(savings / VETSCAN_YEAR) : 0;
+
+    spendEl.innerHTML = fmt(yearlySpend) + '<span class="calc-stat-unit">/year</span>';
+    avoidedCountEl.textContent = avoided;
+    savingsEl.textContent = fmt(Math.max(savings, 0));
+    multipleEl.textContent = (mult > 0 ? mult + 'x' : '—');
+
+    if (visits === 0) {
+      resultBlock.style.opacity = '0.55';
+      resultBlock.querySelector('.calc-result-label').innerHTML =
+        'No ER visits yet? Even <strong>one</strong> avoided visit changes the math:';
+    } else {
+      resultBlock.style.opacity = '1';
+      resultBlock.querySelector('.calc-result-label').innerHTML =
+        'If VetScan helps you avoid even <strong id="avoidedCount">' + avoided + '</strong> unnecessary visit' + (avoided > 1 ? 's' : '') + ':';
+    }
+
+    slider.setAttribute('aria-valuenow', visits);
+  }
+
+  slider.addEventListener('input', update);
+  update();
+})();
+
+// =========================================================
+// Interactive Demo — 3-step click-through
+// =========================================================
+(function() {
+  const stage = document.querySelector('.demo-stage');
+  if (!stage) return;
+
+  const steps = stage.querySelectorAll('.demo-step');
+  const progressSteps = stage.querySelectorAll('.demo-progress-step');
+  const optButtons = stage.querySelectorAll('.demo-opt');
+  const nextBtn = document.getElementById('demoNext2');
+  const restartBtn = document.getElementById('demoRestart');
+  const resultCard = document.getElementById('demoResultCard');
+
+  let chosenSymptom = null;
+
+  // Result content for each symptom
+  const results = {
+    vomiting: {
+      tier: 'mid',
+      tierLabel: 'See vet within 24-48h',
+      headline: 'Likely upset stomach — keep an eye on it.',
+      body: 'For a healthy 14-month Golden, vomiting 2-3 times in a day without other red flags (blood, lethargy, no water intake) is most often a <strong>dietary indiscretion or mild gastritis</strong>. It usually resolves with brief fasting and a bland diet.',
+      actions: '<strong>Today</strong>Withhold food for 12 hours, offer small sips of water. Then bland diet (boiled chicken &amp; rice) for 24 hours. <strong style="margin-top:8px">Watch for</strong>Blood in vomit, lethargy, refusing water, swollen abdomen — any of these = call vet now.'
+    },
+    limping: {
+      tier: 'mid',
+      tierLabel: 'See vet within 24-48h',
+      headline: 'Probably a sprain — but worth a look.',
+      body: 'Hind-leg limping in a young Golden Retriever without obvious trauma is most often a <strong>sprain or panniculitis</strong>. Not critical, but warrants a professional exam if it persists more than 24 hours.',
+      actions: '<strong>Today</strong>Ice the leg for 10 min every 4 hours. Limit running, jumping, and stairs. <strong style="margin-top:8px">Red flags</strong>Severe swelling, can\'t bear weight at all, visible deformity — go to ER.'
+    },
+    lethargy: {
+      tier: 'mid',
+      tierLabel: 'See vet within 24-48h',
+      headline: 'Tiredness without other symptoms — worth investigating.',
+      body: 'Lethargy in an otherwise healthy young dog can have many causes — most are mild (hot weather, recent vaccination, mild infection), but it\'s also a <strong>non-specific signal</strong> that something might need attention.',
+      actions: '<strong>Today</strong>Check temperature (normal: 38-39.2°C / 101-102.5°F), monitor appetite, water intake, and energy through the day. <strong style="margin-top:8px">Call vet now if</strong>Refusing water, breathing changes, pale gums, or lethargy lasting more than 24 hours.'
+    },
+    appetite: {
+      tier: 'low',
+      tierLabel: 'Watch at home',
+      headline: 'Skipping a meal or two is usually fine.',
+      body: 'Healthy adult dogs occasionally skip meals — heat, stress, mild boredom with food, or a recent treat overload. For a <strong>14-month Golden with no other symptoms</strong>, this is rarely concerning on its own.',
+      actions: '<strong>Today</strong>Offer normal food at the next meal. If they refuse again, try mixing in a small amount of warm water or low-sodium broth. <strong style="margin-top:8px">Escalate if</strong>Skipping 3+ meals, vomiting, lethargy, or weight loss.'
+    }
+  };
+
+  function showStep(n) {
+    steps.forEach((step, i) => {
+      step.classList.toggle('demo-step-active', i === (n - 1));
+    });
+    progressSteps.forEach((p, i) => {
+      const stepNum = i + 1;
+      p.classList.toggle('active', stepNum === n);
+      p.classList.toggle('done', stepNum < n);
+    });
+  }
+
+  function renderResult() {
+    const r = results[chosenSymptom] || results.limping;
+    resultCard.className = 'demo-result urgent-' + r.tier;
+    resultCard.innerHTML = `
+      <div class="demo-result-tier">
+        <span class="demo-result-tier-dot"></span>
+        ${r.tierLabel}
+      </div>
+      <div class="demo-result-headline">${r.headline}</div>
+      <div class="demo-result-body">${r.body}</div>
+      <div class="demo-result-actions">${r.actions}</div>
+    `;
+  }
+
+  optButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      chosenSymptom = btn.dataset.symptom;
+      showStep(2);
+    });
+  });
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      renderResult();
+      showStep(3);
+    });
+  }
+
+  if (restartBtn) {
+    restartBtn.addEventListener('click', () => {
+      chosenSymptom = null;
+      showStep(1);
+    });
+  }
+})();
+
+// =========================================================
+// Exit-intent popup
+// =========================================================
+(function() {
+  const popup = document.getElementById('exitPopup');
+  const closeBtn = document.getElementById('exitClose');
+  const declineBtn = document.getElementById('exitDecline');
+  const backdrop = document.getElementById('exitBackdrop');
+  const exitForm = document.getElementById('exitForm');
+
+  if (!popup) return;
+
+  let hasShown = false;
+
+  function shouldSkip() {
+    // Skip if user has already submitted, dismissed, or completed waitlist
+    try {
+      if (sessionStorage.getItem('exit_dismissed') === '1') return true;
+      if (sessionStorage.getItem('waitlist_submitted') === '1') return true;
+    } catch (e) { /* sessionStorage may be blocked; proceed */ }
+    return false;
+  }
+
+  function open() {
+    if (hasShown || shouldSkip()) return;
+    hasShown = true;
+    popup.classList.add('open');
+    popup.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    popup.classList.remove('open');
+    popup.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    try { sessionStorage.setItem('exit_dismissed', '1'); } catch (e) {}
+  }
+
+  // Desktop: detect mouse leaving toward top of viewport
+  document.addEventListener('mouseout', (e) => {
+    // e.relatedTarget is null when leaving the document
+    if (!e.relatedTarget && e.clientY <= 50) {
+      open();
+    }
+  });
+
+  // Mobile: aggressive scroll-up after 50% page scroll = intent to leave
+  let lastScrollY = window.scrollY;
+  let mobileTriggered = false;
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPct = sy / docHeight;
+    // After scrolling at least 50% of page, if user scrolls up >100px quickly
+    if (!mobileTriggered && window.innerWidth < 860 && scrollPct > 0.5 && lastScrollY - sy > 100) {
+      mobileTriggered = true;
+      setTimeout(open, 400);
+    }
+    lastScrollY = sy;
+  }, { passive: true });
+
+  closeBtn.addEventListener('click', close);
+  declineBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popup.classList.contains('open')) close();
+  });
+
+  // Hook the exit form submission to the same handler as the main form
+  if (exitForm) {
+    exitForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = exitForm.querySelector('input[type="email"]').value;
+      // Reuse main waitlist handler if exposed; otherwise just close
+      if (typeof handleSubmit === 'function') {
+        // Manually trigger same submit logic with our form context
+        const fakeEvent = { preventDefault: () => {}, target: exitForm };
+        handleSubmit(fakeEvent, 'exit');
+      }
+      try { sessionStorage.setItem('waitlist_submitted', '1'); } catch (err) {}
+      // Show confirmation in popup briefly, then close
+      const hint = exitForm.querySelector('[data-hint-for="exit"]');
+      if (hint) {
+        hint.textContent = '✓ You\'re on the list. Watch your inbox.';
+        hint.style.color = '#00B89E';
+        hint.style.fontSize = '14px';
+        hint.style.fontWeight = '600';
+        hint.style.marginTop = '8px';
+      }
+      setTimeout(close, 1800);
+    });
+  }
+})();
+
 // =========================================================
 // Mobile menu (hamburger) toggle
 // =========================================================
@@ -4212,6 +5621,9 @@ function handleSubmit(e, location) {
 
   // Show success modal after a beat
   setTimeout(() => showSuccessModal(position), 400);
+
+  // Mark as submitted (suppresses exit-intent popup)
+  try { sessionStorage.setItem('waitlist_submitted', '1'); } catch (err) {}
 
   setTimeout(() => {
     btn.innerHTML = originalHTML;
