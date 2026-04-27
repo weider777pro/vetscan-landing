@@ -5219,6 +5219,15 @@ body.page-hidden *::after {
 
   let hasShown = false;
 
+  // Minimum dwell time before popup can fire (in milliseconds)
+  // Don't ambush brand-new visitors — give them time to actually look at the page
+  const MIN_DWELL_MS = 30000; // 30 seconds
+  const pageLoadedAt = Date.now();
+
+  function readyToFire() {
+    return (Date.now() - pageLoadedAt) >= MIN_DWELL_MS;
+  }
+
   function shouldSkip() {
     // Skip if user has already submitted, dismissed, or completed waitlist
     try {
@@ -5230,6 +5239,7 @@ body.page-hidden *::after {
 
   function open() {
     if (hasShown || shouldSkip()) return;
+    if (!readyToFire()) return; // suppress until 30s dwell
     hasShown = true;
     popup.classList.add('open');
     popup.setAttribute('aria-hidden', 'false');
