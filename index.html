@@ -2,6 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Google Analytics 4 + Consent Mode v2 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2NJ79MK250"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    wait_for_update: 500
+  });
+  gtag('config', 'G-2NJ79MK250', { anonymize_ip: true });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#0064FF" media="(prefers-color-scheme: light)">
@@ -76,6 +91,14 @@
 })();
 </script>
 <meta name="description" content="AI vet companion for new dog parents. Describe a symptom, get an instant urgency score. Built with veterinarians.">
+<link rel="canonical" href="https://vetscan.app/">
+<link rel="alternate" hreflang="en" href="https://vetscan.app/">
+<link rel="alternate" hreflang="es-MX" href="https://vetscan.app/es-mx/">
+<link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/">
+<link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/">
+<link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/">
+<link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/">
+<link rel="alternate" hreflang="x-default" href="https://vetscan.app/">
 
 <!-- Open Graph for social sharing -->
 <meta property="og:title" content="VetScan — Know when your dog needs a vet">
@@ -5806,6 +5829,7 @@ function handleSubmit(e, location) {
   submitToKit(email).then(result => {
     if (result.ok) {
       // SUCCESS PATH
+      if (typeof vsTrack === 'function') vsTrack('email_submitted', { form_location: location });
       fireConfetti();
 
       // Generate fake but believable position (anchored to ~1247 baseline)
@@ -5965,5 +5989,6 @@ if (window.matchMedia('(pointer: fine)').matches) {
 }
 </script>
 
+  <script src="/analytics.js" defer></script>
 </body>
 </html>
