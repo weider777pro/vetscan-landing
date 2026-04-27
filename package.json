@@ -1,0 +1,6 @@
+{
+  "name": "vetscan-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VetScan landing — static multi-locale site"
+}

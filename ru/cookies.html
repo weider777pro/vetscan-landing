@@ -17,13 +17,11 @@
   });
   gtag('config', 'G-2NJ79MK250', { anonymize_ip: true });
 </script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0064FF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0A0A0F" media="(prefers-color-scheme: dark)">
-<title>Политика cookies</title>
-<meta name="description" content="AI-помощник ветеринара для новых владельцев собак. Опишите симптом — получите оценку срочности за секунды. Создано с ветеринарами.">
-<link rel="icon" type="image/svg+xml" href="/vetscan-favicon-32.svg">
-<link rel="canonical" href="https://vetscan.app/cookies.html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0064FF">
+<title>Политика cookies — VetScan</title>
+<meta name="description" content="Политика cookies VetScan — как мы используем cookies и подобные технологии.">
+<link rel="canonical" href="https://vetscan.app/ru/cookies.html">
 <link rel="alternate" hreflang="en" href="https://vetscan.app/cookies.html">
 <link rel="alternate" hreflang="es-MX" href="https://vetscan.app/es-mx/cookies.html">
 <link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/cookies.html">
@@ -31,59 +29,665 @@
 <link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/cookies.html">
 <link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/cookies.html">
 <link rel="alternate" hreflang="x-default" href="https://vetscan.app/cookies.html">
-<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin></noscript>
+<meta property="og:title" content="Политика cookies — VetScan">
+<meta property="og:description" content="Как мы используем cookies и подобные технологии.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://vetscan.app/ru/cookies.html">
+<meta property="og:image" content="https://vetscan.app/og-image-ru.png">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="uk_UA">
+<meta property="og:locale:alternate" content="es_MX">
+<meta property="og:locale:alternate" content="es_AR">
+<meta property="og:locale:alternate" content="pt_BR">
+<script>
+/* Auto-redirect to localized version based on TIMEZONE first, language second.
+   Ukrainian users with Russian-language OS should land on /uk/, not /ru/. */
+(function(){
+  if (sessionStorage.getItem('vs_lang_chosen')) return;
+  var lang = (navigator.language || 'en').toLowerCase();
+  var tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
+  var target = null;
+
+  /* PRIMARY: timezone-based geographic detection (overrides browser language) */
+  if (tz === 'Europe/Kyiv' || tz === 'Europe/Kiev' ||
+      tz === 'Europe/Uzhgorod' || tz === 'Europe/Zaporozhye' ||
+      tz === 'Europe/Simferopol') {
+    target = 'uk';  /* Ukraine — always Ukrainian, never Russian */
+  } else if (tz === 'Asia/Almaty' || tz === 'Asia/Aqtau' || tz === 'Asia/Aqtobe' ||
+             tz === 'Asia/Atyrau' || tz === 'Asia/Oral' || tz === 'Asia/Qostanay' ||
+             tz === 'Asia/Qyzylorda') {
+    target = 'ru';  /* Kazakhstan — Russian language */
+  } else if (tz.indexOf('America/Argentina/') === 0 ||
+             tz === 'America/Buenos_Aires' || tz === 'America/Catamarca' ||
+             tz === 'America/Cordoba' || tz === 'America/Mendoza' ||
+             tz === 'America/Rosario' || tz === 'America/Santiago' ||
+             tz === 'America/Punta_Arenas' || tz === 'Pacific/Easter' ||
+             tz === 'America/Montevideo') {
+    target = 'es-ar';  /* Argentina, Chile, Uruguay — Rioplatense */
+  } else if (tz === 'America/Mexico_City' || tz === 'America/Cancun' ||
+             tz === 'America/Merida' || tz === 'America/Monterrey' ||
+             tz === 'America/Mazatlan' || tz === 'America/Chihuahua' ||
+             tz === 'America/Hermosillo' || tz === 'America/Tijuana' ||
+             tz === 'America/Bahia_Banderas' || tz === 'America/Matamoros' ||
+             tz === 'America/Ojinaga' || tz === 'America/Bogota' ||
+             tz === 'America/Lima') {
+    target = 'es-mx';  /* Mexico, Colombia, Peru — neutral LATAM Spanish */
+  } else if (tz === 'America/Sao_Paulo' || tz === 'America/Bahia' ||
+             tz === 'America/Fortaleza' || tz === 'America/Recife' ||
+             tz === 'America/Manaus' || tz === 'America/Cuiaba' ||
+             tz === 'America/Campo_Grande' || tz === 'America/Belem' ||
+             tz === 'America/Boa_Vista' || tz === 'America/Eirunepe' ||
+             tz === 'America/Araguaina' || tz === 'America/Maceio' ||
+             tz === 'America/Noronha' || tz === 'America/Porto_Velho' ||
+             tz === 'America/Rio_Branco' || tz === 'America/Santarem') {
+    target = 'pt-BR';  /* Brazil */
+  }
+
+  /* FALLBACK: language-based detection ONLY if timezone gave no signal
+     (e.g., user is outside our 9 target countries) */
+  if (target === null) {
+    if (lang.indexOf('es') === 0) target = 'es-mx';  /* default Spanish to Mexican */
+    else if (lang.indexOf('pt') === 0) target = 'pt-BR';
+    else if (lang.indexOf('uk') === 0) target = 'uk';
+    /* NOTE: 'ru' alone (no Kazakhstan tz) is ambiguous — could be Russia, Belarus,
+       Ukraine with RU OS, etc. We do NOT redirect to /ru/ on language alone
+       because /ru/ is specifically for Kazakhstan, not for general Russian speakers. */
+  }
+
+  if (target) {
+    sessionStorage.setItem('vs_lang_chosen', '1');
+    var path = window.location.pathname.replace(/^\//, '');
+    if (!path || path === 'index.html') path = '';
+    window.location.replace('/' + target + '/' + path + window.location.search);
+  }
+})();
+</script>
+<link rel="icon" type="image/svg+xml" href="/vetscan-favicon-32.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin>
+
 <style>
 :root {
-  --bg: #FFFFFF; --fg: #0A0A0F; --muted: #6B6B72; --accent: #0064FF;
-  --border: rgba(10,10,15,0.08); --card: #FAFAFA;
+  --bg: #FFFFFF;
+  --text-primary: #0A0A0F;
+  --text-secondary: #4A4A55;
+  --text-tertiary: #8E8E99;
+  --accent: #0064FF;
+  --accent-2: #7C5CFF;
+  --separator: rgba(10, 10, 15, 0.08);
+  --surface: #F8F8FB;
+  --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0A0A0F; --fg: #F5F5F7; --muted: #9B9BA0; --accent: #4D9FFF;
-    --border: rgba(255,255,255,0.1); --card: #14141A;
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+.legal-header {
+  border-bottom: 1px solid var(--separator);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  position: sticky; top: 0; z-index: 10;
+}
+.header-inner {
+  max-width: 800px; margin: 0 auto; padding: 16px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text-primary);
+  font-weight: 700; font-size: 17px; letter-spacing: -0.02em;
+}
+.logo-mark {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 100, 255, 0.25);
+  position: relative; overflow: hidden;
+}
+.logo-mark svg { width: 22px; height: 22px; }
+.logo-mark::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 70%);
+}
+.back-link { font-size: 14px; color: var(--accent); text-decoration: none; font-weight: 500; }
+.back-link:hover { text-decoration: underline; }
+.legal-article { max-width: 720px; margin: 0 auto; padding: 64px 24px 80px; }
+@media (max-width: 600px) { .legal-article { padding: 40px 20px 60px; } }
+.legal-eyebrow {
+  font-size: 13px; font-weight: 600; color: var(--accent);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px;
+}
+h1 {
+  font-size: 42px; line-height: 1.15; letter-spacing: -0.025em;
+  font-weight: 800; margin-bottom: 12px;
+}
+@media (max-width: 600px) { h1 { font-size: 32px; } }
+.last-updated {
+  color: var(--text-tertiary); font-size: 14px; margin-bottom: 48px;
+  padding-bottom: 24px; border-bottom: 1px solid var(--separator);
+}
+h2 {
+  font-size: 24px; font-weight: 700; letter-spacing: -0.015em;
+  margin: 48px 0 16px; line-height: 1.3;
+}
+h2:first-of-type { margin-top: 0; }
+h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin: 28px 0 10px; }
+p { color: var(--text-secondary); margin-bottom: 16px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--accent-2); }
+ul, ol { color: var(--text-secondary); margin: 0 0 16px 24px; }
+li { margin-bottom: 8px; }
+strong { color: var(--text-primary); font-weight: 600; }
+
+table {
+  width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px;
+}
+th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--separator); vertical-align: top; }
+th { font-weight: 600; color: var(--text-primary); background: var(--surface); }
+td { color: var(--text-secondary); }
+
+.callout {
+  background: var(--surface); border-left: 3px solid var(--accent);
+  padding: 16px 20px; border-radius: 0 12px 12px 0;
+  margin: 24px 0; font-size: 15px;
+}
+.callout strong { display: block; margin-bottom: 4px; }
+.legal-footer {
+  border-top: 1px solid var(--separator); padding: 32px 24px;
+  text-align: center; color: var(--text-tertiary); font-size: 13px; margin-top: 48px;
+}
+.legal-footer a { color: var(--text-tertiary); text-decoration: none; margin: 0 12px; }
+.legal-footer a:hover { color: var(--accent); }
+
+
+/* ============================================================
+   UNIFIED HEADER + FOOTER (synced with index.html)
+   ============================================================ */
+
+/* Design tokens — shared with main landing */
+:root {
+  --bg: #FFFFFF;
+  --surface: #F4F4F8;
+  --text-primary: #0A0A0F;
+  --text-secondary: #4A4A55;
+  --text-tertiary: #8E8E99;
+  --text-quaternary: #B8B8C5;
+  --separator: rgba(10, 10, 15, 0.08);
+  --accent: #0064FF;
+  --accent-2: #7C5CFF;
+  --accent-3: #00D4B5;
+  --accent-pink: #FF5FA8;
+  --r-pill: 999px;
+  --shadow-sm: 0 1px 3px rgba(10, 10, 15, 0.04), 0 1px 2px rgba(10, 10, 15, 0.02);
+  --gutter: 20px;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.unified-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* === Top nav === */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(244, 244, 248, 0.7);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border-bottom: 1px solid var(--separator);
+}
+.nav-inner {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1;
+}
+.logo-name {
+  font-weight: 800;
+  font-size: 23px;
+  letter-spacing: 0.012em;
+  color: var(--text-primary);
+  line-height: 1;
+  display: block;
+  width: 100%;
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+.logo-name .scan-grad {
+  background: linear-gradient(120deg, var(--accent), var(--accent-2), var(--accent-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.logo-tagline {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.235em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  line-height: 1;
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .logo-tagline { display: none; }
+  .logo-name { font-size: 19px; letter-spacing: -0.02em; }
+}
+.logo-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 14px rgba(0, 100, 255, 0.32);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  isolation: isolate;
+}
+.logo-mark::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg,
+    var(--accent),
+    var(--accent-2),
+    var(--accent-pink),
+    var(--accent-3),
+    var(--accent));
+  z-index: -1;
+  opacity: 0.5;
+  animation: liquid-rotate 6s linear infinite;
+}
+.logo-mark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 70%);
+  pointer-events: none;
+  z-index: 3;
+}
+.logo-mark svg {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  z-index: 1;
+}
+.logo-scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, transparent 0%, #00FFD4 50%, transparent 100%);
+  box-shadow: 0 0 6px #00D4B5, 0 0 14px #00D4B5, 0 0 22px rgba(0, 212, 181, 0.7);
+  z-index: 2;
+  animation: logo-scan 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes logo-scan {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  50% { top: 100%; opacity: 1; }
+  60% { top: 100%; opacity: 0; }
+  61% { top: 0%; opacity: 0; }
+  100% { top: 0%; opacity: 0; }
+}
+@keyframes liquid-rotate {
+  to { transform: rotate(360deg); }
+}
+
+.nav-cta {
+  height: 38px;
+  padding: 0 18px;
+  border-radius: var(--r-pill);
+  background: var(--text-primary);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  flex-shrink: 0;
+}
+.nav-cta:hover { transform: translateY(-1px); opacity: 0.9; }
+.nav-cta:active { transform: translateY(0); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  margin-right: 16px;
+}
+.nav-links a {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+}
+.nav-links a:hover {
+  color: var(--text-primary);
+  background: rgba(10, 10, 15, 0.04);
+}
+
+.nav-hamburger {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: rgba(10, 10, 15, 0.04);
+  border-radius: 10px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+  margin-left: 8px;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+.nav-hamburger:hover { background: rgba(10, 10, 15, 0.08); }
+.nav-hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.2s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+/* === Mobile menu overlay === */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 28px 32px;
+  overflow-y: auto;
+}
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+.mobile-menu-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+.mobile-menu a {
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mobile-menu a:hover,
+.mobile-menu a:active { background: rgba(10, 10, 15, 0.04); }
+.mobile-menu a svg {
+  opacity: 0.4;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.mobile-menu a:hover svg {
+  opacity: 0.8;
+  transform: translateX(2px);
+}
+.mobile-menu-section.legal a {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 10px 18px;
+}
+.mobile-menu-cta {
+  margin-top: auto;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white !important;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  display: flex !important;
+  justify-content: center !important;
+  box-shadow: 0 8px 20px rgba(0, 100, 255, 0.25);
+}
+
+/* === Footer === */
+.unified-footer {
+  background: var(--bg);
+  padding: 48px 0 40px;
+  border-top: 1px solid var(--separator);
+  position: relative;
+  z-index: 1;
+  margin-top: 64px;
+}
+.unified-footer .footer-store-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--separator);
+}
+.unified-footer .store-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 22px 12px 18px;
+  background: linear-gradient(135deg, #0F172A, #1E293B);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: white;
+  text-decoration: none;
+  min-width: 180px;
+  transition: transform 0.25s var(--spring), box-shadow 0.25s ease;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+.unified-footer .store-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.08) 70%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.unified-footer .store-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.28);
+}
+.unified-footer .store-btn:active { transform: translateY(0); }
+.unified-footer .store-btn-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+.unified-footer .store-btn-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+.unified-footer .store-btn-pretext {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  line-height: 1;
+}
+.unified-footer .store-btn-name {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+@media (max-width: 480px) {
+  .unified-footer .store-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 10px 14px;
   }
+  .unified-footer .store-btn-icon { width: 24px; height: 24px; }
+  .unified-footer .store-btn-name { font-size: 14px; }
+  .unified-footer .store-btn-pretext { font-size: 9.5px; }
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { background: var(--bg); color: var(--fg); font-family: 'Pretendard',
-  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased; line-height: 1.55; }
-.container { max-width: 720px; margin: 0 auto; padding: 24px 20px; }
-nav.top { display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 20px; border-bottom: 1px solid var(--border); }
-nav.top a.brand { font-weight: 700; font-size: 18px; color: var(--fg);
-  text-decoration: none; letter-spacing: -0.02em; }
-nav.top .lang-switcher { position: relative; }
-nav.top .lang-current { display: flex; align-items: center; gap: 6px;
-  background: transparent; border: 1px solid var(--border); padding: 6px 12px;
-  border-radius: 999px; cursor: pointer; font-size: 13px; color: var(--fg); }
-nav.top .lang-menu { position: absolute; top: 100%; right: 0; margin-top: 6px;
-  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-  padding: 6px; min-width: 180px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  display: none; z-index: 100; }
-nav.top .lang-menu.open { display: block; }
-nav.top .lang-menu button { display: block; width: 100%; text-align: left;
-  padding: 8px 12px; border: 0; background: transparent; cursor: pointer;
-  border-radius: 8px; font-size: 14px; color: var(--fg); }
-nav.top .lang-menu button:hover { background: var(--border); }
-nav.top .lang-menu button.active { background: var(--accent); color: white; }
-.hero { text-align: center; padding: 80px 20px; }
-.hero h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em;
-  margin-bottom: 16px; line-height: 1.2; }
-.hero p { font-size: 17px; color: var(--muted); max-width: 540px;
-  margin: 0 auto 32px; }
-.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.btn-primary { background: var(--accent); color: white; padding: 14px 28px;
-  border-radius: 999px; font-weight: 600; text-decoration: none; font-size: 15px;
-  border: none; cursor: pointer; }
-.btn-secondary { background: transparent; color: var(--fg);
-  border: 1px solid var(--border); padding: 14px 28px; border-radius: 999px;
-  font-weight: 500; text-decoration: none; font-size: 15px; }
-footer { border-top: 1px solid var(--border); padding: 40px 20px; text-align: center;
-  color: var(--muted); font-size: 13px; margin-top: 60px; }
-footer a { color: var(--muted); text-decoration: none; margin: 0 8px; }
-footer a:hover { color: var(--fg); }
+.unified-footer .footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  text-align: center;
+}
+@media (min-width: 700px) {
+  .unified-footer .footer-inner { flex-direction: row; justify-content: space-between; text-align: left; }
+}
+.unified-footer .footer-copy { font-size: 13px; color: var(--text-tertiary); }
+.unified-footer .footer-copy a { color: inherit; text-decoration: none; }
+.unified-footer .footer-copy a:hover { color: var(--accent); }
+.unified-footer .footer-social { display: flex; gap: 8px; }
+.unified-footer .social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+.unified-footer .social-btn:hover {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  transform: translateY(-3px) scale(1.05);
+}
+.unified-footer .social-btn svg { width: 18px; height: 18px; }
+.unified-footer .footer-legal {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--separator);
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px 0;
+  line-height: 1.8;
+}
+.unified-footer .footer-legal a {
+  color: var(--text-tertiary);
+  text-decoration: none;
+  margin: 0 6px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+.unified-footer .footer-legal a:hover { color: var(--accent); }
+.unified-footer .footer-legal-sep {
+  color: var(--text-quaternary);
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .unified-footer .footer-legal { font-size: 12.5px; }
+  .unified-footer .footer-legal a { margin: 0 4px; }
+}
+.unified-footer .footer-disclaimer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+  padding: 0 16px;
+}
+
 </style>
+<script src="/currency.js" defer></script>
 <style>
 
 /* === FOOTER LANGUAGE SWITCHER === */
@@ -116,50 +720,413 @@ footer a:hover { color: var(--fg); }
 </head>
 <body>
 
-<nav class="top">
-  <a href="/ru/" class="brand">VetScan</a>
-  <div class="lang-switcher">
-    <button class="lang-current" onclick="document.getElementById('langMenu').classList.toggle('open')" aria-label="Language" aria-haspopup="true">
-      <span>🌐</span> <span>Русский</span> <span>▾</span>
-    </button>
-    <div class="lang-menu" id="langMenu">
-      <button onclick="VetScanSwitchLang('en')">English</button>
-      <button onclick="VetScanSwitchLang('es-mx')">Español (México)</button>
-      <button onclick="VetScanSwitchLang('es-ar')">Español (Argentina)</button>
-      <button onclick="VetScanSwitchLang('pt-BR')">Português (Brasil)</button>
-      <button onclick="VetScanSwitchLang('uk')">Українська</button>
-      <button onclick="VetScanSwitchLang('ru')">Русский</button>
+<!-- ============================================================
+     UNIFIED NAVIGATION (synced with index.html)
+     ============================================================ -->
+<nav class="nav">
+  <div class="unified-container nav-inner">
+    <a href="/ru/index.html" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g fill="white">
+            <ellipse cx="50" cy="62" rx="16" ry="13"/>
+            <ellipse cx="28" cy="46" rx="7" ry="9"/>
+            <ellipse cx="72" cy="46" rx="7" ry="9"/>
+            <ellipse cx="38" cy="30" rx="6" ry="8"/>
+            <ellipse cx="62" cy="30" rx="6" ry="8"/>
+          </g>
+        </svg>
+        <span class="logo-scan-line"></span>
+      </span>
+      <span class="logo-text">
+        <span class="logo-name">Vet<span class="scan-grad">Scan</span></span>
+        <span class="logo-tagline">AI vet for dogs</span>
+      </span>
+    </a>
+
+    <div class="nav-links">
+      <a href="/ru/how-it-works.html">Как это работает</a>
+      <a href="/ru/about.html">О нас</a>
+      <a href="/ru/faq.html">Частые вопросы</a>
     </div>
+
+    <a href="/ru/index.html#waitlist" class="nav-cta">
+      Ранний доступ
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+
+    <button class="nav-hamburger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
 
-<section class="hero">
-  <h1>Политика cookies</h1>
-  <p>Эта страница переводится.</p>
-  <p style="font-size: 14px; opacity: 0.8; max-width: 480px; margin: 0 auto 32px;">Приносим извинения за неудобства. Полный перевод будет опубликован в ближайшее время. Пока что вы можете посмотреть эту страницу на английском.</p>
-  <div class="cta-row">
-    <a href="/cookies.html" class="btn-primary">Посмотреть на английском →</a>
-    <a href="/ru/" class="btn-secondary">На главную</a>
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-label">Продукт</div>
+    <a href="/ru/how-it-works.html">
+      Как это работает
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+    <a href="/ru/methodology.html">
+      Методология
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+    <a href="/ru/pricing.html">
+      Цены
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+    <a href="/ru/compare.html">
+      Сравнение
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+    <a href="/ru/faq.html">
+      Частые вопросы
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
   </div>
-</section>
 
-<footer>
-  <div style="margin-bottom: 12px;">
-    <a href="/ru/">VetScan</a> ·
-    <a href="/ru/about.html">О нас</a> ·
-    <a href="/ru/pricing.html">Цены</a> ·
-    <a href="/ru/privacy.html">Политика конфиденциальности</a> ·
-    <a href="/ru/terms.html">Условия использования</a>
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-label">Компания</div>
+    <a href="/ru/about.html">
+      О нас
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+    <a href="/ru/veterinary-advisors.html">
+      Ветеринарные консультанты
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
   </div>
-  
-<div class="footer-lang-switcher" style="margin-bottom: 16px; font-size: 13px; color: var(--muted);">
-  <span style="margin-right: 8px;">🌐 Язык:</span>
-  <a href="/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('en');}">English</a><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><span class="footer-lang-current" aria-current="true">Русский</span>
+
+  <div class="mobile-menu-section legal">
+    <div class="mobile-menu-section-label">Юридическое и доверие</div>
+    <a href="/ru/privacy.html">Политика конфиденциальности</a>
+    <a href="/ru/terms.html">Условия использования</a>
+    <a href="/ru/disclaimer.html">Медицинская оговорка</a>
+    <a href="/ru/cookies.html">Политика cookies</a>
+    <a href="/ru/security.html">Безопасность</a>
+    <a href="/ru/accessibility.html">Доступность</a>
+  </div>
+
+  <a href="/ru/index.html#waitlist" class="mobile-menu-cta">Ранний доступ</a>
 </div>
-  <div>© 2026 VetScan. Все права защищены.</div>
+
+<article class="legal-article">
+  <div class="legal-eyebrow">Юридическое</div>
+  <h1>Политика cookies</h1>
+  <div role="note" aria-label="Translation disclaimer" style="background:#FFF8DC; border:2px solid #DAA520; border-left-width:6px; padding:16px 20px; margin:0 0 32px 0; border-radius:6px; color:#5C4400; font-size:0.95rem; line-height:1.55;">
+    <strong>⚠️ Перевод проходит юридическую проверку.</strong> Этот документ — перевод оригинальной англоязычной версии. Юридическая проверка для вашей юрисдикции в процессе. До её завершения, в случае расхождений, приоритет имеет англоязычная версия. <a href="https://vetscan.app/cookies.html" style="color:#5C4400; font-weight:600; text-decoration:underline;">Открыть англоязычную версию</a>.
+  </div>
+  <p class="last-updated">Последнее обновление: 26 апреля 2026</p>
+
+  <h2>1. Что такое cookies</h2>
+  <p>Cookies — это небольшие текстовые файлы, которые сайты размещают на вашем устройстве, чтобы запоминать информацию о вас и вашей активности. Они помогают сайтам работать правильно, запоминать настройки, анализировать использование и показывать релевантную рекламу.</p>
+  <p>Эта Политика cookies объясняет, как VetScan использует cookies и подобные технологии (web beacons, пиксели, локальное хранилище) на <a href="https://vetscan.app">vetscan.app</a> («Сервис»).</p>
+
+  <h2>2. Зачем мы используем cookies</h2>
+  <p>Мы используем cookies, чтобы:</p>
+  <ul>
+    <li>Обеспечивать правильную работу Сервиса</li>
+    <li>Запоминать ваши предпочтения и настройки</li>
+    <li>Анализировать, как посетители пользуются Сервисом, чтобы улучшать его</li>
+    <li>Измерять эффективность нашего маркетинга</li>
+    <li>Показывать релевантную рекламу в Facebook, Google и других платформах</li>
+  </ul>
+
+  <h2>3. Типы cookies, которые мы используем</h2>
+
+  <h3>3.1 Строго необходимые cookies</h3>
+  <p>Эти cookies необходимы для работы Сервиса. Их нельзя отключить. К ним относятся:</p>
+  <ul>
+    <li>Cookies сессии, поддерживающие ваш визит</li>
+    <li>Cookies безопасности, предотвращающие мошенничество и злоупотребления</li>
+    <li>Cookies настроек согласия на cookies</li>
+  </ul>
+
+  <h3>3.2 Аналитические cookies</h3>
+  <p>Эти cookies помогают нам понять, как посетители взаимодействуют с Сервисом, чтобы мы могли его улучшать. Мы используем:</p>
+  <ul>
+    <li><strong>Google Analytics</strong> — измеряет просмотры страниц, время на сайте, источники трафика и поведение пользователей. Данные анонимизируются с помощью IP-маскирования.</li>
+  </ul>
+
+  <h3>3.3 Маркетинговые и рекламные cookies</h3>
+  <p>Эти cookies отслеживают вашу активность на сайтах, чтобы показывать вам релевантные объявления. Мы используем:</p>
+  <ul>
+    <li><strong>Meta Pixel</strong> (Facebook, Instagram) — измеряет эффективность рекламных кампаний и показывает вам объявления VetScan на платформах Meta</li>
+    <li><strong>Google Ads</strong> — измеряет эффективность рекламы и ремаркетинг в сети Google</li>
+    <li><strong>Microsoft Advertising (Bing) UET</strong> — измеряет эффективность рекламы на Bing и сервисах Microsoft</li>
+  </ul>
+
+  <h2>4. Детали cookies</h2>
+
+  <table>
+    <tr>
+      <th>Cookie</th>
+      <th>Провайдер</th>
+      <th>Цель</th>
+      <th>Длительность</th>
+    </tr>
+    <tr>
+      <td>_ga</td>
+      <td>Google Analytics</td>
+      <td>Различает уникальных пользователей</td>
+      <td>2 года</td>
+    </tr>
+    <tr>
+      <td>_ga_*</td>
+      <td>Google Analytics</td>
+      <td>Хранит состояние сессии</td>
+      <td>2 года</td>
+    </tr>
+    <tr>
+      <td>_fbp</td>
+      <td>Meta (Facebook)</td>
+      <td>Идентифицирует браузеры для показа рекламы</td>
+      <td>3 месяца</td>
+    </tr>
+    <tr>
+      <td>fr</td>
+      <td>Meta (Facebook)</td>
+      <td>Доставка и измерение рекламы</td>
+      <td>3 месяца</td>
+    </tr>
+    <tr>
+      <td>_gcl_au</td>
+      <td>Google Ads</td>
+      <td>Атрибуция рекламы и отслеживание конверсий</td>
+      <td>3 месяца</td>
+    </tr>
+    <tr>
+      <td>MUID</td>
+      <td>Microsoft Advertising</td>
+      <td>Идентификация пользователя на сайтах Microsoft</td>
+      <td>1 год</td>
+    </tr>
+    <tr>
+      <td>vetscan_consent</td>
+      <td>VetScan</td>
+      <td>Хранит ваши настройки согласия на cookies</td>
+      <td>1 год</td>
+    </tr>
+  </table>
+
+  <p><em>Конкретные cookies и их сроки могут меняться, когда мы обновляем сторонние инструменты. Проверяйте эту политику для актуальной информации.</em></p>
+
+  <h2>5. Cookies третьих сторон</h2>
+  <p>Некоторые cookies на Сервисе устанавливаются третьими сторонами, включая Meta, Google и Microsoft. Эти третьи стороны имеют собственные политики приватности и cookies, которые мы рекомендуем просмотреть:</p>
+  <ul>
+    <li><a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener">Политика cookies Google</a></li>
+    <li><a href="https://www.facebook.com/policies/cookies/" target="_blank" rel="noopener">Политика cookies Meta (Facebook)</a></li>
+    <li><a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener">Заявление о конфиденциальности Microsoft</a></li>
+  </ul>
+
+  <h2>6. Как управлять cookies</h2>
+
+  <h3>6.1 Баннер cookies</h3>
+  <p>При первом посещении Сервиса вы увидите баннер согласия на cookies, где можно принять все cookies, отклонить необязательные или настроить свои предпочтения.</p>
+
+  <h3>6.2 Настройки браузера</h3>
+  <p>Вы можете контролировать cookies через настройки браузера. Большинство браузеров позволяет:</p>
+  <ul>
+    <li>Просмотреть, какие cookies хранятся</li>
+    <li>Удалить существующие cookies</li>
+    <li>Блокировать все cookies</li>
+    <li>Блокировать cookies третьих сторон</li>
+    <li>Получать уведомления перед установкой cookie</li>
+  </ul>
+  <p>Инструкции для конкретных браузеров:</p>
+  <ul>
+    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+    <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+    <li><a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener">Firefox</a></li>
+    <li><a href="https://support.microsoft.com/en-us/microsoft-edge" target="_blank" rel="noopener">Microsoft Edge</a></li>
+  </ul>
+
+  <h3>6.3 Инструменты отказа</h3>
+  <p>Отраслевые инструменты отказа позволяют отказаться от рекламы на основе интересов от многих компаний сразу:</p>
+  <ul>
+    <li><a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener">Digital Advertising Alliance (DAA)</a> — US</li>
+    <li><a href="https://www.youronlinechoices.eu/" target="_blank" rel="noopener">Your Online Choices</a> — EU</li>
+    <li><a href="https://www.networkadvertising.org/choices/" target="_blank" rel="noopener">Network Advertising Initiative (NAI)</a></li>
+  </ul>
+
+  <h3>6.4 Мобильные устройства</h3>
+  <p>На мобильных устройствах вы обычно можете отключить рекламу на основе интересов в:</p>
+  <ul>
+    <li><strong>iOS:</strong> Настройки → Конфиденциальность и безопасность → Отслеживание → Разрешить запросы на отслеживание (выкл.)</li>
+    <li><strong>Android:</strong> Настройки → Google → Реклама → Сбросить идентификатор рекламы / Отключить персонализацию рекламы</li>
+  </ul>
+
+  <h2>7. Сигналы Do Not Track</h2>
+  <p>Некоторые браузеры отправляют сигнал «Do Not Track» (DNT). В настоящее время нет отраслевого стандарта ответа на сигналы DNT, и мы на них пока не реагируем. Вы всё равно можете контролировать cookies через методы, описанные выше.</p>
+
+  <h2>8. Последствия отключения cookies</h2>
+  <p>Если вы отключите cookies:</p>
+  <ul>
+    <li>Сервис должен продолжать работать, но некоторые функции могут работать неправильно</li>
+    <li>Возможно, придётся повторно вводить информацию, которую вы ранее предоставляли</li>
+    <li>Реклама, которую вы видите, может быть менее релевантной</li>
+    <li>У нас может быть меньше данных для улучшения Сервиса</li>
+  </ul>
+
+  <h2>9. Изменения этой политики</h2>
+  <p>Мы можем время от времени обновлять эту Политику cookies. Дата «Последнее обновление» вверху отражает самую свежую редакцию. О существенных изменениях мы сообщим через баннер согласия на cookies или заметное уведомление на Сервисе.</p>
+
+  <h2>10. Свяжитесь с нами</h2>
+  <p>Если у вас есть вопросы об этой Политике cookies или нашем использовании cookies — напишите нам:</p>
+  <div class="callout">
+    <strong>Команда приватности VetScan</strong>
+    Email: <a href="mailto:privacy@vetscan.app">privacy@vetscan.app</a><br>
+    Общий: <a href="mailto:hello@vetscan.app">hello@vetscan.app</a>
+  </div>
+
+  <p>For more information about how we handle personal data, see our <a href="/ru/privacy.html">Политика конфиденциальности</a>.</p>
+
+</article>
+
+<!-- ============================================================
+     UNIFIED FOOTER (synced with index.html)
+     ============================================================ -->
+<footer class="unified-footer">
+  <div class="unified-container">
+    <!-- Store buttons - Coming Soon -->
+    <div class="footer-store-buttons">
+      <a href="https://apps.apple.com/" class="store-btn" target="_blank" rel="noopener" aria-label="VetScan — Ранний доступ App Store">
+        <svg class="store-btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+        </svg>
+        <span class="store-btn-text">
+          <span class="store-btn-pretext">Coming soon to</span>
+          <span class="store-btn-name">App Store</span>
+        </span>
+      </a>
+
+      <a href="https://play.google.com/store" class="store-btn" target="_blank" rel="noopener" aria-label="VetScan — Ранний доступ Google Play">
+        <svg class="store-btn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3.5 3.5v17l9.5-8.5-9.5-8.5z" fill="url(#playGrad1u)"/>
+          <path d="M13 12L3.5 20.5l11-6.5L13 12z" fill="url(#playGrad2u)"/>
+          <path d="M13 12l1.5 2 6-3.5L13 12z" fill="url(#playGrad3u)"/>
+          <path d="M13 12L3.5 3.5l11 6.5L13 12z" fill="url(#playGrad4u)"/>
+          <defs>
+            <linearGradient id="playGrad1u" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00C2FF"/>
+              <stop offset="100%" stop-color="#0064FF"/>
+            </linearGradient>
+            <linearGradient id="playGrad2u" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FF3B5C"/>
+              <stop offset="100%" stop-color="#FF6B6B"/>
+            </linearGradient>
+            <linearGradient id="playGrad3u" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFC107"/>
+              <stop offset="100%" stop-color="#FF9500"/>
+            </linearGradient>
+            <linearGradient id="playGrad4u" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#34C759"/>
+              <stop offset="100%" stop-color="#00D4B5"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="store-btn-text">
+          <span class="store-btn-pretext">Coming soon to</span>
+          <span class="store-btn-name">Google Play</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="footer-inner">
+      <div class="footer-copy">© 2026 VetScan · <a href="mailto:hello@vetscan.app">hello@vetscan.app</a></div>
+      <div class="footer-social">
+        <a class="social-btn" href="https://instagram.com/vetscan.app" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a class="social-btn" href="https://tiktok.com/@vetscan.app" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.83 20.1a6.34 6.34 0 0 0 10.86-4.43V8.66a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.87-.09z"/></svg>
+        </a>
+        <a class="social-btn" href="https://x.com/vetscan.app" aria-label="X">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a class="social-btn" href="https://youtube.com/@VetScan.app" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
+    
+<div class="footer-lang-switcher">
+  <span class="footer-lang-label">🌐 Language:</span>
+  <span class="footer-lang-current" aria-current="true">English</span><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a>
+</div>
+    <div class="footer-legal">
+      <a href="how-it-works.html">How It Works</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="methodology.html">Methodology</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="pricing.html">Pricing</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="compare.html">Compare</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="/ru/faq.html">Частые вопросы</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="/ru/about.html">О нас</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="veterinary-advisors.html">Vet Advisors</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="privacy.html">Privacy</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="terms.html">Terms</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="/ru/disclaimer.html">Медицинская оговорка</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="cookies.html">Cookies</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="/ru/security.html">Безопасность</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="/ru/accessibility.html">Доступность</a>
+    </div>
+    <div class="footer-disclaimer">
+      VetScan provides AI-assisted general guidance only and is not a substitute for professional veterinary care. In a pet emergency, contact a veterinarian immediately.
+    </div>
+  </div>
 </footer>
 
-<script src="/i18n.js"></script>
+
+<script>
+// Mobile menu (hamburger) toggle — identical to main landing
+(function() {
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (!hamburger || !mobileMenu) return;
+
+  function toggleMenu(force) {
+    const willOpen = force !== undefined ? force : !hamburger.classList.contains('open');
+    hamburger.classList.toggle('open', willOpen);
+    mobileMenu.classList.toggle('open', willOpen);
+    hamburger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    mobileMenu.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+    document.body.style.overflow = willOpen ? 'hidden' : '';
+  }
+
+  hamburger.addEventListener('click', () => toggleMenu());
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      toggleMenu(false);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860 && mobileMenu.classList.contains('open')) {
+      toggleMenu(false);
+    }
+  });
+})();
+</script>
   <script src="/analytics.js" defer></script>
 </body>
 </html>
