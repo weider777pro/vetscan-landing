@@ -8,23 +8,80 @@
 (function () {
   'use strict';
 
+  /**
+   * Detect currency using HYBRID logic:
+   *
+   *   1. PRIMARY: Browser timezone — if it identifies one of our 9 target
+   *      countries (UA, KZ, AR, MX, BR, CL, UY, CO, PE) or the original 5
+   *      (US, UK, EU, CA, AU), use that currency.
+   *
+   *   2. FALLBACK: URL path language directory (/es-mx/, /pt-BR/, /uk/, etc.)
+   *      Used when timezone gives no signal OR points to a country outside
+   *      our target list (e.g., a Spaniard on /es-ar/ → ARS instead of EUR).
+   *
+   *   3. DEFAULT: USD
+   *
+   * Why this hybrid: An Argentinian who clicks "Português (Brasil)" in the
+   * footer should still see ARS prices because that's their actual market.
+   * But a Spanish speaker in Spain who lands on /es-ar/ should see ARS
+   * because the page is labeled for Argentina.
+   *
+   * Manual currency override via ?currency=XXX query string is also supported
+   * for testing.
+   */
   function detectCurrency() {
-    var tz;
-    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; }
-    catch (e) { return 'USD'; }
+    // ---- Manual override via query string (for testing) ----
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var override = params.get('currency');
+      if (override) {
+        override = override.toUpperCase();
+        if (['USD','GBP','EUR','CAD','AUD','CLP','UYU','MXN','BRL',
+             'COP','PEN','ARS','KZT','UAH'].indexOf(override) !== -1) {
+          return override;
+        }
+      }
+    } catch (e) {}
 
+    // ---- 1. PRIMARY: timezone-based detection ----
+    var tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; }
+    catch (e) {}
+
+    var tzCurrency = currencyFromTimezone(tz);
+    if (tzCurrency) return tzCurrency;
+
+    // ---- 2. FALLBACK: URL path language directory ----
+    var pathCurrency = currencyFromPath(window.location.pathname);
+    if (pathCurrency) return pathCurrency;
+
+    // ---- 3. DEFAULT ----
+    return 'USD';
+  }
+
+  /**
+   * Map timezone → currency. Returns null if timezone is unknown
+   * (so caller can fall through to URL-path detection).
+   */
+  function currencyFromTimezone(tz) {
+    if (!tz) return null;
+
+    // United Kingdom
     if (tz === 'Europe/London' || tz === 'Europe/Belfast' ||
         tz === 'Europe/Jersey' || tz === 'Europe/Guernsey' ||
         tz === 'Europe/Isle_of_Man' || tz === 'Europe/Gibraltar') return 'GBP';
 
+    // Ukraine
     if (tz === 'Europe/Kyiv' || tz === 'Europe/Kiev' ||
         tz === 'Europe/Uzhgorod' || tz === 'Europe/Zaporozhye' ||
         tz === 'Europe/Simferopol') return 'UAH';
 
+    // Kazakhstan
     var kzZones = ['Asia/Almaty','Asia/Aqtau','Asia/Aqtobe','Asia/Atyrau',
                    'Asia/Oral','Asia/Qostanay','Asia/Qyzylorda'];
     if (kzZones.indexOf(tz) !== -1) return 'KZT';
 
+    // Canada — explicit list (NOT all America/* — that includes US)
     var canadaZones = [
       'America/Toronto','America/Vancouver','America/Edmonton',
       'America/Winnipeg','America/Halifax','America/St_Johns',
@@ -39,11 +96,13 @@
     ];
     if (canadaZones.indexOf(tz) !== -1) return 'CAD';
 
+    // Argentina
     if (tz.indexOf('America/Argentina/') === 0 ||
         tz === 'America/Buenos_Aires' || tz === 'America/Catamarca' ||
         tz === 'America/Cordoba' || tz === 'America/Jujuy' ||
         tz === 'America/Mendoza' || tz === 'America/Rosario') return 'ARS';
 
+    // Mexico
     var mxZones = [
       'America/Mexico_City','America/Cancun','America/Merida',
       'America/Monterrey','America/Mazatlan','America/Chihuahua',
@@ -52,6 +111,7 @@
     ];
     if (mxZones.indexOf(tz) !== -1) return 'MXN';
 
+    // Brazil
     var brZones = [
       'America/Sao_Paulo','America/Bahia','America/Fortaleza',
       'America/Recife','America/Manaus','America/Cuiaba',
@@ -70,7 +130,23 @@
 
     if (tz.indexOf('Australia/') === 0) return 'AUD';
     if (tz.indexOf('Europe/') === 0) return 'EUR';
-    return 'USD';
+
+    // Timezone is unknown to us — return null so caller falls through
+    return null;
+  }
+
+  /**
+   * Map URL path language directory → default currency for that language.
+   * Used as fallback when timezone gives no useful signal.
+   */
+  function currencyFromPath(path) {
+    if (!path) return null;
+    if (path.indexOf('/es-mx/') === 0 || path.indexOf('/es-mx') === 0) return 'MXN';
+    if (path.indexOf('/es-ar/') === 0 || path.indexOf('/es-ar') === 0) return 'ARS';
+    if (path.indexOf('/pt-BR/') === 0 || path.indexOf('/pt-BR') === 0) return 'BRL';
+    if (path.indexOf('/uk/')    === 0 || path === '/uk')                return 'UAH';
+    if (path.indexOf('/ru/')    === 0 || path === '/ru')                return 'KZT';
+    return null;  // EN root or unknown — caller will default to USD
   }
 
   var PRICES = {
@@ -203,30 +279,127 @@
       PEN:'S/ ', ARS:'AR$ ', KZT:'₸', UAH:'₴'
     },
     'er-region-label': {
-      USD:'US', GBP:'UK', EUR:'EU', CAD:'Canadian', AUD:'Australian',
-      CLP:'Chilean', UYU:'Uruguayan', MXN:'Mexican',
-      BRL:'Brazilian', COP:'Colombian', PEN:'Peruvian',
-      ARS:'Argentinian', KZT:'Kazakh', UAH:'Ukrainian'
+      /* Country label per (currency × page-language). The page language is detected
+         from <html lang> attribute. Falls back to English if no match. */
+      USD: { en:'US',     'es-mx':'EE. UU.',   'es-ar':'EE. UU.',   'pt-BR':'EUA',         uk:'США',           ru:'США' },
+      GBP: { en:'UK',     'es-mx':'Reino Unido','es-ar':'Reino Unido','pt-BR':'Reino Unido', uk:'Велика Британія',ru:'Великобритания' },
+      EUR: { en:'EU',     'es-mx':'UE',         'es-ar':'UE',         'pt-BR':'UE',         uk:'ЄС',             ru:'ЕС' },
+      CAD: { en:'Canadian','es-mx':'canadiense','es-ar':'canadiense','pt-BR':'canadense',  uk:'канадський',     ru:'канадский' },
+      AUD: { en:'Australian','es-mx':'australiano','es-ar':'australiano','pt-BR':'australiano',uk:'австралійський',ru:'австралийский' },
+      CLP: { en:'Chilean','es-mx':'chileno',    'es-ar':'chileno',    'pt-BR':'chileno',    uk:'чилійський',    ru:'чилийский' },
+      UYU: { en:'Uruguayan','es-mx':'uruguayo','es-ar':'uruguayo',   'pt-BR':'uruguaio',   uk:'уругвайський',  ru:'уругвайский' },
+      MXN: { en:'Mexican','es-mx':'mexicano',   'es-ar':'mexicano',   'pt-BR':'mexicano',   uk:'мексиканський', ru:'мексиканский' },
+      BRL: { en:'Brazilian','es-mx':'brasileño','es-ar':'brasileño',  'pt-BR':'brasileiro', uk:'бразильський',  ru:'бразильский' },
+      COP: { en:'Colombian','es-mx':'colombiano','es-ar':'colombiano','pt-BR':'colombiano', uk:'колумбійський', ru:'колумбийский' },
+      PEN: { en:'Peruvian','es-mx':'peruano',   'es-ar':'peruano',    'pt-BR':'peruano',    uk:'перуанський',   ru:'перуанский' },
+      ARS: { en:'Argentine','es-mx':'argentino','es-ar':'argentino',  'pt-BR':'argentino',  uk:'аргентинський', ru:'аргентинский' },
+      KZT: { en:'Kazakh', 'es-mx':'kazajo',     'es-ar':'kazajo',     'pt-BR':'cazaque',    uk:'казахський',    ru:'казахстанский' },
+      UAH: { en:'Ukrainian','es-mx':'ucraniano','es-ar':'ucraniano',  'pt-BR':'ucraniano',  uk:'український',   ru:'украинский' }
     },
     'er-source-citation': {
-      USD:'American Animal Hospital Association, 2024',
-      GBP:'RVC and RSPCA data',
-      EUR:'European Veterinary Association estimates',
-      CAD:'Canadian Veterinary Medical Association',
-      AUD:'Australian Veterinary Association',
-      CLP:'Colegio Médico Veterinario de Chile estimates',
-      UYU:'Sociedad de Medicina Veterinaria del Uruguay estimates',
-      MXN:'FedMVZ (Mexico) estimates',
-      BRL:'CFMV (Brazil) estimates',
-      COP:'Comvezcol (Colombia) estimates',
-      PEN:'Colegio Médico Veterinario del Perú estimates',
-      ARS:'AVECCAR (Argentina) estimates',
-      KZT:'Kazakhstan veterinary clinics, average estimates',
-      UAH:'Ukrainian Veterinary Association estimates'
+      USD: { en:'American Animal Hospital Association, 2024',
+             'es-mx':'Asociación Estadounidense de Hospitales para Animales, 2024',
+             'es-ar':'Asociación Estadounidense de Hospitales para Animales, 2024',
+             'pt-BR':'Associação Americana de Hospitais Veterinários, 2024',
+             uk:'Американська асоціація лікарень для тварин, 2024',
+             ru:'Американская ассоциация ветеринарных госпиталей, 2024' },
+      GBP: { en:'RVC and RSPCA data',
+             'es-mx':'Datos de RVC y RSPCA', 'es-ar':'Datos de RVC y RSPCA',
+             'pt-BR':'Dados de RVC e RSPCA',
+             uk:'Дані RVC та RSPCA', ru:'Данные RVC и RSPCA' },
+      EUR: { en:'European Veterinary Association estimates',
+             'es-mx':'Estimaciones de la Asociación Veterinaria Europea',
+             'es-ar':'Estimaciones de la Asociación Veterinaria Europea',
+             'pt-BR':'Estimativas da Associação Veterinária Europeia',
+             uk:'Оцінки Європейської ветеринарної асоціації',
+             ru:'Оценки Европейской ветеринарной ассоциации' },
+      CAD: { en:'Canadian Veterinary Medical Association',
+             'es-mx':'Asociación Veterinaria Médica Canadiense',
+             'es-ar':'Asociación Veterinaria Médica Canadiense',
+             'pt-BR':'Associação Médica Veterinária Canadense',
+             uk:'Канадська ветеринарна медична асоціація',
+             ru:'Канадская ветеринарная медицинская ассоциация' },
+      AUD: { en:'Australian Veterinary Association',
+             'es-mx':'Asociación Veterinaria de Australia',
+             'es-ar':'Asociación Veterinaria de Australia',
+             'pt-BR':'Associação Veterinária Australiana',
+             uk:'Австралійська ветеринарна асоціація',
+             ru:'Австралийская ветеринарная ассоциация' },
+      CLP: { en:'Colegio Médico Veterinario de Chile estimates',
+             'es-mx':'Estimaciones del Colegio Médico Veterinario de Chile',
+             'es-ar':'Estimaciones del Colegio Médico Veterinario de Chile',
+             'pt-BR':'Estimativas do Colegio Médico Veterinario de Chile',
+             uk:'Оцінки Колегіуму медичних ветеринарів Чилі',
+             ru:'Оценки Коллегии ветеринарных врачей Чили' },
+      UYU: { en:'Sociedad de Medicina Veterinaria del Uruguay estimates',
+             'es-mx':'Estimaciones de la Sociedad de Medicina Veterinaria del Uruguay',
+             'es-ar':'Estimaciones de la Sociedad de Medicina Veterinaria del Uruguay',
+             'pt-BR':'Estimativas da Sociedade de Medicina Veterinária do Uruguai',
+             uk:'Оцінки Товариства ветеринарної медицини Уругваю',
+             ru:'Оценки Общества ветеринарной медицины Уругвая' },
+      MXN: { en:'FedMVZ (Mexico) estimates',
+             'es-mx':'Estimaciones de FedMVZ (México)',
+             'es-ar':'Estimaciones de FedMVZ (México)',
+             'pt-BR':'Estimativas da FedMVZ (México)',
+             uk:'Оцінки FedMVZ (Мексика)',
+             ru:'Оценки FedMVZ (Мексика)' },
+      BRL: { en:'CFMV (Brazil) estimates',
+             'es-mx':'Estimaciones del CFMV (Brasil)',
+             'es-ar':'Estimaciones del CFMV (Brasil)',
+             'pt-BR':'Estimativas do CFMV (Brasil)',
+             uk:'Оцінки CFMV (Бразилія)',
+             ru:'Оценки CFMV (Бразилия)' },
+      COP: { en:'Comvezcol (Colombia) estimates',
+             'es-mx':'Estimaciones de Comvezcol (Colombia)',
+             'es-ar':'Estimaciones de Comvezcol (Colombia)',
+             'pt-BR':'Estimativas da Comvezcol (Colômbia)',
+             uk:'Оцінки Comvezcol (Колумбія)',
+             ru:'Оценки Comvezcol (Колумбия)' },
+      PEN: { en:'Colegio Médico Veterinario del Perú estimates',
+             'es-mx':'Estimaciones del Colegio Médico Veterinario del Perú',
+             'es-ar':'Estimaciones del Colegio Médico Veterinario del Perú',
+             'pt-BR':'Estimativas do Colégio Médico Veterinário do Peru',
+             uk:'Оцінки Колегіуму медичних ветеринарів Перу',
+             ru:'Оценки Коллегии ветеринарных врачей Перу' },
+      ARS: { en:'AVECCAR (Argentina) estimates',
+             'es-mx':'Estimaciones de AVECCAR (Argentina)',
+             'es-ar':'Estimaciones de AVECCAR (Argentina)',
+             'pt-BR':'Estimativas da AVECCAR (Argentina)',
+             uk:'Оцінки AVECCAR (Аргентина)',
+             ru:'Оценки AVECCAR (Аргентина)' },
+      KZT: { en:'Kazakhstan veterinary clinics, average estimates',
+             'es-mx':'Estimaciones promedio de clínicas veterinarias de Kazajistán',
+             'es-ar':'Estimaciones promedio de clínicas veterinarias de Kazajistán',
+             'pt-BR':'Estimativas médias de clínicas veterinárias do Cazaquistão',
+             uk:'Середні оцінки ветеринарних клінік Казахстану',
+             ru:'Средние оценки ветеринарных клиник Казахстана' },
+      UAH: { en:'Ukrainian Veterinary Association estimates',
+             'es-mx':'Estimaciones de la Asociación Veterinaria de Ucrania',
+             'es-ar':'Estimaciones de la Asociación Veterinaria de Ucrania',
+             'pt-BR':'Estimativas da Associação Veterinária da Ucrânia',
+             uk:'Оцінки Української ветеринарної асоціації',
+             ru:'Оценки Ассоциации ветеринаров Украины' }
     }
   };
 
   var currentCurrency = detectCurrency();
+
+  /**
+   * Detect the current page language from <html lang> attribute.
+   * Returns one of: 'en', 'es-mx', 'es-ar', 'pt-BR', 'uk', 'ru'.
+   */
+  function detectPageLanguage() {
+    var htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+    if (htmlLang.indexOf('es-mx') === 0) return 'es-mx';
+    if (htmlLang.indexOf('es-ar') === 0) return 'es-ar';
+    if (htmlLang.indexOf('pt-br') === 0) return 'pt-BR';
+    if (htmlLang.indexOf('pt') === 0)    return 'pt-BR';
+    if (htmlLang.indexOf('uk') === 0)    return 'uk';
+    if (htmlLang.indexOf('ru') === 0)    return 'ru';
+    if (htmlLang.indexOf('es') === 0)    return 'es-mx';
+    return 'en';
+  }
+  var currentPageLang = detectPageLanguage();
 
   function applyCurrency() {
     var els = document.querySelectorAll('.curr');
@@ -234,8 +407,18 @@
       var el = els[i];
       var key = el.getAttribute('data-key');
       if (!key || !PRICES[key]) continue;
-      var localized = PRICES[key][currentCurrency];
-      if (localized !== undefined) el.textContent = localized;
+      var entry = PRICES[key][currentCurrency];
+      if (entry === undefined) continue;
+
+      // Some entries are locale-aware: { en:'X', uk:'Y', ... }
+      // Others are simple strings: 'X'
+      var localized;
+      if (typeof entry === 'object' && entry !== null) {
+        localized = entry[currentPageLang] || entry['en'] || '';
+      } else {
+        localized = entry;
+      }
+      el.textContent = localized;
     }
   }
 
