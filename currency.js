@@ -75,6 +75,29 @@
   //   - Realistic competitor pricing in each market
   // -------------------------------------------------------------
   var PRICES = {
+    // ============================================================
+    // FOUNDER PRICING — locked for life for beta participants
+    // (40% discount vs Standard. The marketing hook for early access.)
+    // ============================================================
+    'founder-monthly': {
+      USD: '$5.99', GBP: '£4.99', EUR: '€5.99', CAD: 'C$7.99', AUD: 'A$8.99'
+    },
+    'founder-monthly-with-unit': {
+      USD: '$5.99/month', GBP: '£4.99/month', EUR: '€5.99/month',
+      CAD: 'C$7.99/month', AUD: 'A$8.99/month'
+    },
+    'founder-yearly': {
+      USD: '$59', GBP: '£49', EUR: '€59', CAD: 'C$79', AUD: 'A$89'
+    },
+    'founder-yearly-with-unit': {
+      USD: '$59/year', GBP: '£49/year', EUR: '€59/year',
+      CAD: 'C$79/year', AUD: 'A$89/year'
+    },
+
+    // ============================================================
+    // STANDARD PRICING — applies to new sign-ups after first 12 months.
+    // Beta participants on founder pricing keep their rate FOREVER.
+    // ============================================================
     // ---- VetScan own pricing ----
     'vetscan-monthly': {
       USD: '$9.99', GBP: '£7.99', EUR: '€8.99', CAD: 'C$13.99', AUD: 'A$14.99'
@@ -125,12 +148,13 @@
       CAD: 'C$400-C$1,500', AUD: 'A$400-A$1,400'
     },
 
-    // Calculator-specific values (used via data attribute, see below)
+    // Calculator-specific values — uses FOUNDER pricing because everyone
+    // signing up via this landing locks in Founder rate for life.
     'calc-er-avg': {
       USD: 500, GBP: 300, EUR: 280, CAD: 550, AUD: 500
     },
     'calc-vetscan-year': {
-      USD: 99, GBP: 79, EUR: 89, CAD: 139, AUD: 149
+      USD: 59, GBP: 49, EUR: 59, CAD: 79, AUD: 89
     },
     'currency-symbol': {
       USD: '$', GBP: '£', EUR: '€', CAD: 'C$', AUD: 'A$'
