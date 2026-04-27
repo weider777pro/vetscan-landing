@@ -1,12 +1,13 @@
 /* ============================================================
-   VetScan analytics.js — GA4 events + consent banner
+   VetScan analytics.js — GA4 events + consent integration
 
-   - gtag.js loads from <head> of each HTML page (async)
-   - This file: defines events, consent banner, locale tagging
-   - Consent Mode v2: default denied → granted only if user accepts
-   - Choice persists in localStorage (vs_consent: 'granted'|'denied')
-
-   Loaded as: <script src="/analytics.js" defer></script>
+   Hooks into the EXISTING .cookie-banner element on the page:
+   - Reads `vetscan_consent` cookie (legacy storage already in use)
+   - Wires .cookie-btn-primary (Accept) and .cookie-btn-secondary (Reject)
+     via CLASS selectors so it works on every locale
+     (the original inline JS uses localized IDs and breaks on uk/ru/es/pt)
+   - Applies gtag Consent Mode on choice and on subsequent visits
+   - Tracks consent_choice + page-level events
    ============================================================ */
 (function () {
   'use strict';
@@ -23,39 +24,30 @@
   }
   var LOCALE = detectLocale();
 
-  // ----- Safe event helper -----
+  // ----- Track helper -----
   function track(name, params) {
     if (typeof gtag === 'function') {
       var p = Object.assign({ locale: LOCALE }, params || {});
       gtag('event', name, p);
     }
   }
-  // Expose globally for inline call sites (handleSubmit, etc.)
   window.vsTrack = track;
 
   // ============================================================
-  // CONSENT BANNER
+  // CONSENT
   // ============================================================
 
-  var STORAGE_KEY = 'vs_consent';
+  var COOKIE_NAME = 'vetscan_consent';
 
-  var BANNER_COPY = {
-    'en':    { text: "We use cookies to measure how the site performs. No ads, no third-party tracking.",
-               accept: "Accept", decline: "Decline", privacy: "Privacy" },
-    'uk':    { text: "Ми використовуємо cookie, щоб зрозуміти, як працює сайт. Без реклами та сторонніх трекерів.",
-               accept: "Прийняти", decline: "Відхилити", privacy: "Приватність" },
-    'ru':    { text: "Мы используем cookies, чтобы понимать, как работает сайт. Без рекламы и сторонних трекеров.",
-               accept: "Принять", decline: "Отклонить", privacy: "Приватность" },
-    'es-mx': { text: "Usamos cookies para medir el rendimiento del sitio. Sin anuncios ni rastreo de terceros.",
-               accept: "Aceptar", decline: "Rechazar", privacy: "Privacidad" },
-    'es-ar': { text: "Usamos cookies para medir el rendimiento del sitio. Sin anuncios ni rastreo de terceros.",
-               accept: "Aceptar", decline: "Rechazar", privacy: "Privacidad" },
-    'pt-BR': { text: "Usamos cookies para entender como o site funciona. Sem anúncios nem rastreadores de terceiros.",
-               accept: "Aceitar", decline: "Recusar", privacy: "Privacidade" }
-  };
-
-  function privacyHref() {
-    return LOCALE === 'en' ? '/privacy.html' : '/' + LOCALE + '/privacy.html';
+  function getCookie(name) {
+    var m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]+)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+  function setCookie(name, value) {
+    var expires = new Date();
+    expires.setFullYear(expires.getFullYear() + 1);
+    document.cookie = name + '=' + encodeURIComponent(value) +
+      '; expires=' + expires.toUTCString() + '; path=/; SameSite=Lax';
   }
 
   function applyConsent(state) {
@@ -77,80 +69,50 @@
     }
   }
 
-  function getStoredConsent() {
-    try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
-  }
-  function setStoredConsent(v) {
-    try { localStorage.setItem(STORAGE_KEY, v); } catch (e) {}
+  function hideBanner(banner) {
+    banner.classList.remove('visible');
+    setTimeout(function () { banner.style.display = 'none'; }, 400);
   }
 
-  function injectBanner() {
-    var stored = getStoredConsent();
-    if (stored === 'granted' || stored === 'denied') {
-      applyConsent(stored);
+  function setupConsent() {
+    var banner = document.getElementById('cookieBanner');
+
+    // Apply stored choice on every page load (gtag default is 'denied' from <head>)
+    var existing = getCookie(COOKIE_NAME);
+    if (existing === 'accepted') applyConsent('granted');
+    // 'rejected' or null → stay at default denied
+
+    if (!banner) return;
+
+    // If choice already made, hide banner defensively (inline JS already does this on EN)
+    if (existing) {
+      banner.style.display = 'none';
       return;
     }
 
-    var copy = BANNER_COPY[LOCALE] || BANNER_COPY.en;
-    var bar = document.createElement('div');
-    bar.className = 'vs-consent';
-    bar.setAttribute('role', 'dialog');
-    bar.setAttribute('aria-label', 'Cookie consent');
-    bar.innerHTML =
-      '<div class="vs-consent-inner">' +
-        '<div class="vs-consent-text">' + copy.text +
-          ' <a href="' + privacyHref() + '" class="vs-consent-link">' + copy.privacy + '</a></div>' +
-        '<div class="vs-consent-buttons">' +
-          '<button type="button" class="vs-consent-btn vs-consent-decline">' + copy.decline + '</button>' +
-          '<button type="button" class="vs-consent-btn vs-consent-accept">' + copy.accept + '</button>' +
-        '</div>' +
-      '</div>';
+    // Wire buttons via CLASS selectors (locale-agnostic — fixes the inline JS bug
+    // where uk/ru/es/pt have translated IDs that getElementById can't find)
+    var acceptBtn = banner.querySelector('.cookie-btn-primary');
+    var rejectBtn = banner.querySelector('.cookie-btn-secondary');
 
-    function dismiss(choice) {
-      setStoredConsent(choice);
-      applyConsent(choice);
-      track('consent_choice', { choice: choice });
-      bar.classList.add('vs-consent-hide');
-      setTimeout(function () { if (bar.parentNode) bar.remove(); }, 250);
+    if (acceptBtn && !acceptBtn._vsHooked) {
+      acceptBtn._vsHooked = true;
+      acceptBtn.addEventListener('click', function () {
+        setCookie(COOKIE_NAME, 'accepted');
+        applyConsent('granted');
+        track('consent_choice', { choice: 'granted' });
+        hideBanner(banner);
+      });
     }
-
-    bar.querySelector('.vs-consent-accept').addEventListener('click', function () { dismiss('granted'); });
-    bar.querySelector('.vs-consent-decline').addEventListener('click', function () { dismiss('denied'); });
-
-    document.body.appendChild(bar);
-  }
-
-  function injectStyles() {
-    var css =
-      '.vs-consent{position:fixed;bottom:16px;left:16px;right:16px;z-index:9999;' +
-        'background:#fff;color:#0a0a0f;border:1px solid rgba(10,10,15,0.08);' +
-        'border-radius:14px;padding:14px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);' +
-        'font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;' +
-        'font-size:13px;line-height:1.45;max-width:720px;margin:0 auto;' +
-        'animation:vsConsentIn .3s ease}' +
-      '@media (prefers-color-scheme:dark){' +
-        '.vs-consent{background:#14141a;color:#f5f5f7;border-color:rgba(255,255,255,0.1)}}' +
-      '.vs-consent-inner{display:flex;align-items:center;gap:14px;flex-wrap:wrap}' +
-      '.vs-consent-text{flex:1;min-width:240px}' +
-      '.vs-consent-link{color:inherit;text-decoration:underline;opacity:.7;margin-left:4px}' +
-      '.vs-consent-link:hover{opacity:1}' +
-      '.vs-consent-buttons{display:flex;gap:8px;flex-shrink:0}' +
-      '.vs-consent-btn{padding:8px 18px;border-radius:8px;border:1px solid currentColor;' +
-        'background:transparent;color:inherit;font:inherit;font-weight:600;cursor:pointer;' +
-        'transition:opacity .15s,transform .1s}' +
-      '.vs-consent-btn:hover{opacity:.7}' +
-      '.vs-consent-btn:active{transform:scale(.97)}' +
-      '.vs-consent-accept{background:#0064FF;color:#fff;border-color:#0064FF}' +
-      '.vs-consent-accept:hover{opacity:.9}' +
-      '.vs-consent-hide{opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s}' +
-      '@keyframes vsConsentIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}' +
-      '@media (max-width:520px){' +
-        '.vs-consent-buttons{width:100%}.vs-consent-btn{flex:1}}';
-
-    var s = document.createElement('style');
-    s.setAttribute('data-vs-consent', '');
-    s.textContent = css;
-    document.head.appendChild(s);
+    if (rejectBtn && !rejectBtn._vsHooked) {
+      rejectBtn._vsHooked = true;
+      rejectBtn.addEventListener('click', function () {
+        setCookie(COOKIE_NAME, 'rejected');
+        // stay denied
+        track('consent_choice', { choice: 'denied' });
+        hideBanner(banner);
+      });
+    }
   }
 
   // ============================================================
@@ -158,22 +120,28 @@
   // ============================================================
 
   function wireEvents() {
-    // Coming-soon store buttons (App Store / Google Play)
     document.addEventListener('click', function (e) {
       if (!e.target || !e.target.closest) return;
-      var btn = e.target.closest('.store-btn');
-      if (!btn) return;
-      var href = btn.getAttribute('href') || '';
-      var store = href.indexOf('apple.com') !== -1 ? 'ios' :
-                  href.indexOf('google.com') !== -1 ? 'android' : 'unknown';
-      track('coming_soon_click', { store: store });
-    });
 
-    // Interactive demo flow
-    document.addEventListener('click', function (e) {
-      if (!e.target || !e.target.closest) return;
+      // Coming-soon store buttons (App Store / Google Play)
+      var btn = e.target.closest('.store-btn');
+      if (btn) {
+        var href = btn.getAttribute('href') || '';
+        var store = href.indexOf('apple.com') !== -1 ? 'ios' :
+                    href.indexOf('google.com') !== -1 ? 'android' : 'unknown';
+        track('coming_soon_click', { store: store });
+      }
+
+      // Interactive demo flow
       if (e.target.closest('#demoNext1')) track('demo_started');
       if (e.target.closest('#demoNext2')) track('demo_completed');
+
+      // Generic data-track attribute on any element
+      var trackEl = e.target.closest('[data-track]');
+      if (trackEl) {
+        var name = trackEl.getAttribute('data-track');
+        if (name) track(name);
+      }
     });
 
     // Wrap language switcher to track choice
@@ -185,15 +153,6 @@
       };
       window._vsLangWrapped = true;
     }
-
-    // Pricing/CTA generic clicks (any button with data-track attribute)
-    document.addEventListener('click', function (e) {
-      if (!e.target || !e.target.closest) return;
-      var el = e.target.closest('[data-track]');
-      if (!el) return;
-      var name = el.getAttribute('data-track');
-      if (name) track(name);
-    });
   }
 
   // ============================================================
@@ -201,8 +160,7 @@
   // ============================================================
 
   function init() {
-    injectStyles();
-    injectBanner();
+    setupConsent();
     wireEvents();
   }
 
