@@ -29,7 +29,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@vetscan_app">
 <meta name="twitter:title" content="VetScan — Know when your dog needs a vet">
-<meta name="twitter:description" content="AI triage for new dog parents. 60-second symptom check, $9.99/mo.">
+<meta name="twitter:description" content="AI triage for new dog parents. 60-second symptom check, <span class="curr" data-key="vetscan-monthly">$9.99/mo</span>.">
 <meta name="twitter:image" content="https://vetscan.app/og-image.png">
 
 <!-- Resource hints — critical for LCP -->
@@ -3926,6 +3926,7 @@ body.page-hidden *::after {
   .cookie-btn { flex: 1; padding: 11px 12px; }
 }
 </style>
+<script src="currency.js" defer></script>
 </head>
 <body>
 
@@ -4447,7 +4448,7 @@ body.page-hidden *::after {
 
     <div class="problem-conclusion reveal">
       You spend an hour googling. Reddit gives 50 contradictory answers.<br>
-      You pay <strong>$400 just in case</strong> — or wait, worry, and feel guilty either way.
+      You pay <strong><span class="curr" data-key="er-visit-low">$400</span> just in case</strong> — or wait, worry, and feel guilty either way.
     </div>
   </div>
 </section>
@@ -4485,12 +4486,12 @@ body.page-hidden *::after {
         <div class="calc-stat">
           <div class="calc-stat-label">You spend in ER visits</div>
           <div class="calc-stat-value" id="calcSpend">$1,000<span class="calc-stat-unit">/year</span></div>
-          <div class="calc-stat-sub">avg. $500 per non-emergency vet ER visit</div>
+          <div class="calc-stat-sub">avg. <span class="curr" data-key="er-visit-mid">$500</span> per non-emergency vet ER visit</div>
         </div>
         <div class="calc-divider"></div>
         <div class="calc-stat">
           <div class="calc-stat-label">VetScan costs</div>
-          <div class="calc-stat-value calc-stat-vet">$99<span class="calc-stat-unit">/year</span></div>
+          <div class="calc-stat-value calc-stat-vet"><span class="curr" data-key="vetscan-yearly">$99</span><span class="calc-stat-unit">/year</span></div>
           <div class="calc-stat-sub">annual plan, post-beta</div>
         </div>
       </div>
@@ -4507,7 +4508,7 @@ body.page-hidden *::after {
       </div>
 
       <div class="calc-disclaimer">
-        Estimate only. Average US emergency vet visit cost: $500-$1,500 (American Animal Hospital Association, 2024). VetScan does not replace veterinary care.
+        Estimate only. Average <span class="curr" data-key="er-region-label">US</span> emergency vet visit cost: <span class="curr" data-key="er-visit-range">$500-$1,500</span> (<span class="curr" data-key="er-source-citation">American Animal Hospital Association, 2024</span>). VetScan does not replace veterinary care.
       </div>
     </div>
   </div>
@@ -4764,7 +4765,7 @@ body.page-hidden *::after {
           How much will it cost?
           <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </summary>
-        <div class="faq-body">$9.99/month after launch. Free during the entire beta period for everyone on the waitlist.</div>
+        <div class="faq-body"><span class="curr" data-key="vetscan-monthly-with-unit">$9.99/month</span> after launch. Free during the entire beta period for everyone on the waitlist.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-summary">
@@ -5074,14 +5075,24 @@ body.page-hidden *::after {
 
   if (!slider) return;
 
-  const ER_AVG = 500;       // avg ER visit cost
-  const VETSCAN_YEAR = 99;  // VetScan annual price
+  // Read currency values lazily — currency.js may load after this script
+  // (it's loaded with defer; inline IIFE may run first). Wrap accessor.
+  function getCur() {
+    return window.VetScanCurrency || {
+      erAvg: 500, yearPrice: 99, symbol: '$',
+      formatNumber: function (n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+    };
+  }
 
   function fmt(n) {
-    return '$' + n.toLocaleString('en-US');
+    return getCur().formatNumber(n);
   }
 
   function update() {
+    const cur = getCur();
+    const ER_AVG = cur.erAvg;
+    const VETSCAN_YEAR = cur.yearPrice;
+
     const visits = parseInt(slider.value, 10);
     const yearlySpend = visits * ER_AVG;
     const avoided = visits === 0 ? 1 : visits;
@@ -5107,7 +5118,20 @@ body.page-hidden *::after {
   }
 
   slider.addEventListener('input', update);
-  update();
+
+  // Initial render — wait for currency.js (loaded with defer) to be ready
+  // before computing first values, otherwise we'd render in fallback USD.
+  function initialRender() {
+    update();
+  }
+  if (window.VetScanCurrency) {
+    initialRender();
+  } else if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialRender);
+  } else {
+    // DOM ready but currency.js may still be queued; let microtask flush
+    setTimeout(initialRender, 0);
+  }
 })();
 
 // =========================================================
