@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0064FF">
-<title>Disclaimer — VetScan</title>
-<meta name="description" content="VetScan Medical and AI Disclaimer — important information about the limits of our service.">
+<title>Pricing — VetScan</title>
+<meta name="description" content="VetScan pricing — free during beta, $9.99/mo standard plan, free emergency mode for everyone.">
 <link rel="icon" type="image/svg+xml" href="vetscan-favicon-32.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin>
@@ -18,14 +18,15 @@
   --text-tertiary: #8E8E99;
   --accent: #0064FF;
   --accent-2: #7C5CFF;
-  --warning: #FF9500;
-  --danger: #FF3B30;
   --separator: rgba(10, 10, 15, 0.08);
   --surface: #F8F8FB;
   --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -36,105 +37,141 @@ body {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
+
+/* Header */
 .legal-header {
   border-bottom: 1px solid var(--separator);
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  position: sticky; top: 0; z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 .header-inner {
-  max-width: 800px; margin: 0 auto; padding: 16px 24px;
-  display: flex; align-items: center; justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .logo {
-  display: flex; align-items: center; gap: 10px;
-  text-decoration: none; color: var(--text-primary);
-  font-weight: 700; font-size: 17px; letter-spacing: -0.02em;
-}
-.logo-mark {
-  width: 32px; height: 32px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 100, 255, 0.25);
-  position: relative; overflow: hidden;
-}
-.logo-mark svg { width: 22px; height: 22px; }
-.logo-mark::before {
-  content: ''; position: absolute; inset: 0; border-radius: inherit;
-  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 70%);
-}
-.back-link {
-  font-size: 14px; color: var(--accent); text-decoration: none;
-  font-weight: 500;
-}
-.back-link:hover { text-decoration: underline; }
-.legal-article { max-width: 720px; margin: 0 auto; padding: 64px 24px 80px; }
-@media (max-width: 600px) { .legal-article { padding: 40px 20px 60px; } }
-.legal-eyebrow {
-  font-size: 13px; font-weight: 600; color: var(--accent);
-  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px;
-}
-h1 {
-  font-size: 42px; line-height: 1.15; letter-spacing: -0.025em;
-  font-weight: 800; margin-bottom: 12px;
-}
-@media (max-width: 600px) { h1 { font-size: 32px; } }
-.last-updated {
-  color: var(--text-tertiary); font-size: 14px; margin-bottom: 48px;
-  padding-bottom: 24px; border-bottom: 1px solid var(--separator);
-}
-h2 {
-  font-size: 24px; font-weight: 700; letter-spacing: -0.015em;
-  margin: 48px 0 16px; line-height: 1.3;
-}
-h2:first-of-type { margin-top: 0; }
-h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin: 28px 0 10px; }
-p { color: var(--text-secondary); margin-bottom: 16px; }
-a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-a:hover { color: var(--accent-2); }
-ul, ol { color: var(--text-secondary); margin: 0 0 16px 24px; }
-li { margin-bottom: 8px; }
-strong { color: var(--text-primary); font-weight: 600; }
-
-.alert-critical {
-  background: linear-gradient(135deg, #FFE5E0, #FFF0EC);
-  border: 2px solid #FF3B30;
-  border-radius: 16px;
-  padding: 24px;
-  margin: 32px 0;
-  box-shadow: 0 4px 16px rgba(255, 59, 48, 0.12);
-}
-.alert-critical-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
-  font-size: 17px;
+  text-decoration: none;
+  color: var(--text-primary);
   font-weight: 700;
-  color: var(--danger);
-  letter-spacing: -0.01em;
+  font-size: 17px;
+  letter-spacing: -0.02em;
 }
-.alert-critical-icon {
-  width: 28px; height: 28px;
-  background: var(--danger);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 100, 255, 0.25);
+  position: relative;
+  overflow: hidden;
 }
-.alert-critical p { color: #4A2A2A; margin-bottom: 10px; }
-.alert-critical p:last-child { margin-bottom: 0; }
-.alert-critical strong { color: #2A0A0A; }
+.logo-mark svg { width: 22px; height: 22px; }
+.logo-mark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 70%);
+}
+.back-link {
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.back-link:hover { text-decoration: underline; }
 
-.alert-warning {
-  background: #FFF8EB;
-  border-left: 4px solid var(--warning);
-  border-radius: 0 12px 12px 0;
-  padding: 18px 22px;
-  margin: 24px 0;
+/* Article container */
+.legal-article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
 }
-.alert-warning strong { display: block; margin-bottom: 4px; color: #6B3F00; }
-.alert-warning p { color: #4A3010; margin-bottom: 0; }
+
+@media (max-width: 600px) {
+  .legal-article { padding: 40px 20px 60px; }
+}
+
+/* Title */
+.legal-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+h1 {
+  font-size: 42px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+@media (max-width: 600px) { h1 { font-size: 32px; } }
+
+.last-updated {
+  color: var(--text-tertiary);
+  font-size: 14px;
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--separator);
+}
+
+/* Headings */
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 48px 0 16px;
+  line-height: 1.3;
+}
+h2:first-of-type { margin-top: 0; }
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 28px 0 10px;
+}
+
+p {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--accent-2); }
+
+ul, ol {
+  color: var(--text-secondary);
+  margin: 0 0 16px 24px;
+}
+li {
+  margin-bottom: 8px;
+}
+
+strong { color: var(--text-primary); font-weight: 600; }
 
 .callout {
   background: var(--surface);
@@ -146,11 +183,38 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 .callout strong { display: block; margin-bottom: 4px; }
 
-.legal-footer {
-  border-top: 1px solid var(--separator); padding: 32px 24px;
-  text-align: center; color: var(--text-tertiary); font-size: 13px; margin-top: 48px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
 }
-.legal-footer a { color: var(--text-tertiary); text-decoration: none; margin: 0 12px; }
+th, td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--separator);
+}
+th {
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--surface);
+}
+td { color: var(--text-secondary); }
+
+/* Footer */
+.legal-footer {
+  border-top: 1px solid var(--separator);
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 13px;
+  margin-top: 48px;
+}
+.legal-footer a {
+  color: var(--text-tertiary);
+  text-decoration: none;
+  margin: 0 12px;
+}
 .legal-footer a:hover { color: var(--accent); }
 
 
@@ -728,147 +792,91 @@ strong { color: var(--text-primary); font-weight: 600; }
 </div>
 
 <article class="legal-article">
-  <div class="legal-eyebrow">Important Information</div>
-  <h1>Medical &amp; AI Disclaimer</h1>
-  <p class="last-updated">Last updated: April 26, 2026</p>
+  <div class="legal-eyebrow">Pricing</div>
+  <h1>Simple, transparent pricing</h1>
+  <p class="last-updated">Free during beta. $9.99/month after launch. Always free for emergencies.</p>
 
-  <div class="alert-critical">
-    <div class="alert-critical-header">
-      <span class="alert-critical-icon">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="8" x2="12" y2="13"/>
-          <line x1="12" y1="17" x2="12.01" y2="17"/>
-        </svg>
-      </span>
-      In a Pet Emergency, Contact a Veterinarian Immediately
-    </div>
-    <p>If you believe your pet is experiencing a medical emergency, <strong>do not rely on VetScan</strong>. Contact your veterinarian, emergency animal hospital, or pet poison hotline immediately.</p>
-    <p><strong>ASPCA Animal Poison Control Center:</strong> +1 (888) 426-4435 (24/7, may charge a consultation fee)</p>
-    <p><strong>Pet Poison Helpline:</strong> +1 (855) 764-7661 (24/7, may charge a consultation fee)</p>
-  </div>
 
-  <h2>1. Not Veterinary Advice</h2>
-  <p>VetScan is an informational tool that uses artificial intelligence to provide general guidance about dog symptoms. <strong>It is not a licensed veterinarian and cannot diagnose, treat, cure, or prevent any disease or medical condition.</strong></p>
-  <p>Information provided by VetScan should never be used as a substitute for professional veterinary diagnosis, treatment, or advice. Always consult with a licensed veterinarian regarding any concerns about your pet's health.</p>
+  <h2>1. Beta is free</h2>
+  <p>During our private beta, all features are free. No credit card. No trial expiration. No surprise charges.</p>
+  <p>We email beta participants 30 days before the standard plan begins, with a clear "stay or leave" option.</p>
 
-  <h2>2. No Veterinarian-Client-Patient Relationship</h2>
-  <p>Use of VetScan does not create a veterinarian-client-patient relationship between you and VetScan, our staff, or any veterinarian who may have contributed to our content or AI training data.</p>
-  <p>A veterinarian-client-patient relationship can only be established through a direct, in-person examination of your pet by a licensed veterinarian.</p>
-
-  <h2>3. AI Limitations</h2>
-  <p>VetScan uses artificial intelligence, which has inherent limitations. You should be aware that:</p>
+  <h2>2. Standard plan (post-beta)</h2>
+  <p><strong>$9.99 per month</strong> &middot; or <strong>$99 per year</strong> (save 17%)</p>
+  <p>Includes:</p>
   <ul>
-    <li><strong>AI can make mistakes.</strong> The AI may produce incorrect, incomplete, or misleading information</li>
-    <li><strong>AI cannot examine your pet.</strong> Without physical examination, blood tests, X-rays, or other diagnostic tools, accurate diagnosis is impossible</li>
-    <li><strong>AI cannot detect all conditions.</strong> Many serious illnesses present with subtle or atypical symptoms</li>
-    <li><strong>AI is not a substitute for clinical judgment.</strong> Decisions about your pet's health require professional medical expertise</li>
-    <li><strong>AI training data has limits.</strong> The AI may be less reliable for rare conditions, unusual breeds, or unique cases</li>
+    <li>Unlimited AI triage assessments</li>
+    <li>Full symptom database (50,000+ patterns)</li>
+    <li>Personalized dog profile (breed, age, weight, history, vaccination tracking)</li>
+    <li>Photo journal with vet-shareable PDF export</li>
+    <li>24/7 access — no appointments, no waiting</li>
+    <li>Vet finder with reviews and 24-hour clinic filter</li>
+    <li>Vaccination and medication reminders</li>
+    <li>Emergency mode (free for everyone — see below)</li>
   </ul>
 
-  <h2>4. Triage Is Guidance, Not Diagnosis</h2>
-  <p>Our urgency scoring (e.g., "watch and wait", "see a vet within 48 hours", "emergency now") is general guidance based on common patterns in dog health. <strong>It is not a diagnosis</strong> and may not reflect the actual severity of your pet's condition.</p>
-  <p>When in doubt, always err on the side of caution and consult a licensed veterinarian.</p>
-
-  <div class="alert-warning">
-    <strong>Critical reminder</strong>
-    <p>If your pet's symptoms are severe, worsening rapidly, or involve breathing difficulty, seizures, severe bleeding, ingestion of toxins, severe trauma, inability to urinate, prolonged vomiting or diarrhea, or any other potentially life-threatening signs — go to an emergency animal hospital immediately, regardless of what VetScan says.</p>
-  </div>
-
-  <h2>5. No Guarantee of Accuracy</h2>
-  <p>While we strive to provide reliable information, we cannot guarantee that VetScan's output is accurate, complete, current, or applicable to your specific situation.</p>
-  <p>Health information is constantly evolving, and individual cases vary widely. Information that is accurate generally may not be appropriate for your specific pet.</p>
-
-  <h2>6. User Responsibility</h2>
-  <p>You are solely responsible for any decisions you make about your pet's health, including but not limited to:</p>
+  <h2>3. What's not included — and why we're upfront about it</h2>
+  <p>We are deliberately narrow. VetScan is a triage assistant, not a full veterinary platform. We do not offer:</p>
   <ul>
-    <li>Whether to seek veterinary care</li>
-    <li>How quickly to seek care</li>
-    <li>What treatment to pursue or decline</li>
-    <li>How to interpret symptoms or test results</li>
-    <li>Administration of medications, supplements, or home remedies</li>
+    <li><strong>Live vet chat</strong> — for that, we recommend Pawp ($24/mo) or Airvet ($40/visit)</li>
+    <li><strong>Pet insurance</strong> — separate product category; we don't sell it and don't take commissions</li>
+    <li><strong>Prescription medication</strong> — your vet handles this</li>
+    <li><strong>Food or supplement recommendations</strong> — too risky without your vet's input</li>
   </ul>
-  <p>By using VetScan, you assume full responsibility for these decisions and their outcomes.</p>
+  <p>If you need any of the above, we'll tell you directly inside the app, with links to legitimate alternatives.</p>
 
-  <h2>7. Not a Replacement for Routine Care</h2>
-  <p>VetScan is not a replacement for routine preventive veterinary care, including:</p>
+  <h2>4. Why $9.99</h2>
+  <p>We chose this price for two reasons:</p>
   <ul>
-    <li>Annual or biannual wellness exams</li>
-    <li>Vaccinations</li>
-    <li>Parasite prevention (heartworm, fleas, ticks)</li>
-    <li>Dental care</li>
-    <li>Spaying or neutering</li>
-    <li>Diagnostic testing</li>
+    <li><strong>One avoided ER visit pays for VetScan for 40 months.</strong> The average emergency vet visit in the US is $400-$1,500. If VetScan helps you confidently skip even one unnecessary trip, the math works for years.</li>
+    <li><strong>It's less than half a Starbucks per week.</strong> We want it to feel like a small, useful tool — not a luxury subscription.</li>
   </ul>
-  <p>Maintain a relationship with a licensed veterinarian who can provide comprehensive care for your pet.</p>
+  <p>We do not run ads, sell user data, or take commissions on referrals. The subscription is the entire business model.</p>
 
-  <h2>8. Geographic and Regulatory Limitations</h2>
-  <p>Veterinary practices, available treatments, drug regulations, and emergency resources vary by country and region. VetScan's general guidance may not reflect:</p>
+  <h2>5. Multi-dog households</h2>
+  <table>
+    <thead>
+      <tr><th>Plan</th><th>Price</th><th>Best for</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>First dog</td><td>$9.99 / month</td><td>Single-dog household</td></tr>
+      <tr><td>Each additional dog</td><td>$4.99 / month</td><td>2-3 dog households</td></tr>
+      <tr><td>Family plan (up to 4 dogs)</td><td>$19.99 / month</td><td>Multi-dog families, foster homes</td></tr>
+    </tbody>
+  </table>
+
+  <h2>6. Cancellation</h2>
   <ul>
-    <li>Local laws and regulations</li>
-    <li>Available emergency veterinary services in your area</li>
-    <li>Region-specific health concerns (e.g., endemic diseases, parasites)</li>
-    <li>Country-specific drug names, dosages, or availability</li>
+    <li>Cancel anytime, from your account settings</li>
+    <li>No "are you sure?" loops, no email confirmations required, no retention specialists</li>
+    <li>Cancellation takes effect at the end of the current billing cycle</li>
   </ul>
-  <p>Always verify information with local veterinary professionals.</p>
 
-  <h2>9. Photo and Image Analysis</h2>
-  <p>If VetScan offers image-based assessment (e.g., photos of skin conditions, eyes, or wounds), this analysis is general guidance only. Images cannot replace a hands-on examination by a veterinarian, who can assess factors like temperature, pain response, lymph node size, abdominal tenderness, and many other clinical signs invisible to a camera.</p>
-
-  <h2>10. Drug, Supplement, and Treatment Information</h2>
-  <p>Any information VetScan provides about medications, supplements, dosages, or home treatments is for educational purposes only. <strong>Never administer any medication or treatment to your pet without consulting a licensed veterinarian.</strong></p>
-  <p>Some human medications, foods, plants, and household items are toxic to dogs even in small amounts. Always verify safety with a veterinarian before use.</p>
-
-  <h2>11. Behavioral and Mental Health</h2>
-  <p>VetScan focuses on physical health. Behavioral concerns, anxiety, aggression, or other mental health issues require evaluation by a veterinarian, veterinary behaviorist, or certified animal behaviorist.</p>
-
-  <h2>12. Not Suitable for Other Animals</h2>
-  <p>VetScan is designed specifically for dogs. Do not apply VetScan output to:</p>
+  <h2>7. Refunds</h2>
   <ul>
-    <li>Cats</li>
-    <li>Birds</li>
-    <li>Rabbits, ferrets, hamsters, or other small mammals</li>
-    <li>Reptiles or amphibians</li>
-    <li>Livestock or large animals</li>
-    <li>Wildlife</li>
+    <li><strong>14-day money-back guarantee</strong> — no questions asked, full refund within 14 days of any purchase</li>
+    <li>After 14 days, contact <a href="mailto:hello@vetscan.app">hello@vetscan.app</a> for case-by-case review (we are reasonable)</li>
+    <li>Annual plans: pro-rated refund for unused full months within the first 60 days</li>
   </ul>
-  <p>Other species have substantially different physiology, symptoms, and treatments.</p>
 
-  <h2>13. Limitation of Liability</h2>
-  <p>VetScan and its operators, employees, contributors, and affiliates are not liable for any harm, injury, illness, death, or other adverse outcome to your pet or any other party arising from your use of or reliance on the Service.</p>
-  <p>By using VetScan, you waive any claim against us related to medical decisions or outcomes for your pet.</p>
-
-  <h2>14. Indemnification</h2>
-  <p>You agree to indemnify and hold VetScan harmless from any claims, damages, or expenses arising from decisions made about your pet's health based on Service output.</p>
-
-  <h2>15. Acknowledgment</h2>
-  <p>By using VetScan, you acknowledge that you have read, understood, and agree to this Disclaimer. You acknowledge the inherent limitations of AI-generated health information and accept responsibility for verifying any information through professional veterinary consultation.</p>
-
-  <h2>16. When to Seek Emergency Care</h2>
-  <p>Take your dog to an emergency veterinary hospital immediately if you observe any of the following:</p>
-  <ul>
-    <li>Difficulty breathing, gasping, or blue/pale gums</li>
-    <li>Loss of consciousness or unresponsiveness</li>
-    <li>Seizures lasting more than a few minutes or repeated seizures</li>
-    <li>Severe bleeding that won't stop with pressure</li>
-    <li>Suspected ingestion of toxic substances (chocolate, xylitol, antifreeze, medications, plants, etc.)</li>
-    <li>Severe trauma (hit by car, fall from height, attack by another animal)</li>
-    <li>Inability to urinate or defecate, especially with abdominal pain</li>
-    <li>Severe vomiting or diarrhea, especially with blood</li>
-    <li>Distended or hard abdomen</li>
-    <li>Signs of severe pain (whining, panting, restlessness, hiding)</li>
-    <li>Heat stroke (heavy panting, drooling, weakness, collapse)</li>
-    <li>Inability to walk or stand</li>
-    <li>Eye injuries</li>
-  </ul>
-  <p><strong>This list is not exhaustive.</strong> When in doubt, contact a veterinarian.</p>
-
-  <h2>17. Contact Us</h2>
-  <p>If you have questions about this Disclaimer, contact us:</p>
+  <h2>8. Free emergency mode — for everyone</h2>
   <div class="callout">
-    <strong>VetScan Support</strong>
-    Email: <a href="mailto:hello@vetscan.app">hello@vetscan.app</a><br>
-    Legal: <a href="mailto:legal@vetscan.app">legal@vetscan.app</a>
+    <strong>Always free, always available.</strong> When you're worried it's an emergency, the urgency-triage flow is free even on paused, expired, or never-paid accounts. Pet emergencies should never be gated by a paywall.
   </div>
+  <p>For immediate poison-control help, regardless of VetScan account status:</p>
+  <ul>
+    <li><strong>ASPCA Animal Poison Control Center:</strong> <a href="tel:18884264435">1-888-426-4435</a></li>
+    <li><strong>Pet Poison Helpline:</strong> <a href="tel:18557647661">1-855-764-7661</a></li>
+  </ul>
+
+  <h2>9. Frequently asked pricing questions</h2>
+  <p><strong>Will the price ever go up?</strong> If the price changes for new users, anyone already subscribed keeps their original price for as long as they remain subscribed continuously.</p>
+  <p><strong>Is there a free tier after beta?</strong> The emergency-triage flow stays free forever. The full app (history, photo journal, profiles, reminders, vet finder) requires the paid plan.</p>
+  <p><strong>Do you accept gift subscriptions?</strong> Not yet. Planned for late 2026.</p>
+  <p><strong>Discounts for vet techs, shelter staff, military, or students?</strong> Yes — 30% off with verification. Email <a href="mailto:hello@vetscan.app">hello@vetscan.app</a>.</p>
+
+  <h2>10. Questions</h2>
+  <p>Anything we didn't answer? <a href="mailto:hello@vetscan.app">hello@vetscan.app</a></p>
 
 </article>
 
