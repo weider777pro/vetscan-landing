@@ -2446,6 +2446,15 @@ footer {
   /* Reduce section padding */
   section { padding: 64px 0; }
 
+  /* Hero visual stacks: phone on top, dog mascot below — both centered.
+     Without this, .phone and .dog-stage become side-by-side flex items
+     on mobile and the phone gets pushed off-center. */
+  .hero-visual {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
   /* Smaller hero phone mockup on mobile */
   .phone {
     width: 240px;
@@ -3185,7 +3194,7 @@ body.page-hidden *::after {
           <span class="h1-word">vet</span>
           <span class="h1-word">—</span>
           <span class="h1-word">in</span>
-          <span class="h1-word h1-gradient">60 seconds.</span>
+          <span class="h1-word"><span class="h1-gradient">60 seconds.</span></span>
         </h1>
 
         <p class="hero-sub">
