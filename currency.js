@@ -164,43 +164,43 @@
       ARS:'AR$ 3.500/mes', KZT:'₸2.490/мес', UAH:'₴159/міс'
     },
     'founder-yearly': {
-      USD:'$69', GBP:'£59', EUR:'€69', CAD:'C$99', AUD:'A$109',
-      CLP:'$59.000', UYU:'$U 2.800', MXN:'MX$1.090',
-      BRL:'R$ 249', COP:'$159.000', PEN:'S/ 149',
-      ARS:'AR$ 35.000', KZT:'₸24.900', UAH:'₴1.590'
+      USD:'$59.99', GBP:'£49.99', EUR:'€59.99', CAD:'C$84.99', AUD:'A$94.99',
+      CLP:'$49.900', UYU:'$U 2.290', MXN:'MX$899',
+      BRL:'R$ 199', COP:'$129.900', PEN:'S/ 119',
+      ARS:'AR$ 29.900', KZT:'₸19.900', UAH:'₴1.290'
     },
     'founder-yearly-with-unit': {
-      USD:'$69/year', GBP:'£59/year', EUR:'€69/year',
-      CAD:'C$99/year', AUD:'A$109/year',
-      CLP:'$59.000/año', UYU:'$U 2.800/año', MXN:'MX$1.090/año',
-      BRL:'R$ 249/ano', COP:'$159.000/año', PEN:'S/ 149/año',
-      ARS:'AR$ 35.000/año', KZT:'₸24.900/год', UAH:'₴1.590/рік'
+      USD:'$59.99/year', GBP:'£49.99/year', EUR:'€59.99/year',
+      CAD:'C$84.99/year', AUD:'A$94.99/year',
+      CLP:'$49.900/año', UYU:'$U 2.290/año', MXN:'MX$899/año',
+      BRL:'R$ 199/ano', COP:'$129.900/año', PEN:'S/ 119/año',
+      ARS:'AR$ 29.900/año', KZT:'₸19.900/год', UAH:'₴1.290/рік'
     },
     'vetscan-monthly': {
-      USD:'$9.99', GBP:'£7.99', EUR:'€8.99', CAD:'C$13.99', AUD:'A$14.99',
-      CLP:'$9.990', UYU:'$U 400', MXN:'MX$179', BRL:'R$ 49,90',
-      COP:'$39.900', PEN:'S/ 36,90', ARS:'AR$ 11.700',
-      KZT:'₸4.990', UAH:'₴399'
+      USD:'$7.99', GBP:'£5.99', EUR:'€6.99', CAD:'C$9.99', AUD:'A$9.99',
+      CLP:'$7.990', UYU:'$U 320', MXN:'MX$139', BRL:'R$ 39,90',
+      COP:'$31.900', PEN:'S/ 28,90', ARS:'AR$ 8.990',
+      KZT:'₸3.990', UAH:'₴319'
     },
     'vetscan-monthly-with-unit': {
-      USD:'$9.99/month', GBP:'£7.99/month', EUR:'€8.99/month',
-      CAD:'C$13.99/month', AUD:'A$14.99/month',
-      CLP:'$9.990/mes', UYU:'$U 400/mes', MXN:'MX$179/mes',
-      BRL:'R$ 49,90/mês', COP:'$39.900/mes', PEN:'S/ 36,90/mes',
-      ARS:'AR$ 11.700/mes', KZT:'₸4.990/мес', UAH:'₴399/міс'
+      USD:'$7.99/month', GBP:'£5.99/month', EUR:'€6.99/month',
+      CAD:'C$9.99/month', AUD:'A$9.99/month',
+      CLP:'$7.990/mes', UYU:'$U 320/mes', MXN:'MX$139/mes',
+      BRL:'R$ 39,90/mês', COP:'$31.900/mes', PEN:'S/ 28,90/mes',
+      ARS:'AR$ 8.990/mes', KZT:'₸3.990/мес', UAH:'₴319/міс'
     },
     'vetscan-yearly': {
-      USD:'$99', GBP:'£79', EUR:'€89', CAD:'C$139', AUD:'A$149',
-      CLP:'$99.000', UYU:'$U 3.990', MXN:'MX$1.790',
-      BRL:'R$ 499', COP:'$399.000', PEN:'S/ 369',
-      ARS:'AR$ 117.000', KZT:'₸49.900', UAH:'₴3.999'
+      USD:'$89.99', GBP:'£69.99', EUR:'€79.99', CAD:'C$119.99', AUD:'A$129.99',
+      CLP:'$89.000', UYU:'$U 3.690', MXN:'MX$1.590',
+      BRL:'R$ 449', COP:'$359.000', PEN:'S/ 329',
+      ARS:'AR$ 104.900', KZT:'₸44.900', UAH:'₴3.690'
     },
     'vetscan-yearly-with-unit': {
-      USD:'$99/year', GBP:'£79/year', EUR:'€89/year',
-      CAD:'C$139/year', AUD:'A$149/year',
-      CLP:'$99.000/año', UYU:'$U 3.990/año', MXN:'MX$1.790/año',
-      BRL:'R$ 499/ano', COP:'$399.000/año', PEN:'S/ 369/año',
-      ARS:'AR$ 117.000/año', KZT:'₸49.900/год', UAH:'₴3.999/рік'
+      USD:'$89.99/year', GBP:'£69.99/year', EUR:'€79.99/year',
+      CAD:'C$119.99/year', AUD:'A$129.99/year',
+      CLP:'$89.000/año', UYU:'$U 3.690/año', MXN:'MX$1.590/año',
+      BRL:'R$ 449/ano', COP:'$359.000/año', PEN:'S/ 329/año',
+      ARS:'AR$ 104.900/año', KZT:'₸44.900/год', UAH:'₴3.690/рік'
     },
     'vetscan-additional-dog': {
       USD:'$4.99', GBP:'£3.99', EUR:'€4.49', CAD:'C$6.99', AUD:'A$7.99',
