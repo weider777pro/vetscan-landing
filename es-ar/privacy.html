@@ -25,6 +25,14 @@
    Ukrainian users with Russian-language OS should land on /uk/, not /ru/. */
 (function(){
   if (sessionStorage.getItem('vs_lang_chosen')) return;
+  /* Already on a localized path → don't redirect (prevents /uk/uk/ loop) */
+  var p = location.pathname;
+  if (p.indexOf('/uk/') === 0 || p.indexOf('/ru/') === 0 ||
+      p.indexOf('/es-mx/') === 0 || p.indexOf('/es-ar/') === 0 ||
+      p.indexOf('/pt-BR/') === 0) {
+    sessionStorage.setItem('vs_lang_chosen', '1');
+    return;
+  }
   var lang = (navigator.language || 'en').toLowerCase();
   var tz = '';
   try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
