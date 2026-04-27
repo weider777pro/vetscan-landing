@@ -6,24 +6,61 @@
 <meta name="theme-color" content="#0064FF">
 <title>Veterinary Advisors — VetScan</title>
 <script>
-/* Auto-redirect to localized version on first visit (sessionStorage-flagged) */
+/* Auto-redirect to localized version based on TIMEZONE first, language second.
+   Ukrainian users with Russian-language OS should land on /uk/, not /ru/. */
 (function(){
   if (sessionStorage.getItem('vs_lang_chosen')) return;
   var lang = (navigator.language || 'en').toLowerCase();
   var tz = '';
   try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
   var target = null;
-  if (lang.indexOf('es') === 0) {
-    if (tz.indexOf('America/Argentina/') === 0 ||
-        tz === 'America/Buenos_Aires' || tz === 'America/Catamarca' ||
-        tz === 'America/Cordoba' || tz === 'America/Mendoza' ||
-        tz === 'America/Rosario' || tz === 'America/Santiago' ||
-        tz === 'America/Punta_Arenas' || tz === 'Pacific/Easter' ||
-        tz === 'America/Montevideo') target = 'es-ar';
-    else target = 'es-mx';
-  } else if (lang.indexOf('pt') === 0) target = 'pt-BR';
-  else if (lang.indexOf('uk') === 0) target = 'uk';
-  else if (lang.indexOf('ru') === 0 || lang.indexOf('kk') === 0) target = 'ru';
+
+  /* PRIMARY: timezone-based geographic detection (overrides browser language) */
+  if (tz === 'Europe/Kyiv' || tz === 'Europe/Kiev' ||
+      tz === 'Europe/Uzhgorod' || tz === 'Europe/Zaporozhye' ||
+      tz === 'Europe/Simferopol') {
+    target = 'uk';  /* Ukraine — always Ukrainian, never Russian */
+  } else if (tz === 'Asia/Almaty' || tz === 'Asia/Aqtau' || tz === 'Asia/Aqtobe' ||
+             tz === 'Asia/Atyrau' || tz === 'Asia/Oral' || tz === 'Asia/Qostanay' ||
+             tz === 'Asia/Qyzylorda') {
+    target = 'ru';  /* Kazakhstan — Russian language */
+  } else if (tz.indexOf('America/Argentina/') === 0 ||
+             tz === 'America/Buenos_Aires' || tz === 'America/Catamarca' ||
+             tz === 'America/Cordoba' || tz === 'America/Mendoza' ||
+             tz === 'America/Rosario' || tz === 'America/Santiago' ||
+             tz === 'America/Punta_Arenas' || tz === 'Pacific/Easter' ||
+             tz === 'America/Montevideo') {
+    target = 'es-ar';  /* Argentina, Chile, Uruguay — Rioplatense */
+  } else if (tz === 'America/Mexico_City' || tz === 'America/Cancun' ||
+             tz === 'America/Merida' || tz === 'America/Monterrey' ||
+             tz === 'America/Mazatlan' || tz === 'America/Chihuahua' ||
+             tz === 'America/Hermosillo' || tz === 'America/Tijuana' ||
+             tz === 'America/Bahia_Banderas' || tz === 'America/Matamoros' ||
+             tz === 'America/Ojinaga' || tz === 'America/Bogota' ||
+             tz === 'America/Lima') {
+    target = 'es-mx';  /* Mexico, Colombia, Peru — neutral LATAM Spanish */
+  } else if (tz === 'America/Sao_Paulo' || tz === 'America/Bahia' ||
+             tz === 'America/Fortaleza' || tz === 'America/Recife' ||
+             tz === 'America/Manaus' || tz === 'America/Cuiaba' ||
+             tz === 'America/Campo_Grande' || tz === 'America/Belem' ||
+             tz === 'America/Boa_Vista' || tz === 'America/Eirunepe' ||
+             tz === 'America/Araguaina' || tz === 'America/Maceio' ||
+             tz === 'America/Noronha' || tz === 'America/Porto_Velho' ||
+             tz === 'America/Rio_Branco' || tz === 'America/Santarem') {
+    target = 'pt-BR';  /* Brazil */
+  }
+
+  /* FALLBACK: language-based detection ONLY if timezone gave no signal
+     (e.g., user is outside our 9 target countries) */
+  if (target === null) {
+    if (lang.indexOf('es') === 0) target = 'es-mx';  /* default Spanish to Mexican */
+    else if (lang.indexOf('pt') === 0) target = 'pt-BR';
+    else if (lang.indexOf('uk') === 0) target = 'uk';
+    /* NOTE: 'ru' alone (no Kazakhstan tz) is ambiguous — could be Russia, Belarus,
+       Ukraine with RU OS, etc. We do NOT redirect to /ru/ on language alone
+       because /ru/ is specifically for Kazakhstan, not for general Russian speakers. */
+  }
+
   if (target) {
     sessionStorage.setItem('vs_lang_chosen', '1');
     var path = window.location.pathname.replace(/^\//, '');
@@ -33,7 +70,7 @@
 })();
 </script>
 <meta name="description" content="Our veterinary advisory board, their roles, our recruitment standards, and how to apply.">
-<link rel="icon" type="image/svg+xml" href="vetscan-favicon-32.svg">
+<link rel="icon" type="image/svg+xml" href="/vetscan-favicon-32.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin>
 
@@ -721,7 +758,7 @@ td { color: var(--text-secondary); }
 }
 
 </style>
-<script src="currency.js" defer></script>
+<script src="/currency.js" defer></script>
 <style>
 
 /* === FOOTER LANGUAGE SWITCHER === */
