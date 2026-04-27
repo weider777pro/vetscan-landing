@@ -67,6 +67,10 @@
     // Don't redirect if user manually chose a language this session
     if (sessionStorage.getItem('vs_lang_chosen')) return;
 
+    // Don't redirect if middleware already set the cookie on a previous visit
+    // (server-side edge redirect handles first-visit; this is just fallback)
+    if (/(?:^|;\s*)vs_lang_chosen=1(?:;|$)/.test(document.cookie)) return;
+
     var target = detectTargetLang();
     if (target === 'en') return;
 

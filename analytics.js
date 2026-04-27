@@ -24,6 +24,28 @@
   }
   var LOCALE = detectLocale();
 
+  // ============================================================
+  // LEGAL REVIEW STATUS — auto-hide translation disclaimer banner
+  // ============================================================
+  // After a local lawyer signs off on the translated legal pages
+  // (privacy/terms/disclaimer/cookies/security/accessibility) for a given
+  // locale, add the locale code to this list. The yellow translation banner
+  // on Tier 3 legal pages will automatically be hidden for that locale.
+  //
+  // See docs/LEGAL_REVIEW.md for the per-jurisdiction sign-off checklist.
+  //
+  // Example after Brazilian lawyer approval:
+  //   var LEGAL_REVIEWED_LOCALES = ['pt-BR'];
+  //
+  // (en is implicitly the source-of-truth and never has the banner.)
+  var LEGAL_REVIEWED_LOCALES = [];
+
+  function hideTranslationBannerIfReviewed() {
+    if (LEGAL_REVIEWED_LOCALES.indexOf(LOCALE) === -1) return;
+    var banner = document.querySelector('[aria-label="Translation disclaimer"]');
+    if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
+  }
+
   // ----- Track helper -----
   function track(name, params) {
     if (typeof gtag === 'function') {
@@ -74,21 +96,115 @@
     setTimeout(function () { banner.style.display = 'none'; }, 400);
   }
 
-  function setupConsent() {
-    var banner = document.getElementById('cookieBanner');
+  // ----- Localized banner strings -----
+  var BANNER_STRINGS = {
+    'en':    { title: 'We use cookies',         body: 'For analytics and to improve your experience. See our ', link: 'Cookie Policy', accept: 'Accept', reject: 'Reject', aria: 'Cookie consent' },
+    'uk':    { title: 'Ми використовуємо cookies', body: 'Для аналітики та покращення досвіду. Дивіться нашу ',  link: 'Політику cookies', accept: 'Прийняти', reject: 'Відхилити', aria: 'Згода на cookies' },
+    'ru':    { title: 'Мы используем cookies',  body: 'Для аналитики и улучшения опыта. Смотрите нашу ',         link: 'Политику cookies', accept: 'Принять', reject: 'Отклонить', aria: 'Согласие на cookies' },
+    'es-mx': { title: 'Usamos cookies',         body: 'Para análisis y mejorar tu experiencia. Ver nuestra ',    link: 'Política de cookies', accept: 'Aceptar', reject: 'Rechazar', aria: 'Consentimiento de cookies' },
+    'es-ar': { title: 'Usamos cookies',         body: 'Para análisis y mejorar tu experiencia. Mirá nuestra ',   link: 'Política de cookies', accept: 'Aceptar', reject: 'Rechazar', aria: 'Consentimiento de cookies' },
+    'pt-BR': { title: 'Usamos cookies',         body: 'Para análises e melhorar sua experiência. Veja nossa ',   link: 'Política de cookies', accept: 'Aceitar', reject: 'Rejeitar', aria: 'Consentimento de cookies' }
+  };
 
+  function cookiesPolicyHref() {
+    return LOCALE === 'en' ? '/cookies.html' : '/' + LOCALE + '/cookies.html';
+  }
+
+  // Inject cookie banner DOM + inline CSS on pages that don't already have one.
+  // CSS is inlined to avoid depending on per-page <style> blocks.
+  function injectBanner() {
+    if (document.getElementById('cookieBanner')) return null; // already exists (e.g. index.html)
+    var s = BANNER_STRINGS[LOCALE] || BANNER_STRINGS.en;
+
+    // Inject styles once
+    if (!document.getElementById('vsCookieBannerCSS')) {
+      var style = document.createElement('style');
+      style.id = 'vsCookieBannerCSS';
+      style.textContent =
+        '.vs-cookie-banner{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120%);' +
+        'max-width:640px;width:calc(100% - 32px);background:#fff;border:1px solid rgba(10,10,15,0.08);' +
+        'border-radius:14px;box-shadow:0 16px 48px rgba(10,10,15,0.18);padding:18px 20px;display:flex;' +
+        'gap:14px;align-items:center;z-index:9999;font-family:inherit;color:#0a0a0f;transition:transform .35s ease;}' +
+        '.vs-cookie-banner.visible{transform:translateX(-50%) translateY(0);}' +
+        '.vs-cookie-banner .vs-cookie-icon{font-size:28px;flex-shrink:0;}' +
+        '.vs-cookie-banner .vs-cookie-text{flex:1;font-size:0.92rem;line-height:1.45;}' +
+        '.vs-cookie-banner .vs-cookie-text strong{display:block;margin-bottom:2px;font-size:0.95rem;}' +
+        '.vs-cookie-banner .vs-cookie-text a{color:#0a0a0f;text-decoration:underline;}' +
+        '.vs-cookie-banner .vs-cookie-buttons{display:flex;gap:8px;flex-shrink:0;}' +
+        '.vs-cookie-banner .cookie-btn{padding:9px 18px;border-radius:10px;border:0;cursor:pointer;' +
+        'font:inherit;font-weight:600;font-size:0.88rem;transition:opacity .2s,transform .2s,background .2s;}' +
+        '.vs-cookie-banner .cookie-btn-secondary{background:transparent;color:#0a0a0f;}' +
+        '.vs-cookie-banner .cookie-btn-secondary:hover{background:rgba(10,10,15,0.08);}' +
+        '.vs-cookie-banner .cookie-btn-primary{background:#0a0a0f;color:#fff;}' +
+        '.vs-cookie-banner .cookie-btn-primary:hover{transform:translateY(-1px);opacity:0.92;}' +
+        '@media (max-width:600px){.vs-cookie-banner{flex-direction:column;align-items:stretch;gap:10px;padding:14px 16px;bottom:12px;}' +
+        '.vs-cookie-banner .vs-cookie-buttons{justify-content:flex-end;}.vs-cookie-banner .cookie-btn{flex:1;padding:11px 12px;}}';
+      document.head.appendChild(style);
+    }
+
+    // Build banner DOM (use textContent for user-visible strings → no XSS surface even though strings are static)
+    var banner = document.createElement('div');
+    banner.className = 'vs-cookie-banner cookie-banner';
+    banner.id = 'cookieBanner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-label', s.aria);
+
+    var icon = document.createElement('div');
+    icon.className = 'vs-cookie-icon';
+    icon.textContent = '🍪';
+
+    var text = document.createElement('div');
+    text.className = 'vs-cookie-text';
+    var strong = document.createElement('strong');
+    strong.textContent = s.title;
+    text.appendChild(strong);
+    text.appendChild(document.createTextNode(s.body));
+    var a = document.createElement('a');
+    a.href = cookiesPolicyHref();
+    a.textContent = s.link;
+    text.appendChild(a);
+    text.appendChild(document.createTextNode('.'));
+
+    var buttons = document.createElement('div');
+    buttons.className = 'vs-cookie-buttons';
+    var rejectBtn = document.createElement('button');
+    rejectBtn.className = 'cookie-btn cookie-btn-secondary';
+    rejectBtn.type = 'button';
+    rejectBtn.textContent = s.reject;
+    var acceptBtn = document.createElement('button');
+    acceptBtn.className = 'cookie-btn cookie-btn-primary';
+    acceptBtn.type = 'button';
+    acceptBtn.textContent = s.accept;
+    buttons.appendChild(rejectBtn);
+    buttons.appendChild(acceptBtn);
+
+    banner.appendChild(icon);
+    banner.appendChild(text);
+    banner.appendChild(buttons);
+    document.body.appendChild(banner);
+
+    // Fade in next tick
+    requestAnimationFrame(function () { banner.classList.add('visible'); });
+    return banner;
+  }
+
+  function setupConsent() {
     // Apply stored choice on every page load (gtag default is 'denied' from <head>)
     var existing = getCookie(COOKIE_NAME);
     if (existing === 'accepted') applyConsent('granted');
     // 'rejected' or null → stay at default denied
 
-    if (!banner) return;
+    var banner = document.getElementById('cookieBanner');
 
-    // If choice already made, hide banner defensively (inline JS already does this on EN)
+    // If consent already given/denied, no banner needed at all on any page
     if (existing) {
-      banner.style.display = 'none';
+      if (banner) banner.style.display = 'none';
       return;
     }
+
+    // No prior choice → ensure banner exists on this page (inject if missing)
+    if (!banner) banner = injectBanner();
+    if (!banner) return;
 
     // Wire buttons via CLASS selectors (locale-agnostic — fixes the inline JS bug
     // where uk/ru/es/pt have translated IDs that getElementById can't find)
@@ -162,6 +278,7 @@
   function init() {
     setupConsent();
     wireEvents();
+    hideTranslationBannerIfReviewed();
   }
 
   if (document.readyState === 'loading') {
