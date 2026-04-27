@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Home -->
+  <url>
+    <loc>https://vetscan.app/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vetscan.app/"/>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://vetscan.app/es-mx/"/>
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vetscan.app/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Spanish (Mexico) -->
+  <url><loc>https://vetscan.app/es-mx/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <!-- Spanish (Argentina) -->
+  <url><loc>https://vetscan.app/es-ar/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <!-- Portuguese (Brazil) -->
+  <url><loc>https://vetscan.app/pt-BR/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <!-- Ukrainian -->
+  <url><loc>https://vetscan.app/uk/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <!-- Russian (for Kazakhstan) -->
+  <url><loc>https://vetscan.app/ru/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+
+  <!-- Sub-pages (English originals — primary) -->
+  <url><loc>https://vetscan.app/about.html</loc><priority>0.8</priority></url>
+  <url><loc>https://vetscan.app/how-it-works.html</loc><priority>0.8</priority></url>
+  <url><loc>https://vetscan.app/pricing.html</loc><priority>0.9</priority></url>
+  <url><loc>https://vetscan.app/faq.html</loc><priority>0.7</priority></url>
+  <url><loc>https://vetscan.app/compare.html</loc><priority>0.7</priority></url>
+  <url><loc>https://vetscan.app/methodology.html</loc><priority>0.6</priority></url>
+  <url><loc>https://vetscan.app/veterinary-advisors.html</loc><priority>0.6</priority></url>
+  <url><loc>https://vetscan.app/privacy.html</loc><priority>0.4</priority></url>
+  <url><loc>https://vetscan.app/terms.html</loc><priority>0.4</priority></url>
+  <url><loc>https://vetscan.app/disclaimer.html</loc><priority>0.4</priority></url>
+  <url><loc>https://vetscan.app/cookies.html</loc><priority>0.3</priority></url>
+  <url><loc>https://vetscan.app/security.html</loc><priority>0.4</priority></url>
+  <url><loc>https://vetscan.app/accessibility.html</loc><priority>0.4</priority></url>
+
+</urlset>

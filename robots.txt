@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap with all language alternates
+Sitemap: https://vetscan.app/sitemap.xml

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0064FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0A0F" media="(prefers-color-scheme: dark)">
+<title>Política de cookies</title>
+<meta name="description" content="Assistente veterinário com IA para novos donos de cães. Descreva um sintoma, receba uma pontuação de urgência instantânea. Construído com veterinários.">
+<link rel="icon" type="image/svg+xml" href="/vetscan-favicon-32.svg">
+<link rel="canonical" href="https://vetscan.app/cookies.html">
+<link rel="alternate" hreflang="en" href="https://vetscan.app/cookies.html">
+<link rel="alternate" hreflang="es-MX" href="https://vetscan.app/es-mx/cookies.html">
+<link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/cookies.html">
+<link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/cookies.html">
+<link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/cookies.html">
+<link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/cookies.html">
+<link rel="alternate" hreflang="x-default" href="https://vetscan.app/cookies.html">
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin></noscript>
+<style>
+:root {
+  --bg: #FFFFFF; --fg: #0A0A0F; --muted: #6B6B72; --accent: #0064FF;
+  --border: rgba(10,10,15,0.08); --card: #FAFAFA;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A0A0F; --fg: #F5F5F7; --muted: #9B9BA0; --accent: #4D9FFF;
+    --border: rgba(255,255,255,0.1); --card: #14141A;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--fg); font-family: 'Pretendard',
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased; line-height: 1.55; }
+.container { max-width: 720px; margin: 0 auto; padding: 24px 20px; }
+nav.top { display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 20px; border-bottom: 1px solid var(--border); }
+nav.top a.brand { font-weight: 700; font-size: 18px; color: var(--fg);
+  text-decoration: none; letter-spacing: -0.02em; }
+nav.top .lang-switcher { position: relative; }
+nav.top .lang-current { display: flex; align-items: center; gap: 6px;
+  background: transparent; border: 1px solid var(--border); padding: 6px 12px;
+  border-radius: 999px; cursor: pointer; font-size: 13px; color: var(--fg); }
+nav.top .lang-menu { position: absolute; top: 100%; right: 0; margin-top: 6px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 6px; min-width: 180px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  display: none; z-index: 100; }
+nav.top .lang-menu.open { display: block; }
+nav.top .lang-menu button { display: block; width: 100%; text-align: left;
+  padding: 8px 12px; border: 0; background: transparent; cursor: pointer;
+  border-radius: 8px; font-size: 14px; color: var(--fg); }
+nav.top .lang-menu button:hover { background: var(--border); }
+nav.top .lang-menu button.active { background: var(--accent); color: white; }
+.hero { text-align: center; padding: 80px 20px; }
+.hero h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: 16px; line-height: 1.2; }
+.hero p { font-size: 17px; color: var(--muted); max-width: 540px;
+  margin: 0 auto 32px; }
+.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary { background: var(--accent); color: white; padding: 14px 28px;
+  border-radius: 999px; font-weight: 600; text-decoration: none; font-size: 15px;
+  border: none; cursor: pointer; }
+.btn-secondary { background: transparent; color: var(--fg);
+  border: 1px solid var(--border); padding: 14px 28px; border-radius: 999px;
+  font-weight: 500; text-decoration: none; font-size: 15px; }
+footer { border-top: 1px solid var(--border); padding: 40px 20px; text-align: center;
+  color: var(--muted); font-size: 13px; margin-top: 60px; }
+footer a { color: var(--muted); text-decoration: none; margin: 0 8px; }
+footer a:hover { color: var(--fg); }
+</style>
+<style>
+
+/* === FOOTER LANGUAGE SWITCHER === */
+.footer-lang-switcher {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 6px;
+  justify-content: center; margin: 24px 0 16px;
+  padding: 16px 0; font-size: 13px;
+  border-top: 1px solid var(--border, rgba(10,10,15,0.08));
+}
+.footer-lang-switcher .footer-lang-label {
+  font-weight: 600; opacity: 0.7; margin-right: 4px;
+}
+.footer-lang-switcher a {
+  color: inherit; text-decoration: none; opacity: 0.7;
+  padding: 2px 4px; transition: opacity 0.15s;
+}
+.footer-lang-switcher a:hover { opacity: 1; text-decoration: underline; }
+.footer-lang-switcher .footer-lang-current {
+  font-weight: 600; opacity: 1;
+}
+.footer-lang-switcher .footer-lang-sep {
+  opacity: 0.3; user-select: none;
+}
+@media (max-width: 640px) {
+  .footer-lang-switcher { font-size: 12px; }
+  .footer-lang-switcher .footer-lang-label { width: 100%; text-align: center; margin-bottom: 4px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="/pt-BR/" class="brand">VetScan</a>
+  <div class="lang-switcher">
+    <button class="lang-current" onclick="document.getElementById('langMenu').classList.toggle('open')" aria-label="Language" aria-haspopup="true">
+      <span>🌐</span> <span>Português (Brasil)</span> <span>▾</span>
+    </button>
+    <div class="lang-menu" id="langMenu">
+      <button onclick="VetScanSwitchLang('en')">English</button>
+      <button onclick="VetScanSwitchLang('es-mx')">Español (México)</button>
+      <button onclick="VetScanSwitchLang('es-ar')">Español (Argentina)</button>
+      <button onclick="VetScanSwitchLang('pt-BR')">Português (Brasil)</button>
+      <button onclick="VetScanSwitchLang('uk')">Українська</button>
+      <button onclick="VetScanSwitchLang('ru')">Русский</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Política de cookies</h1>
+  <p>Esta página está sendo traduzida.</p>
+  <p style="font-size: 14px; opacity: 0.8; max-width: 480px; margin: 0 auto 32px;">Pedimos desculpas pelo inconveniente. A tradução completa será publicada em breve. Por enquanto, você pode ver esta página em inglês.</p>
+  <div class="cta-row">
+    <a href="/cookies.html" class="btn-primary">Ver em inglês →</a>
+    <a href="/pt-BR/" class="btn-secondary">Voltar ao início</a>
+  </div>
+</section>
+
+<footer>
+  <div style="margin-bottom: 12px;">
+    <a href="/pt-BR/">VetScan</a> ·
+    <a href="/pt-BR/about.html">Sobre</a> ·
+    <a href="/pt-BR/pricing.html">Preços</a> ·
+    <a href="/pt-BR/privacy.html">Política de privacidade</a> ·
+    <a href="/pt-BR/terms.html">Termos de uso</a>
+  </div>
+  
+<div class="footer-lang-switcher" style="margin-bottom: 16px; font-size: 13px; color: var(--muted);">
+  <span style="margin-right: 8px;">🌐 Idioma:</span>
+  <a href="/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('en');}">English</a><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><span class="footer-lang-current" aria-current="true">Português (Brasil)</span><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a>
+</div>
+  <div>© 2026 VetScan. Todos os direitos reservados.</div>
+</footer>
+
+<script src="/i18n.js"></script>
+</body>
+</html>

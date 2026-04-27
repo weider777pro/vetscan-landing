@@ -5,6 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0064FF">
 <title>FAQ — VetScan</title>
+<script>
+/* Auto-redirect to localized version on first visit (sessionStorage-flagged) */
+(function(){
+  if (sessionStorage.getItem('vs_lang_chosen')) return;
+  var lang = (navigator.language || 'en').toLowerCase();
+  var tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
+  var target = null;
+  if (lang.indexOf('es') === 0) {
+    if (tz.indexOf('America/Argentina/') === 0 ||
+        tz === 'America/Buenos_Aires' || tz === 'America/Catamarca' ||
+        tz === 'America/Cordoba' || tz === 'America/Mendoza' ||
+        tz === 'America/Rosario' || tz === 'America/Santiago' ||
+        tz === 'America/Punta_Arenas' || tz === 'Pacific/Easter' ||
+        tz === 'America/Montevideo') target = 'es-ar';
+    else target = 'es-mx';
+  } else if (lang.indexOf('pt') === 0) target = 'pt-BR';
+  else if (lang.indexOf('uk') === 0) target = 'uk';
+  else if (lang.indexOf('ru') === 0 || lang.indexOf('kk') === 0) target = 'ru';
+  if (target) {
+    sessionStorage.setItem('vs_lang_chosen', '1');
+    var path = window.location.pathname.replace(/^\//, '');
+    if (!path || path === 'index.html') path = '';
+    window.location.replace('/' + target + '/' + path + window.location.search);
+  }
+})();
+</script>
 <meta name="description" content="Frequently asked questions about VetScan — product, privacy, AI accuracy, pricing, and veterinary care.">
 <link rel="icon" type="image/svg+xml" href="vetscan-favicon-32.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -729,6 +756,35 @@ strong { color: var(--text-primary); }
 
 </style>
 <script src="currency.js" defer></script>
+<style>
+
+/* === FOOTER LANGUAGE SWITCHER === */
+.footer-lang-switcher {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 6px;
+  justify-content: center; margin: 24px 0 16px;
+  padding: 16px 0; font-size: 13px;
+  border-top: 1px solid var(--border, rgba(10,10,15,0.08));
+}
+.footer-lang-switcher .footer-lang-label {
+  font-weight: 600; opacity: 0.7; margin-right: 4px;
+}
+.footer-lang-switcher a {
+  color: inherit; text-decoration: none; opacity: 0.7;
+  padding: 2px 4px; transition: opacity 0.15s;
+}
+.footer-lang-switcher a:hover { opacity: 1; text-decoration: underline; }
+.footer-lang-switcher .footer-lang-current {
+  font-weight: 600; opacity: 1;
+}
+.footer-lang-switcher .footer-lang-sep {
+  opacity: 0.3; user-select: none;
+}
+@media (max-width: 640px) {
+  .footer-lang-switcher { font-size: 12px; }
+  .footer-lang-switcher .footer-lang-label { width: 100%; text-align: center; margin-bottom: 4px; }
+}
+
+</style>
 </head>
 <body>
 
@@ -1267,6 +1323,11 @@ strong { color: var(--text-primary); }
         </a>
       </div>
     </div>
+    
+<div class="footer-lang-switcher">
+  <span class="footer-lang-label">🌐 Language:</span>
+  <span class="footer-lang-current" aria-current="true">English</span><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a>
+</div>
     <div class="footer-legal">
       <a href="how-it-works.html">How It Works</a>
       <span class="footer-legal-sep">·</span>

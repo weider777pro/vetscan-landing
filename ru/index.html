@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0064FF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0A0F" media="(prefers-color-scheme: dark)">
+<title>VetScan — Узнайте, нужен ли вашей собаке ветеринар, за 60 секунд</title>
+<meta name="description" content="AI-помощник ветеринара для новых владельцев собак. Опишите симптом — получите оценку срочности за секунды.">
+
+<meta property="og:title" content="VetScan — Знайте, когда вашей собаке нужен ветеринар">
+<meta property="og:description" content="AI-помощник ветеринара для новых владельцев собак. Опишите симптом — получите оценку срочности за секунды.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vetscan.app/ru/">
+<meta property="og:image" content="https://vetscan.app/og-image.png">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VetScan — Знайте, когда вашей собаке нужен ветеринар">
+<meta name="twitter:description" content="AI-помощник ветеринара для новых владельцев собак. Опишите симптом — получите оценку срочности за секунды.">
+<meta name="twitter:image" content="https://vetscan.app/og-image.png">
+
+<link rel="canonical" href="https://vetscan.app/ru/">
+<link rel="alternate" hreflang="en" href="https://vetscan.app/">
+<link rel="alternate" hreflang="es-MX" href="https://vetscan.app/es-mx/">
+<link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/">
+<link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/">
+<link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/">
+<link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/">
+<link rel="alternate" hreflang="x-default" href="https://vetscan.app/">
+
+<link rel="icon" type="image/svg+xml" href="/vetscan-favicon-32.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin></noscript>
+
+<style>
+:root {
+  --bg: #FFFFFF; --fg: #0A0A0F; --muted: #6B6B72;
+  --accent: #0064FF; --accent-2: #B6F500; --accent-3: #FF3B30;
+  --border: rgba(10,10,15,0.08); --card: #FAFAFA; --card-2: #F0F4F8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A0A0F; --fg: #F5F5F7; --muted: #9B9BA0;
+    --accent: #4D9FFF; --accent-2: #B6F500; --accent-3: #FF6961;
+    --border: rgba(255,255,255,0.1); --card: #14141A; --card-2: #1C1C24;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--bg); color: var(--fg);
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased; line-height: 1.55;
+  font-feature-settings: 'cv11', 'ss01', 'kern';
+}
+img { max-width: 100%; }
+
+/* Top nav */
+nav.top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 24px; max-width: 1200px; margin: 0 auto;
+  position: sticky; top: 0; background: var(--bg); z-index: 100;
+  backdrop-filter: saturate(180%) blur(20px);
+}
+nav.top a.brand {
+  font-weight: 700; font-size: 19px; color: var(--fg);
+  text-decoration: none; letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 6px;
+}
+nav.top a.brand .vs-dot {
+  width: 10px; height: 10px; background: var(--accent-2);
+  border-radius: 50%; box-shadow: 0 0 0 4px rgba(182,245,0,0.2);
+}
+nav.top .nav-links { display: flex; gap: 28px; align-items: center; }
+nav.top .nav-links a {
+  color: var(--muted); text-decoration: none; font-size: 14px;
+  font-weight: 500; transition: color 0.15s;
+}
+nav.top .nav-links a:hover { color: var(--fg); }
+nav.top .nav-cta {
+  background: var(--accent); color: white !important;
+  padding: 10px 18px; border-radius: 999px; font-size: 14px;
+  font-weight: 600; transition: transform 0.15s;
+}
+nav.top .nav-cta:hover { transform: scale(1.04); }
+.lang-switcher { position: relative; }
+.lang-current {
+  display: flex; align-items: center; gap: 6px;
+  background: transparent; border: 1px solid var(--border);
+  padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  font-size: 13px; color: var(--fg); font-weight: 500;
+}
+.lang-menu {
+  position: absolute; top: 100%; right: 0; margin-top: 6px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 6px; min-width: 200px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12); display: none; z-index: 110;
+}
+.lang-menu.open { display: block; }
+.lang-menu button {
+  display: block; width: 100%; text-align: left; padding: 9px 14px;
+  border: 0; background: transparent; cursor: pointer;
+  border-radius: 8px; font-size: 14px; color: var(--fg);
+}
+.lang-menu button:hover { background: var(--border); }
+.lang-menu button.active { background: var(--accent); color: white; }
+@media (max-width: 720px) {
+  nav.top .nav-links a:not(.nav-cta) { display: none; }
+}
+
+/* Hero */
+.hero {
+  max-width: 1200px; margin: 0 auto; padding: 80px 24px 100px;
+  text-align: center;
+}
+.hero .badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--card); border: 1px solid var(--border);
+  padding: 8px 16px; border-radius: 999px; font-size: 13px;
+  color: var(--muted); margin-bottom: 32px;
+}
+.hero .badge .pulse {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent-3);
+  animation: pulse 1.4s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+}
+.hero h1 {
+  font-size: clamp(38px, 7vw, 72px);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.05;
+  margin-bottom: 20px; max-width: 920px; margin-left: auto; margin-right: auto;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero p.lead {
+  font-size: clamp(17px, 2vw, 20px); color: var(--muted);
+  max-width: 640px; margin: 0 auto 40px;
+}
+.signup {
+  max-width: 480px; margin: 0 auto; display: flex;
+  gap: 8px; flex-direction: column;
+}
+.signup-row { display: flex; gap: 8px; }
+.signup input[type="email"] {
+  flex: 1; padding: 16px 20px; border: 1px solid var(--border);
+  border-radius: 999px; font-size: 16px; background: var(--card); color: var(--fg);
+  font-family: inherit; outline: none; transition: border-color 0.15s;
+}
+.signup input[type="email"]:focus { border-color: var(--accent); }
+.signup button {
+  background: var(--fg); color: var(--bg);
+  border: 0; padding: 16px 28px; border-radius: 999px;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: transform 0.15s;
+  white-space: nowrap;
+}
+.signup button:hover { transform: scale(1.04); }
+.signup button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.signup-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
+.signup-error { font-size: 13px; color: var(--accent-3); margin-top: 8px; display: none; }
+@media (max-width: 600px) {
+  .signup-row { flex-direction: column; }
+}
+
+/* Trust bar */
+.trust-bar {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px 80px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.trust-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px; display: flex;
+  align-items: center; gap: 12px; font-size: 14px; color: var(--fg);
+}
+.trust-item .icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--accent-2); display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+  font-size: 16px;
+}
+@media (max-width: 800px) {
+  .trust-bar { grid-template-columns: 1fr; }
+}
+
+/* Steps */
+section.steps {
+  max-width: 1100px; margin: 0 auto; padding: 80px 24px;
+  text-align: center;
+}
+.steps h2 {
+  font-size: clamp(30px, 4vw, 44px); font-weight: 800;
+  letter-spacing: -0.03em; margin-bottom: 12px;
+}
+.steps .subtitle { color: var(--muted); font-size: 17px; margin-bottom: 60px; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.step-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 24px; padding: 36px 28px; text-align: left;
+}
+.step-card .num {
+  display: inline-block; width: 36px; height: 36px;
+  background: var(--accent); color: white;
+  border-radius: 50%; line-height: 36px; text-align: center;
+  font-weight: 700; margin-bottom: 20px;
+}
+.step-card h3 {
+  font-size: 19px; font-weight: 700; letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.step-card p { color: var(--muted); font-size: 15px; }
+@media (max-width: 800px) {
+  .steps-grid { grid-template-columns: 1fr; }
+}
+
+/* Why section */
+section.why {
+  max-width: 760px; margin: 0 auto; padding: 80px 24px;
+}
+.why h2 {
+  font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+  letter-spacing: -0.03em; margin-bottom: 32px; text-align: center;
+}
+.why p {
+  font-size: 17px; color: var(--fg); margin-bottom: 18px;
+}
+.why .solution {
+  background: var(--card-2); border-left: 3px solid var(--accent);
+  padding: 20px 24px; border-radius: 0 12px 12px 0;
+  font-size: 17px; font-weight: 500; margin-top: 24px;
+}
+
+/* Pricing */
+section.pricing {
+  max-width: 720px; margin: 0 auto; padding: 80px 24px;
+  text-align: center;
+}
+.pricing h2 {
+  font-size: clamp(30px, 4vw, 44px); font-weight: 800;
+  letter-spacing: -0.03em; margin-bottom: 16px;
+}
+.pricing .subtitle { color: var(--muted); font-size: 17px; margin-bottom: 48px; }
+.price-rows { display: flex; flex-direction: column; gap: 16px; }
+.price-row {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 28px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.price-row.featured {
+  background: linear-gradient(135deg, var(--accent), var(--accent) 60%, #4D9FFF);
+  border-color: transparent; color: white;
+}
+.price-row .label { font-size: 17px; font-weight: 600; }
+.price-row .price { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+.price-row .price .small { font-size: 15px; opacity: 0.7; font-weight: 500; }
+.cancel-note { color: var(--muted); font-size: 13px; margin-top: 24px; }
+
+/* Founder card */
+section.founder {
+  max-width: 680px; margin: 0 auto; padding: 60px 24px;
+}
+.founder-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 28px; padding: 40px 32px; text-align: center;
+}
+.founder-quote {
+  font-size: 18px; line-height: 1.6; color: var(--fg);
+  margin-bottom: 20px; font-style: italic;
+}
+.founder-byline { color: var(--muted); font-size: 14px; }
+
+/* Final CTA */
+section.final-cta {
+  max-width: 720px; margin: 0 auto; padding: 80px 24px 40px;
+  text-align: center;
+}
+.final-cta h2 {
+  font-size: clamp(32px, 5vw, 52px); font-weight: 800;
+  letter-spacing: -0.03em; margin-bottom: 16px;
+}
+.final-cta p { color: var(--muted); font-size: 17px; margin-bottom: 32px; }
+
+/* Footer */
+footer.bottom {
+  border-top: 1px solid var(--border); padding: 60px 24px 40px;
+  background: var(--card);
+}
+.footer-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+  margin-bottom: 40px;
+}
+.footer-brand {
+  font-weight: 700; font-size: 18px; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.footer-brand .vs-dot {
+  width: 10px; height: 10px; background: var(--accent-2); border-radius: 50%;
+}
+.footer-tagline { color: var(--muted); font-size: 14px; }
+.footer-col h4 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--muted); margin-bottom: 16px; font-weight: 600;
+}
+.footer-col a {
+  display: block; color: var(--fg); text-decoration: none;
+  font-size: 14px; padding: 4px 0; transition: color 0.15s;
+}
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom {
+  max-width: 1100px; margin: 0 auto; padding-top: 30px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; color: var(--muted);
+}
+@media (max-width: 800px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  display: none; align-items: center; justify-content: center;
+  padding: 24px; z-index: 200;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--bg); border-radius: 24px; padding: 40px 32px;
+  max-width: 440px; text-align: center;
+}
+.modal h3 { font-size: 28px; font-weight: 800; margin-bottom: 16px; }
+.modal p { color: var(--muted); margin-bottom: 24px; }
+.modal button {
+  background: var(--accent); color: white; border: 0;
+  padding: 12px 28px; border-radius: 999px; font-size: 15px;
+  font-weight: 600; cursor: pointer; font-family: inherit;
+}
+
+</style>
+<style>
+
+/* === FOOTER LANGUAGE SWITCHER === */
+.footer-lang-switcher {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 6px;
+  justify-content: center; margin: 24px 0 16px;
+  padding: 16px 0; font-size: 13px;
+  border-top: 1px solid var(--border, rgba(10,10,15,0.08));
+}
+.footer-lang-switcher .footer-lang-label {
+  font-weight: 600; opacity: 0.7; margin-right: 4px;
+}
+.footer-lang-switcher a {
+  color: inherit; text-decoration: none; opacity: 0.7;
+  padding: 2px 4px; transition: opacity 0.15s;
+}
+.footer-lang-switcher a:hover { opacity: 1; text-decoration: underline; }
+.footer-lang-switcher .footer-lang-current {
+  font-weight: 600; opacity: 1;
+}
+.footer-lang-switcher .footer-lang-sep {
+  opacity: 0.3; user-select: none;
+}
+@media (max-width: 640px) {
+  .footer-lang-switcher { font-size: 12px; }
+  .footer-lang-switcher .footer-lang-label { width: 100%; text-align: center; margin-bottom: 4px; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="/ru/" class="brand"><span class="vs-dot"></span> VetScan</a>
+  <div class="nav-links">
+    <a href="/ru/how-it-works.html">Как это работает</a>
+    <a href="/ru/about.html">О нас</a>
+    <a href="/ru/faq.html">Вопросы</a>
+    <a href="/ru/pricing.html">Цены</a>
+    <a href="#cta" class="nav-cta">Ранний доступ</a>
+    <div class="lang-switcher">
+      <button class="lang-current" onclick="document.getElementById('langMenu').classList.toggle('open')" aria-label="Language">
+        <span>🌐</span><span>Русский</span><span>▾</span>
+      </button>
+      <div class="lang-menu" id="langMenu">
+        <button onclick="VetScanSwitchLang('en')">English</button>
+        <button onclick="VetScanSwitchLang('es-mx')">Español (México)</button>
+        <button onclick="VetScanSwitchLang('es-ar')">Español (Argentina)</button>
+        <button onclick="VetScanSwitchLang('pt-BR')">Português (Brasil)</button>
+        <button onclick="VetScanSwitchLang('uk')">Українська</button>
+        <button onclick="VetScanSwitchLang('ru')">Русский</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badge"><span class="pulse"></span>Приватная бета — присоединяйтесь</div>
+  <h1>Узнайте, нужен ли вашей собаке ветеринар.<br><span class="accent">За 60 секунд.</span></h1>
+  <p class="lead">Когда щенок ведёт себя странно, у вас два плохих варианта: паниковать и мчаться к ветеринару, или надеяться, что ничего страшного. Мы строим третий вариант.</p>
+  <form class="signup" id="signupForm" onsubmit="return false;">
+    <div class="signup-row">
+      <input type="email" id="emailInput" placeholder="Введите ваш email" required>
+      <button type="submit" id="submitBtn">Забронировать место founder</button>
+    </div>
+    <div class="signup-note">Бесплатно во время беты · Без спама</div>
+    <div class="signup-error" id="signupError"></div>
+  </form>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item">
+    <div class="icon">🩺</div>
+    <div>Создано с практикующими ветеринарами</div>
+  </div>
+  <div class="trust-item">
+    <div class="icon">🐕</div>
+    <div>Медицинский контекст с учётом породы</div>
+  </div>
+  <div class="trust-item">
+    <div class="icon">🔒</div>
+    <div>256-битное шифрование · Совместимо с GDPR</div>
+  </div>
+</div>
+
+<section class="steps">
+  <h2>30-секундный пример того, как это реально работает.</h2>
+  <p class="subtitle">Посмотрите реальный пример. Ничего скачивать не нужно.</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="num">1</div>
+      <h3>Опишите, что происходит</h3>
+      <p>Опишите симптом или выберите из списка. Хромает, рвота, вялость — полный список.</p>
+    </div>
+    <div class="step-card">
+      <div class="num">2</div>
+      <h3>Ответьте на 3 быстрых вопроса</h3>
+      <p>Порода, возраст, когда началось. Используем это для оценки срочности — не для диагноза.</p>
+    </div>
+    <div class="step-card">
+      <div class="num">3</div>
+      <h3>Получите оценку срочности</h3>
+      <p>Наблюдать, записаться к ветеринару, или срочно. Плюс что делать дальше.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <h2>Каждый новый владелец собаки знает это чувство.</h2>
+  <p>Плохая еда или что-то серьёзное? Вы прокручиваете весь её день в голове.</p>
+  <p>Неудачно поспал, или дело в бёдрах? Владельцы крупных собак знают этот страх.</p>
+  <p>Обычный AI не знает вашу собаку. Забывает её каждый раз, когда открываете.</p>
+  <div class="solution">VetScan помнит породу, возраст, вес и историю вашей собаки — каждый раз.</div>
+</section>
+
+<section class="pricing">
+  <h2>Цены founder — зафиксированы навсегда</h2>
+  <p class="subtitle">Зарегистрируйтесь во время беты, и ваша цена никогда не вырастет. Даже когда мы запустим публично по стандартной цене.</p>
+  <div class="price-rows">
+    <div class="price-row featured">
+      <div class="label">Founder</div>
+      <div class="price"><span class="curr" data-key="founder-monthly-with-unit">$6.99/month</span></div>
+    </div>
+    <div class="price-row">
+      <div class="label">Стандарт (позже)</div>
+      <div class="price"><span class="curr" data-key="vetscan-monthly-with-unit">$9.99/month</span></div>
+    </div>
+  </div>
+  <p class="cancel-note">Отмена в любое время · Без обязательств</p>
+</section>
+
+<section class="founder">
+  <div class="founder-card">
+    <div class="founder-quote">"Я начал делать VetScan после экстренного визита за $600, который оказался ничем. Между паникой в Google и счётом от ветеринара — огромный пробел, и AI наконец-то может его заполнить."</div>
+    <div class="founder-byline">— Юра, основатель · работаем с практикующими ветеринарами</div>
+  </div>
+</section>
+
+<section class="final-cta" id="cta">
+  <h2>Не оставляйте свою собаку без плана.</h2>
+  <p>Присоединяйтесь к founder, формирующим VetScan. Бесплатно во время беты, тариф founder зафиксирован навсегда.</p>
+  <form class="signup" id="signupForm2" onsubmit="return false;">
+    <div class="signup-row">
+      <input type="email" id="emailInput2" placeholder="Введите ваш email" required>
+      <button type="submit" id="submitBtn2">Забронировать место founder</button>
+    </div>
+    <div class="signup-note">Бесплатно во время беты · Без спама</div>
+    <div class="signup-error" id="signupError2"></div>
+  </form>
+</section>
+
+<footer class="bottom">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand"><span class="vs-dot"></span>VetScan</div>
+      <div class="footer-tagline">AI-помощник ветеринара для новых владельцев собак. Опишите симптом — получите оценку срочности за секунды.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Продукт</h4>
+      <a href="/ru/how-it-works.html">Как это работает</a>
+      <a href="/ru/methodology.html">Методология</a>
+      <a href="/ru/pricing.html">Цены</a>
+      <a href="/ru/compare.html">Сравнение</a>
+    </div>
+    <div class="footer-col">
+      <h4>Компания</h4>
+      <a href="/ru/about.html">О нас</a>
+      <a href="/ru/faq.html">Вопросы</a>
+      <a href="/ru/veterinary-advisors.html">Ветеринарные советники</a>
+    </div>
+    <div class="footer-col">
+      <h4>Юридическая информация</h4>
+      <a href="/ru/privacy.html">Конфиденциальность</a>
+      <a href="/ru/terms.html">Условия</a>
+      <a href="/ru/disclaimer.html">Медицинское уведомление</a>
+      <a href="/ru/cookies.html">Cookies</a>
+      <a href="/ru/security.html">Безопасность</a>
+      <a href="/ru/accessibility.html">Доступность</a>
+    </div>
+  </div>
+  
+<div class="footer-lang-switcher">
+  <span class="footer-lang-label">🌐 Язык:</span>
+  <a href="/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('en');}">English</a><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><span class="footer-lang-current" aria-current="true">Русский</span>
+</div>
+  <div class="footer-bottom">
+    <div>© 2026 VetScan. Все права защищены.</div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="thanksModal">
+  <div class="modal">
+    <h3>Вы в списке! 🎉</h3>
+    <p>Проверьте почту — мы только что отправили подтверждение founder. (Не видите? Проверьте спам.)</p>
+    <button onclick="document.getElementById('thanksModal').classList.remove('open')">Закрыть</button>
+  </div>
+</div>
+
+<script src="/currency.js"></script>
+<script src="/i18n.js"></script>
+<script>
+// Kit form submission — same logic as English index.html
+async function submitToKit(email, errorEl, btnEl) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errorEl.textContent = 'Пожалуйста, введите корректный email.';
+    errorEl.style.display = 'block';
+    return false;
+  }
+  errorEl.style.display = 'none';
+  btnEl.disabled = true;
+
+  try {
+    const resp = await fetch('https://api.kit.com/v3/forms/730f398d70/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ api_key: 'sfpnf7KLpCkheJrMnrQnAQ', email: email })
+    });
+    if (resp.ok) {
+      document.getElementById('thanksModal').classList.add('open');
+      sessionStorage.setItem('vs_signed_up', '1');
+      return true;
+    }
+  } catch(e) {}
+
+  // Fallback: form-encoded
+  try {
+    const fd = new FormData();
+    fd.append('email_address', email);
+    await fetch('https://app.kit.com/forms/730f398d70/subscriptions', {
+      method: 'POST', body: fd, mode: 'no-cors'
+    });
+    document.getElementById('thanksModal').classList.add('open');
+    sessionStorage.setItem('vs_signed_up', '1');
+    return true;
+  } catch(e) {
+    errorEl.textContent = 'Ошибка сети. Попробуйте ещё раз.';
+    errorEl.style.display = 'block';
+    btnEl.disabled = false;
+    return false;
+  }
+}
+
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  submitToKit(
+    document.getElementById('emailInput').value.trim(),
+    document.getElementById('signupError'),
+    document.getElementById('submitBtn')
+  );
+});
+document.getElementById('signupForm2').addEventListener('submit', function(e) {
+  e.preventDefault();
+  submitToKit(
+    document.getElementById('emailInput2').value.trim(),
+    document.getElementById('signupError2'),
+    document.getElementById('submitBtn2')
+  );
+});
+
+// Close lang menu on outside click
+document.addEventListener('click', function(e) {
+  const m = document.getElementById('langMenu');
+  if (!e.target.closest('.lang-switcher')) m.classList.remove('open');
+});
+</script>
+
+</body>
+</html>
