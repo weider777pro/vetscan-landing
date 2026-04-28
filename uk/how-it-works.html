@@ -47,6 +47,9 @@
              tz === 'Asia/Atyrau' || tz === 'Asia/Oral' || tz === 'Asia/Qostanay' ||
              tz === 'Asia/Qyzylorda') {
     target = 'ru';  /* Kazakhstan — Russian language */
+  } else if (tz === 'Europe/Madrid' || tz === 'Atlantic/Canary' ||
+             tz === 'Africa/Ceuta') {
+    target = 'es-ES';  /* Spain — Castilian Spanish */
   } else if (tz.indexOf('America/Argentina/') === 0 ||
              tz === 'America/Buenos_Aires' || tz === 'America/Catamarca' ||
              tz === 'America/Cordoba' || tz === 'America/Mendoza' ||
@@ -1225,7 +1228,7 @@ strong { color: var(--text-primary); font-weight: 600; }
     
 <div class="footer-lang-switcher">
   <span class="footer-lang-label">🌐 Language:</span>
-  <span class="footer-lang-current" aria-current="true">English</span><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a>
+  <span class="footer-lang-current" aria-current="true">English</span><span class="footer-lang-sep">·</span><a href="/es-ES/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ES');}">Español (España)</a><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a>
 </div>
     <div class="footer-legal">
       <a href="how-it-works.html">How It Works</a>
