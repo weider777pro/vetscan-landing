@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es-ES">
 <head>
 <meta charset="UTF-8">
 <!-- Google Analytics 4 + Consent Mode v2 -->
@@ -19,27 +19,7 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0064FF">
-<title>Accesibilidad — VetScan</title>
-<meta name="description" content="Nuestro compromiso con la accesibilidad WCAG 2.1 Level AA, soporte actual, limitaciones conocidas y cómo reportar problemas.">
-<link rel="canonical" href="https://vetscan.app/es-mx/accessibility.html">
-<link rel="alternate" hreflang="en" href="https://vetscan.app/accessibility.html">
-<link rel="alternate" hreflang="es-MX" href="https://vetscan.app/es-mx/accessibility.html">
-<link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/accessibility.html">
-<link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/accessibility.html">
-<link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/accessibility.html">
-<link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/accessibility.html">
-<link rel="alternate" hreflang="x-default" href="https://vetscan.app/accessibility.html">
-<meta property="og:title" content="Declaración de accesibilidad — VetScan">
-<meta property="og:description" content="Nuestro compromiso con WCAG 2.1 Level AA, soporte actual, limitaciones conocidas.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://vetscan.app/es-mx/accessibility.html">
-<meta property="og:image" content="https://vetscan.app/og-image-es-mx.png">
-<meta property="og:locale" content="es_MX">
-<meta property="og:locale:alternate" content="en_US">
-<meta property="og:locale:alternate" content="uk_UA">
-<meta property="og:locale:alternate" content="ru_RU">
-<meta property="og:locale:alternate" content="es_AR">
-<meta property="og:locale:alternate" content="pt_BR">
+<title>Cómo funciona VetScan — del síntoma a la claridad en 60 segundos</title>
 <script>
 /* Auto-redirect to localized version based on TIMEZONE first, language second.
    Ukrainian users with Russian-language OS should land on /uk/, not /ru/. */
@@ -48,8 +28,8 @@
   /* Already on a localized path → don't redirect (prevents /uk/uk/ loop) */
   var p = location.pathname;
   if (p.indexOf('/uk/') === 0 || p.indexOf('/ru/') === 0 ||
-      p.indexOf('/es-mx/') === 0 || p.indexOf('/es-ar/') === 0 ||
-      p.indexOf('/pt-BR/') === 0) {
+      p.indexOf('/es-ES/') === 0 || p.indexOf('/es-mx/') === 0 ||
+      p.indexOf('/es-ar/') === 0 || p.indexOf('/pt-BR/') === 0) {
     sessionStorage.setItem('vs_lang_chosen', '1');
     return;
   }
@@ -115,6 +95,26 @@
   }
 })();
 </script>
+<meta name="description" content="Recorrido detallado de cómo funciona la evaluación de urgencia con IA de VetScan: del síntoma a la puntuación de urgencia, con total transparencia sobre datos y privacidad.">
+<link rel="canonical" href="https://vetscan.app/es-ES/how-it-works.html">
+<link rel="alternate" hreflang="en" href="https://vetscan.app/how-it-works.html">
+<link rel="alternate" hreflang="es-ES" href="https://vetscan.app/es-ES/how-it-works.html">
+<link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/how-it-works.html">
+<link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/how-it-works.html">
+<link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/how-it-works.html">
+<link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/how-it-works.html">
+<link rel="alternate" hreflang="x-default" href="https://vetscan.app/how-it-works.html">
+<meta property="og:title" content="Cómo funciona VetScan">
+<meta property="og:description" content="Del síntoma a la claridad en 60 segundos. Paso a paso.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://vetscan.app/es-ES/how-it-works.html">
+<meta property="og:image" content="https://vetscan.app/og-image-es-mx.png">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="es_AR">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="uk_UA">
+<meta property="og:locale:alternate" content="ru_RU">
 <link rel="icon" type="image/svg+xml" href="/vetscan-favicon-32.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin>
@@ -122,20 +122,22 @@
 <style>
 :root {
   --bg: #FFFFFF;
+  --surface: #F8F8FB;
   --text-primary: #0A0A0F;
   --text-secondary: #4A4A55;
   --text-tertiary: #8E8E99;
   --accent: #0064FF;
   --accent-2: #7C5CFF;
+  --accent-3: #00D4B5;
+  --accent-warm: #FF6B6B;
+  --green: #34C759;
+  --yellow: #FF9500;
+  --red: #FF3B30;
   --separator: rgba(10, 10, 15, 0.08);
-  --surface: #F8F8FB;
   --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
-
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -146,184 +148,242 @@ body {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
-
-/* Header */
 .legal-header {
   border-bottom: 1px solid var(--separator);
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  position: sticky; top: 0; z-index: 10;
 }
 .header-inner {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  max-width: 800px; margin: 0 auto; padding: 16px 24px;
+  display: flex; align-items: center; justify-content: space-between;
 }
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--text-primary);
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text-primary);
+  font-weight: 700; font-size: 17px; letter-spacing: -0.02em;
 }
 .logo-mark {
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
+  width: 32px; height: 32px; border-radius: 9px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 10px rgba(0, 100, 255, 0.25);
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
 .logo-mark svg { width: 22px; height: 22px; }
 .logo-mark::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
   background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 70%);
 }
-.back-link {
-  font-size: 14px;
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
+.back-link { font-size: 14px; color: var(--accent); text-decoration: none; font-weight: 500; }
 .back-link:hover { text-decoration: underline; }
-
-/* Article container */
-.legal-article {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 64px 24px 80px;
-}
-
-@media (max-width: 600px) {
-  .legal-article { padding: 40px 20px 60px; }
-}
-
-/* Title */
+.legal-article { max-width: 720px; margin: 0 auto; padding: 64px 24px 80px; }
+@media (max-width: 600px) { .legal-article { padding: 40px 20px 60px; } }
 .legal-eyebrow {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
+  font-size: 13px; font-weight: 600; color: var(--accent);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px;
 }
 h1 {
-  font-size: 42px;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
-  font-weight: 800;
-  margin-bottom: 12px;
+  font-size: 48px; line-height: 1.08; letter-spacing: -0.03em;
+  font-weight: 800; margin-bottom: 16px;
 }
-@media (max-width: 600px) { h1 { font-size: 32px; } }
-
-.last-updated {
-  color: var(--text-tertiary);
-  font-size: 14px;
-  margin-bottom: 48px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--separator);
+@media (max-width: 600px) { h1 { font-size: 34px; } }
+.lead {
+  font-size: 19px; color: var(--text-secondary); line-height: 1.55;
+  margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--separator);
 }
-
-/* Headings */
 h2 {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  margin: 48px 0 16px;
-  line-height: 1.3;
+  font-size: 26px; font-weight: 700; letter-spacing: -0.02em;
+  margin: 56px 0 16px; line-height: 1.3;
 }
-h2:first-of-type { margin-top: 0; }
-
-h3 {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin: 28px 0 10px;
-}
-
-p {
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
+h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin: 28px 0 10px; }
+p { color: var(--text-secondary); margin-bottom: 16px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 a:hover { color: var(--accent-2); }
-
-ul, ol {
-  color: var(--text-secondary);
-  margin: 0 0 16px 24px;
-}
-li {
-  margin-bottom: 8px;
-}
-
+ul, ol { color: var(--text-secondary); margin: 0 0 16px 24px; }
+li { margin-bottom: 8px; }
 strong { color: var(--text-primary); font-weight: 600; }
 
-.callout {
+/* Step block */
+.step-block {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin: 32px 0;
+  padding: 24px;
   background: var(--surface);
-  border-left: 3px solid var(--accent);
-  padding: 16px 20px;
-  border-radius: 0 12px 12px 0;
-  margin: 24px 0;
-  font-size: 15px;
+  border-radius: 18px;
+  position: relative;
 }
-.callout strong { display: block; margin-bottom: 4px; }
+.step-num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 17px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 100, 255, 0.25);
+}
+.step-content { flex: 1; min-width: 0; }
+.step-content h3 { margin-top: 0; font-size: 20px; }
+.step-content p:last-child { margin-bottom: 0; }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
+/* Urgency cards */
+.urgency-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 24px 0 32px;
+}
+.urgency-card {
+  padding: 18px 20px;
+  border-radius: 14px;
+  border-left: 4px solid;
+  background: var(--surface);
+}
+.urgency-green { border-left-color: var(--green); background: linear-gradient(135deg, rgba(52, 199, 89, 0.06), transparent); }
+.urgency-yellow { border-left-color: var(--yellow); background: linear-gradient(135deg, rgba(255, 149, 0, 0.06), transparent); }
+.urgency-red { border-left-color: var(--red); background: linear-gradient(135deg, rgba(255, 59, 48, 0.06), transparent); }
+
+.urgency-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 8px;
+}
+.urgency-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  position: relative;
+}
+.urgency-dot::after {
+  content: ''; position: absolute; inset: -3px;
+  border-radius: 50%; opacity: 0.3; filter: blur(4px); z-index: -1;
+}
+.urgency-dot.green { background: var(--green); }
+.urgency-dot.green::after { background: var(--green); }
+.urgency-dot.yellow { background: var(--yellow); }
+.urgency-dot.yellow::after { background: var(--yellow); }
+.urgency-dot.red { background: var(--red); }
+.urgency-dot.red::after { background: var(--red); }
+.urgency-title {
+  font-weight: 700; color: var(--text-primary);
+  font-size: 15px; letter-spacing: -0.005em;
+}
+.urgency-desc { color: var(--text-secondary); font-size: 14px; margin: 0; }
+
+/* Privacy callout */
+.privacy-callout {
+  background: linear-gradient(135deg, rgba(0, 100, 255, 0.06), rgba(124, 92, 255, 0.04));
+  border-radius: 16px;
+  padding: 24px 24px 24px 60px;
+  margin: 32px 0;
+  position: relative;
+}
+.privacy-callout::before {
+  content: '';
+  position: absolute;
+  top: 26px; left: 22px;
+  width: 24px; height: 24px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 50%;
+}
+.privacy-callout::after {
+  content: '🔒';
+  position: absolute;
+  top: 28px; left: 26px;
   font-size: 14px;
+  filter: grayscale(1) brightness(2);
 }
-th, td {
-  text-align: left;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--separator);
-}
-th {
-  font-weight: 600;
+.privacy-callout h3 {
+  margin-top: 0; font-size: 17px;
   color: var(--text-primary);
-  background: var(--surface);
+  margin-bottom: 8px;
 }
-td { color: var(--text-secondary); }
+.privacy-callout p { margin-bottom: 0; font-size: 14px; }
 
-/* Footer */
-.legal-footer {
-  border-top: 1px solid var(--separator);
-  padding: 32px 24px;
+/* Faq mini */
+.faq-mini {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 14px 0;
+}
+.faq-mini-q {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 15px;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.faq-mini-a {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Limitations list */
+.limitations {
+  background: #FFF5E6;
+  border-left: 3px solid var(--yellow);
+  padding: 20px 24px;
+  border-radius: 0 14px 14px 0;
+  margin: 32px 0;
+}
+.limitations h3 {
+  margin-top: 0; color: #6B3F00;
+  font-size: 16px; margin-bottom: 12px;
+}
+.limitations ul { color: #4A3010; margin-bottom: 0; }
+.limitations strong { color: #2A1A00; }
+
+/* CTA card */
+.cta-card {
+  background: linear-gradient(135deg, #0F172A, #1E293B);
+  color: white;
+  padding: 32px 28px;
+  border-radius: 20px;
   text-align: center;
-  color: var(--text-tertiary);
-  font-size: 13px;
-  margin-top: 48px;
+  margin: 56px 0 0;
+  position: relative;
+  overflow: hidden;
 }
-.legal-footer a {
-  color: var(--text-tertiary);
-  text-decoration: none;
-  margin: 0 12px;
+.cta-card::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -50px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(0, 100, 255, 0.4) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
 }
+.cta-card h3 {
+  color: white; font-size: 22px; margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
+.cta-card p {
+  color: rgba(255, 255, 255, 0.7); margin-bottom: 24px;
+  position: relative; z-index: 1;
+}
+.cta-btn {
+  display: inline-block; padding: 12px 28px;
+  background: white; color: var(--accent);
+  border-radius: 999px; font-weight: 700;
+  text-decoration: none; letter-spacing: -0.005em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative; z-index: 1;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 100, 255, 0.25);
+  color: var(--accent);
+}
+
+.legal-footer {
+  border-top: 1px solid var(--separator); padding: 32px 24px;
+  text-align: center; color: var(--text-tertiary); font-size: 13px; margin-top: 48px;
+}
+.legal-footer a { color: var(--text-tertiary); text-decoration: none; margin: 0 12px; }
 .legal-footer a:hover { color: var(--accent); }
 
 
@@ -841,7 +901,7 @@ td { color: var(--text-secondary); }
      ============================================================ -->
 <nav class="nav">
   <div class="unified-container nav-inner">
-    <a href="/es-mx/index.html" class="logo">
+    <a href="/es-ES/index.html" class="logo">
       <span class="logo-mark">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <g fill="white">
@@ -861,12 +921,12 @@ td { color: var(--text-secondary); }
     </a>
 
     <div class="nav-links">
-      <a href="/es-mx/how-it-works.html">Cómo funciona</a>
-      <a href="/es-mx/about.html">Acerca de</a>
-      <a href="/es-mx/faq.html">Preguntas frecuentes</a>
+      <a href="/es-ES/how-it-works.html">Cómo funciona</a>
+      <a href="/es-ES/about.html">Acerca de</a>
+      <a href="/es-ES/faq.html">Preguntas frecuentes</a>
     </div>
 
-    <a href="/es-mx/index.html#waitlist" class="nav-cta">
+    <a href="/es-ES/index.html#waitlist" class="nav-cta">
       Acceso anticipado
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </a>
@@ -883,23 +943,23 @@ td { color: var(--text-secondary); }
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
   <div class="mobile-menu-section">
     <div class="mobile-menu-section-label">Producto</div>
-    <a href="/es-mx/how-it-works.html">
+    <a href="/es-ES/how-it-works.html">
       Cómo funciona
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/methodology.html">
+    <a href="/es-ES/methodology.html">
       Metodología
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/pricing.html">
+    <a href="/es-ES/pricing.html">
       Precios
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/compare.html">
+    <a href="/es-ES/compare.html">
       Comparar
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/faq.html">
+    <a href="/es-ES/faq.html">
       Preguntas frecuentes
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
@@ -907,11 +967,11 @@ td { color: var(--text-secondary); }
 
   <div class="mobile-menu-section">
     <div class="mobile-menu-section-label">Empresa</div>
-    <a href="/es-mx/about.html">
+    <a href="/es-ES/about.html">
       Acerca de
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/veterinary-advisors.html">
+    <a href="/es-ES/veterinary-advisors.html">
       Asesores veterinarios
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
@@ -919,87 +979,183 @@ td { color: var(--text-secondary); }
 
   <div class="mobile-menu-section legal">
     <div class="mobile-menu-section-label">Legal y confianza</div>
-    <a href="/es-mx/privacy.html">Política de privacidad</a>
-    <a href="/es-mx/terms.html">Términos de uso</a>
-    <a href="/es-mx/disclaimer.html">Aviso médico</a>
-    <a href="/es-mx/cookies.html">Política de cookies</a>
-    <a href="/es-mx/security.html">Seguridad</a>
-    <a href="/es-mx/accessibility.html">Accesibilidad</a>
+    <a href="/es-ES/privacy.html">Política de privacidad</a>
+    <a href="/es-ES/terms.html">Términos de uso</a>
+    <a href="/es-ES/disclaimer.html">Aviso médico</a>
+    <a href="/es-ES/cookies.html">Política de cookies</a>
+    <a href="/es-ES/security.html">Seguridad</a>
+    <a href="/es-ES/accessibility.html">Accesibilidad</a>
   </div>
 
-  <a href="/es-mx/index.html#waitlist" class="mobile-menu-cta">Acceso anticipado</a>
+  <a href="/es-ES/index.html#waitlist" class="mobile-menu-cta">Acceso anticipado</a>
 </div>
 
 <article class="legal-article">
-  <div class="legal-eyebrow">Accesibilidad</div>
-  <h1>Declaración de accesibilidad</h1>
-  <div role="note" aria-label="Translation disclaimer" style="background:#FFF8DC; border:2px solid #DAA520; border-left-width:6px; padding:16px 20px; margin:0 0 32px 0; border-radius:6px; color:#5C4400; font-size:0.95rem; line-height:1.55;">
-    <strong>⚠️ Traducción en revisión legal.</strong> Este documento es una traducción de la versión original en inglés. La revisión legal para tu jurisdicción está en curso. Hasta que se complete, en caso de discrepancia, prevalece la versión en inglés. <a href="https://vetscan.app/accessibility.html" style="color:#5C4400; font-weight:600; text-decoration:underline;">Ver la versión en inglés</a>.
+  <div class="legal-eyebrow">Cómo funciona</div>
+  <h1>Del síntoma a la claridad en 60 segundos.</h1>
+  <p class="lead">VetScan es un primer paso inteligente antes de que llames a tu veterinario. Aquí explicamos exactamente cómo funciona, qué datos recopilamos y qué no hacemos.</p>
+
+  <h2>El flujo completo</h2>
+  <p>Cada interacción con VetScan sigue el mismo patrón de cinco pasos. Todo el proceso toma alrededor de un minuto.</p>
+
+  <div class="step-block">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h3>Cuéntale a VetScan qué está pasando</h3>
+      <p>Abre la app. Toca el botón grande "+". Describe lo que ves — escribiendo, por voz ("está vomitando desde la mañana") o tomando una foto del problema.</p>
+      <p>Al principio puedes ser vago. La IA hará preguntas para aclarar después.</p>
+    </div>
   </div>
-  <p class="last-updated">Última actualización: 27 de abril de 2026</p>
 
+  <div class="step-block">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h3>Responde de 3 a 5 preguntas para aclarar</h3>
+      <p>Aquí VetScan actúa como un veterinario. Con base en lo que describiste, la IA hace las mismas preguntas de evaluación que haría un veterinario: ¿desde cuándo pasa esto?, ¿cambió algo en su alimentación?, ¿cómo se ve exactamente?, ¿hay otros síntomas?</p>
+      <p>Cada pregunta es corta. Opción múltiple cuando es posible. Subida de foto opcional cuando es relevante.</p>
+    </div>
+  </div>
 
-  <h2>1. Nuestro compromiso</h2>
-  <p>VetScan se construye sobre la creencia de que todo dueño de perro merece acceso a guía de salud clara y tranquila — incluyendo dueños que usan tecnología de asistencia, tienen diferencias visuales o auditivas, o dependen de navegación solo por teclado.</p>
-  <p>Apuntamos al cumplimiento de <strong>WCAG 2.1 Level AA</strong> en todo el sitio y producto, y tratamos los problemas de accesibilidad como bugs, no como solicitudes de funciones.</p>
+  <div class="step-block">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h3>La IA evalúa contra patrones médicos</h3>
+      <p>VetScan compara los síntomas de tu perro con miles de patrones comunes de evaluación veterinaria. El modelo considera la raza, edad, peso e historial de salud (si lo compartiste). Busca señales de alarma que requieran atención inmediata y patrones consistentes con condiciones de baja urgencia.</p>
+      <p>Esto toma unos 5 segundos. Verás un pequeño indicador de "pensando".</p>
+    </div>
+  </div>
 
-  <h2>2. Lo que hacemos hoy</h2>
+  <div class="step-block">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h3>Recibe tu puntuación de urgencia y la explicación</h3>
+      <p>VetScan devuelve uno de tres niveles de urgencia, con una explicación clara del por qué y qué hacer.</p>
+    </div>
+  </div>
+
+  <div class="urgency-grid">
+    <div class="urgency-card urgency-green">
+      <div class="urgency-header">
+        <span class="urgency-dot green"></span>
+        <span class="urgency-title">Observar y esperar</span>
+      </div>
+      <p class="urgency-desc">Los síntomas son probablemente leves. Esto es lo que hay que monitorear durante las próximas 24–48 horas, y los signos específicos que cambiarían nuestra recomendación a "ve al veterinario".</p>
+    </div>
+
+    <div class="urgency-card urgency-yellow">
+      <div class="urgency-header">
+        <span class="urgency-dot yellow"></span>
+        <span class="urgency-title">Ir al veterinario en 24–48 horas</span>
+      </div>
+      <p class="urgency-desc">No es una emergencia, pero conviene revisar. Te explicamos las condiciones más probables, qué preguntas hacerle al veterinario y qué pruebas podría hacer.</p>
+    </div>
+
+    <div class="urgency-card urgency-red">
+      <div class="urgency-header">
+        <span class="urgency-dot red"></span>
+        <span class="urgency-title">Emergencia ahora</span>
+      </div>
+      <p class="urgency-desc">Necesita atención profesional inmediata. Te decimos qué está pasando probablemente y te dirigimos al hospital de emergencias veterinarias más cercano.</p>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <h3>Actúa con confianza</h3>
+      <p>Sea cual sea el nivel de urgencia, recibes pasos siguientes claros. Encuentra un veterinario cercano. Guarda el reporte para compartirlo con tu veterinario después. Configura recordatorios para monitorear. Haz preguntas de seguimiento.</p>
+      <p>El historial completo de tu perro queda guardado (de forma privada, en el dispositivo cuando es posible) para que la próxima vez que pase algo, VetScan ya tenga el contexto.</p>
+    </div>
+  </div>
+
+  <h2>Cómo VetScan piensa como un veterinario</h2>
+  <p>La evaluación veterinaria de urgencia no es magia — es un proceso estructurado de toma de decisiones. Los veterinarios siguen protocolos desarrollados durante décadas de práctica clínica. Trabajamos con veterinarios en activo de pequeños animales para codificar esos protocolos en la IA de VetScan.</p>
+
+  <p>Por ejemplo, cuando reportas "vómito", un veterinario no diagnostica de inmediato. Pregunta:</p>
   <ul>
-    <li><strong>Navegación por teclado</strong> — cada elemento interactivo del sitio es alcanzable y se activa con Tab, Shift+Tab, Enter y Space</li>
-    <li><strong>Soporte de lectores de pantalla</strong> — HTML semántico, etiquetas ARIA en íconos, alternativas de texto ocultas para gráficos decorativos</li>
-    <li><strong>Contraste de color suficiente</strong> — el texto del cuerpo y los controles de UI cumplen las relaciones de contraste WCAG AA (4.5:1 para texto del cuerpo, 3:1 para texto grande)</li>
-    <li><strong>Texto redimensionable</strong> — el diseño funciona al 200% de zoom del navegador sin romperse</li>
-    <li><strong>Indicadores de foco</strong> — anillos de foco visibles en todos los elementos interactivos; nunca se eliminan sin una alternativa visible</li>
-    <li><strong>Sin reproducción automática de audio o video</strong> — las animaciones respetan la preferencia del sistema <code>prefers-reduced-motion</code></li>
-    <li><strong>Etiquetas de formulario</strong> — cada campo de entrada tiene una etiqueta asociada; los estados de error se anuncian a los lectores de pantalla</li>
-    <li><strong>Enlace «Saltar al contenido»</strong> planeado para Q2 2026</li>
+    <li><strong>¿Cuántas veces?</strong> Una vez vs. varias veces cuentan historias muy distintas.</li>
+    <li><strong>¿Cómo se ve?</strong> Bilis amarilla, espuma blanca, sangre o comida — importa.</li>
+    <li><strong>¿Tu perro sigue comiendo y bebiendo?</strong> El apetito es una señal mayor.</li>
+    <li><strong>¿Pudo haber ingerido algo tóxico?</strong> Chocolate, xilitol, plantas, productos químicos del hogar.</li>
+    <li><strong>¿Otros síntomas?</strong> Letargo, diarrea, dolor abdominal cambian la urgencia drásticamente.</li>
+  </ul>
+  <p>VetScan hace estas mismas preguntas en el mismo orden, pesa las respuestas con la misma lógica y llega al mismo nivel de urgencia que un veterinario — para los casos más comunes. Para presentaciones inusuales o raras, siempre por defecto recomendamos "ve al veterinario".</p>
+
+  <h2>Lo que VetScan NO hace</h2>
+
+  <div class="limitations">
+    <h3>Limitaciones honestas</h3>
+    <ul>
+      <li><strong>No diagnostica.</strong> El diagnóstico requiere examen físico, análisis de sangre, rayos X y experiencia clínica. Damos guía de evaluación, no diagnósticos.</li>
+      <li><strong>No receta.</strong> No recomendamos medicamentos ni tratamientos. Eso es trabajo de tu veterinario.</li>
+      <li><strong>No reemplaza a tu veterinario.</strong> Los comprobacións de rutina, vacunaciones y atención continua siguen siendo en el consultorio de tu veterinario.</li>
+      <li><strong>No funciona para todas las especies.</strong> VetScan es específico para perros. Gatos, aves, reptiles y otras mascotas tienen fisiología distinta y necesitan sus propias herramientas dedicadas.</li>
+      <li><strong>Puede equivocarse.</strong> La IA comete errores. Verifica siempre las decisiones serias con un veterinario titulado.</li>
+    </ul>
+  </div>
+
+  <p>Read our full <a href="/es-ES/disclaimer.html">Aviso médico</a> for the complete picture.</p>
+
+  <h2>Privacidad: qué datos usamos, cuáles no</h2>
+
+  <div class="privacy-callout">
+    <h3>Los datos de tu perro son tuyos</h3>
+    <p>Nunca vendemos ni compartimos los datos de salud de tu mascota con terceros. Puedes exportar todo o eliminar tu cuenta cuando quieras.</p>
+  </div>
+
+  <h3>Lo que recopilamos</h3>
+  <ul>
+    <li><strong>Correo electrónico</strong> — para enviarte actualizaciones de la lista de espera y acceso a la beta</li>
+    <li><strong>Perfil del perro</strong> (opcional) — raza, edad, peso, condiciones conocidas. Solo si decides agregarlo.</li>
+    <li><strong>Reportes de síntomas</strong> — tus consultas y las respuestas de la IA, usadas para mejorar el modelo y darte una línea de tiempo continua de salud</li>
+    <li><strong>Fotos que subes</strong> — analizadas para la consulta correspondiente y luego almacenadas de forma privada en tu cuenta</li>
+    <li><strong>Datos de uso anonimizados</strong> — para entender cómo se usa la app y qué mejorar</li>
   </ul>
 
-  <h2>3. Probado con</h2>
+  <h3>Lo que nunca hacemos</h3>
   <ul>
-    <li>VoiceOver en macOS e iOS</li>
-    <li>NVDA en Windows</li>
-    <li>Navegación solo por teclado en Chrome, Safari y Firefox</li>
-    <li>Verificaciones automáticas de axe DevTools (ejecutadas antes de cada lanzamiento)</li>
-    <li>Pruebas manuales al 200% de zoom, modo de alto contraste y preferencias de modo oscuro</li>
+    <li>Vender tus datos a nadie — ni a empresas de alimento para mascotas, ni a aseguradoras, sin excepciones</li>
+    <li>Compartir datos de salud identificables con veterinarios sin tu consentimiento explícito</li>
+    <li>Usar fotos de tu perro en marketing sin permiso explícito</li>
+    <li>Entrenar nuestra IA con tus datos sin tu consentimiento (puedes optar por no participar cuando quieras)</li>
   </ul>
 
-  <h2>4. Limitaciones conocidas</h2>
-  <p>Tratamos de ser honestos sobre lo que aún no es perfecto:</p>
-  <ul>
-    <li>El SVG animado de la mascota perro en la página de inicio aún no tiene una alternativa de texto descriptiva completa — actualmente etiquetado simplemente como «decorativo». Una etiqueta descriptiva está planeada para Q2 2026.</li>
-    <li>La animación de apertura/cierre del menú móvil puede no anunciar los cambios de estado de manera consistente en todos los lectores de pantalla — en investigación.</li>
-    <li>Algunas páginas legales largas aún no tienen una tabla de contenidos completamente enlazada — planeada para Q3 2026.</li>
-  </ul>
+  <p>For full details, see our <a href="/es-ES/privacy.html">Política de privacidad</a> and <a href="/es-ES/cookies.html">Política de cookies</a>.</p>
 
-  <h2>5. En proceso</h2>
-  <ul>
-    <li><strong>Auditoría completa WCAG 2.1 Level AA</strong> — objetivo Q3 2026</li>
-    <li><strong>Toggle de modo de alto contraste</strong> — fase de exploración de diseño</li>
-    <li><strong>Opción de fuente amigable para dislexia</strong> — bajo consideración</li>
-    <li><strong>Entrada de voz para registro de síntomas</strong> — en el roadmap del producto (post-lanzamiento)</li>
-  </ul>
+  <h2>Preguntas comunes sobre cómo funciona</h2>
 
-  <h2>6. Estándares que seguimos</h2>
-  <ul>
-    <li><strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> — objetivo principal</li>
-    <li><strong>Americans with Disabilities Act (ADA)</strong> — EE.UU.</li>
-    <li><strong>European Accessibility Act (EAA)</strong> — UE, aplicable desde junio de 2025</li>
-    <li><strong>Accessibility for Ontarians with Disabilities Act (AODA)</strong> — Canadá</li>
-  </ul>
+  <div class="faq-mini">
+    <div class="faq-mini-q">¿Qué tan preciso es?</div>
+    <p class="faq-mini-a">Para condiciones comunes y bien documentadas, la evaluación de VetScan coincide con las recomendaciones veterinarias en nuestras pruebas internas. Para condiciones raras o atípicas, prefiere "ve al veterinario". Cuando hay duda, siempre escalamos.</p>
+  </div>
 
-  <h2>7. Reportar un problema</h2>
-  <p>Si encuentras una barrera de accesibilidad en VetScan:</p>
-  <ul>
-    <li><strong>Correo:</strong> <a href="mailto:hello@vetscan.app">hello@vetscan.app</a> con asunto <em>"Accessibility issue"</em></li>
-    <li>Por favor describe el problema, la página donde lo encontraste y la tecnología de asistencia que estabas usando</li>
-    <li>Respondemos dentro de <strong>5 días hábiles</strong></li>
-    <li>Apuntamos a corregir problemas críticos (que bloquean funcionalidad principal) dentro de <strong>30 días</strong>; los problemas no críticos se programan en el siguiente sprint</li>
-  </ul>
-  <p>La retroalimentación de accesibilidad se toma en serio. La tratamos como un reporte de bug, no como una queja.</p>
+  <div class="faq-mini">
+    <div class="faq-mini-q">¿Y si no estoy de acuerdo con la IA?</div>
+    <p class="faq-mini-a">Confía en tu instinto. Conoces a tu perro mejor de lo que ninguna IA podrá. Si algo no se siente bien — incluso si VetScan dice "observar y esperar" — ve al veterinario. Nunca nos vamos a ofender.</p>
+  </div>
 
-  <h2>8. Última actualización</h2>
-  <p>Esta declaración fue actualizada por última vez el 27 de abril de 2026. Revisamos y actualizamos esta página siempre que hacemos cambios materiales de accesibilidad o como mínimo una vez por trimestre.</p>
+  <div class="faq-mini">
+    <div class="faq-mini-q">¿Puedo usarlo para gatos?</div>
+    <p class="faq-mini-a">Aún no. En el lanzamiento, VetScan es solo para perros. Los gatos tienen fisiología diferente y necesitan su propia herramienta dedicada. Están en nuestra hoja de ruta.</p>
+  </div>
+
+  <div class="faq-mini">
+    <div class="faq-mini-q">¿Funciona sin internet?</div>
+    <p class="faq-mini-a">Algunas comprobaciones ligeras funcionan sin conexión (por ejemplo, marcado de síntomas de emergencia, tus reportes guardados). La evaluación completa con IA requiere conexión a internet.</p>
+  </div>
+
+  <div class="faq-mini">
+    <div class="faq-mini-q">¿Mi veterinario verá bien que use esto?</div>
+    <p class="faq-mini-a">La mayoría de los veterinarios con los que hemos hablado lo recibe bien. El mayor problema que enfrentan no es que los dueños usen IA — es que usen Google. VetScan te ayuda a llegar a las consultas más informado y menos asustado, lo que hace la visita más fácil para todos.</p>
+  </div>
+
+  <p>Para el FAQ completo, ve a nuestra <a href="/es-ES/faq.html">página de FAQ</a>.</p>
+
+  <div class="cta-card">
+    <h3>¿Listo para probarlo?</h3>
+    <p>Únete a la lista de espera para acceso anticipado cuando VetScan abra para dueños de perros en tu país.</p>
+    <a href="/es-ES/index.html#waitlist" class="cta-btn">Unirme a la lista</a>
+  </div>
 
 </article>
 
@@ -1071,8 +1227,8 @@ td { color: var(--text-secondary); }
     </div>
     
 <div class="footer-lang-switcher">
-  <span class="footer-lang-label">🌐 Language:</span>
-  <span class="footer-lang-current" aria-current="true">English</span><span class="footer-lang-sep">·</span><a href="/es-ES/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ES');}">Español (España)</a><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a>
+  <span class="footer-lang-label">🌐 Idioma:</span>
+  <a href="/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('en');}">English</a><span class="footer-lang-sep">·</span><span class="footer-lang-current" aria-current="true">Español (España)</span><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a>
 </div>
     <div class="footer-legal">
       <a href="how-it-works.html">How It Works</a>
@@ -1083,9 +1239,9 @@ td { color: var(--text-secondary); }
       <span class="footer-legal-sep">·</span>
       <a href="compare.html">Compare</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/faq.html">Preguntas frecuentes</a>
+      <a href="/es-ES/faq.html">Preguntas frecuentes</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/about.html">Acerca de</a>
+      <a href="/es-ES/about.html">Acerca de</a>
       <span class="footer-legal-sep">·</span>
       <a href="veterinary-advisors.html">Vet Advisors</a>
       <span class="footer-legal-sep">·</span>
@@ -1093,13 +1249,13 @@ td { color: var(--text-secondary); }
       <span class="footer-legal-sep">·</span>
       <a href="terms.html">Terms</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/disclaimer.html">Aviso médico</a>
+      <a href="/es-ES/disclaimer.html">Aviso médico</a>
       <span class="footer-legal-sep">·</span>
       <a href="cookies.html">Cookies</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/security.html">Seguridad</a>
+      <a href="/es-ES/security.html">Seguridad</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/accessibility.html">Accesibilidad</a>
+      <a href="/es-ES/accessibility.html">Accesibilidad</a>
     </div>
     <div class="footer-disclaimer">
       VetScan provides AI-assisted general guidance only and is not a substitute for professional veterinary care. In a pet emergency, contact a veterinarian immediately.

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es-ES">
 <head>
 <meta charset="UTF-8">
 <!-- Google Analytics 4 + Consent Mode v2 -->
@@ -19,27 +19,7 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0064FF">
-<title>Accesibilidad — VetScan</title>
-<meta name="description" content="Nuestro compromiso con la accesibilidad WCAG 2.1 Level AA, soporte actual, limitaciones conocidas y cómo reportar problemas.">
-<link rel="canonical" href="https://vetscan.app/es-mx/accessibility.html">
-<link rel="alternate" hreflang="en" href="https://vetscan.app/accessibility.html">
-<link rel="alternate" hreflang="es-MX" href="https://vetscan.app/es-mx/accessibility.html">
-<link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/accessibility.html">
-<link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/accessibility.html">
-<link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/accessibility.html">
-<link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/accessibility.html">
-<link rel="alternate" hreflang="x-default" href="https://vetscan.app/accessibility.html">
-<meta property="og:title" content="Declaración de accesibilidad — VetScan">
-<meta property="og:description" content="Nuestro compromiso con WCAG 2.1 Level AA, soporte actual, limitaciones conocidas.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://vetscan.app/es-mx/accessibility.html">
-<meta property="og:image" content="https://vetscan.app/og-image-es-mx.png">
-<meta property="og:locale" content="es_MX">
-<meta property="og:locale:alternate" content="en_US">
-<meta property="og:locale:alternate" content="uk_UA">
-<meta property="og:locale:alternate" content="ru_RU">
-<meta property="og:locale:alternate" content="es_AR">
-<meta property="og:locale:alternate" content="pt_BR">
+<title>Términos de uso — VetScan</title>
 <script>
 /* Auto-redirect to localized version based on TIMEZONE first, language second.
    Ukrainian users with Russian-language OS should land on /uk/, not /ru/. */
@@ -48,8 +28,8 @@
   /* Already on a localized path → don't redirect (prevents /uk/uk/ loop) */
   var p = location.pathname;
   if (p.indexOf('/uk/') === 0 || p.indexOf('/ru/') === 0 ||
-      p.indexOf('/es-mx/') === 0 || p.indexOf('/es-ar/') === 0 ||
-      p.indexOf('/pt-BR/') === 0) {
+      p.indexOf('/es-ES/') === 0 || p.indexOf('/es-mx/') === 0 ||
+      p.indexOf('/es-ar/') === 0 || p.indexOf('/pt-BR/') === 0) {
     sessionStorage.setItem('vs_lang_chosen', '1');
     return;
   }
@@ -115,6 +95,26 @@
   }
 })();
 </script>
+<meta name="description" content="Términos de uso de VetScan — las reglas y condiciones para usar nuestro servicio.">
+<link rel="canonical" href="https://vetscan.app/es-ES/terms.html">
+<link rel="alternate" hreflang="en" href="https://vetscan.app/terms.html">
+<link rel="alternate" hreflang="es-ES" href="https://vetscan.app/es-ES/terms.html">
+<link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/terms.html">
+<link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/terms.html">
+<link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/terms.html">
+<link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/terms.html">
+<link rel="alternate" hreflang="x-default" href="https://vetscan.app/terms.html">
+<meta property="og:title" content="Términos de uso — VetScan">
+<meta property="og:description" content="Las reglas y condiciones para usar nuestro servicio.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://vetscan.app/es-ES/terms.html">
+<meta property="og:image" content="https://vetscan.app/og-image-es-mx.png">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="es_AR">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="uk_UA">
+<meta property="og:locale:alternate" content="ru_RU">
 <link rel="icon" type="image/svg+xml" href="/vetscan-favicon-32.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin>
@@ -131,11 +131,8 @@
   --surface: #F8F8FB;
   --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
-
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -146,8 +143,6 @@ body {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
-
-/* Header */
 .legal-header {
   border-bottom: 1px solid var(--separator);
   background: rgba(255, 255, 255, 0.85);
@@ -166,164 +161,70 @@ body {
   justify-content: space-between;
 }
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--text-primary);
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text-primary);
+  font-weight: 700; font-size: 17px; letter-spacing: -0.02em;
 }
 .logo-mark {
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
+  width: 32px; height: 32px; border-radius: 9px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 10px rgba(0, 100, 255, 0.25);
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
 .logo-mark svg { width: 22px; height: 22px; }
 .logo-mark::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
   background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 70%);
 }
 .back-link {
-  font-size: 14px;
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+  font-size: 14px; color: var(--accent); text-decoration: none;
+  font-weight: 500; display: inline-flex; align-items: center; gap: 4px;
 }
 .back-link:hover { text-decoration: underline; }
-
-/* Article container */
-.legal-article {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 64px 24px 80px;
-}
-
-@media (max-width: 600px) {
-  .legal-article { padding: 40px 20px 60px; }
-}
-
-/* Title */
+.legal-article { max-width: 720px; margin: 0 auto; padding: 64px 24px 80px; }
+@media (max-width: 600px) { .legal-article { padding: 40px 20px 60px; } }
 .legal-eyebrow {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
+  font-size: 13px; font-weight: 600; color: var(--accent);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px;
 }
 h1 {
-  font-size: 42px;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
-  font-weight: 800;
-  margin-bottom: 12px;
+  font-size: 42px; line-height: 1.15; letter-spacing: -0.025em;
+  font-weight: 800; margin-bottom: 12px;
 }
 @media (max-width: 600px) { h1 { font-size: 32px; } }
-
 .last-updated {
-  color: var(--text-tertiary);
-  font-size: 14px;
-  margin-bottom: 48px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--separator);
+  color: var(--text-tertiary); font-size: 14px; margin-bottom: 48px;
+  padding-bottom: 24px; border-bottom: 1px solid var(--separator);
 }
-
-/* Headings */
 h2 {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  margin: 48px 0 16px;
-  line-height: 1.3;
+  font-size: 24px; font-weight: 700; letter-spacing: -0.015em;
+  margin: 48px 0 16px; line-height: 1.3;
 }
 h2:first-of-type { margin-top: 0; }
-
 h3 {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin: 28px 0 10px;
+  font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin: 28px 0 10px;
 }
-
-p {
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
+p { color: var(--text-secondary); margin-bottom: 16px; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 a:hover { color: var(--accent-2); }
-
-ul, ol {
-  color: var(--text-secondary);
-  margin: 0 0 16px 24px;
-}
-li {
-  margin-bottom: 8px;
-}
-
+ul, ol { color: var(--text-secondary); margin: 0 0 16px 24px; }
+li { margin-bottom: 8px; }
 strong { color: var(--text-primary); font-weight: 600; }
-
 .callout {
-  background: var(--surface);
-  border-left: 3px solid var(--accent);
-  padding: 16px 20px;
-  border-radius: 0 12px 12px 0;
-  margin: 24px 0;
-  font-size: 15px;
+  background: var(--surface); border-left: 3px solid var(--accent);
+  padding: 16px 20px; border-radius: 0 12px 12px 0;
+  margin: 24px 0; font-size: 15px;
 }
 .callout strong { display: block; margin-bottom: 4px; }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 14px;
+.callout-warning {
+  background: #FFF5E6; border-left-color: #FF9500;
 }
-th, td {
-  text-align: left;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--separator);
-}
-th {
-  font-weight: 600;
-  color: var(--text-primary);
-  background: var(--surface);
-}
-td { color: var(--text-secondary); }
-
-/* Footer */
 .legal-footer {
-  border-top: 1px solid var(--separator);
-  padding: 32px 24px;
-  text-align: center;
-  color: var(--text-tertiary);
-  font-size: 13px;
-  margin-top: 48px;
+  border-top: 1px solid var(--separator); padding: 32px 24px;
+  text-align: center; color: var(--text-tertiary); font-size: 13px; margin-top: 48px;
 }
-.legal-footer a {
-  color: var(--text-tertiary);
-  text-decoration: none;
-  margin: 0 12px;
-}
+.legal-footer a { color: var(--text-tertiary); text-decoration: none; margin: 0 12px; }
 .legal-footer a:hover { color: var(--accent); }
 
 
@@ -841,7 +742,7 @@ td { color: var(--text-secondary); }
      ============================================================ -->
 <nav class="nav">
   <div class="unified-container nav-inner">
-    <a href="/es-mx/index.html" class="logo">
+    <a href="/es-ES/index.html" class="logo">
       <span class="logo-mark">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <g fill="white">
@@ -861,12 +762,12 @@ td { color: var(--text-secondary); }
     </a>
 
     <div class="nav-links">
-      <a href="/es-mx/how-it-works.html">Cómo funciona</a>
-      <a href="/es-mx/about.html">Acerca de</a>
-      <a href="/es-mx/faq.html">Preguntas frecuentes</a>
+      <a href="/es-ES/how-it-works.html">Cómo funciona</a>
+      <a href="/es-ES/about.html">Acerca de</a>
+      <a href="/es-ES/faq.html">Preguntas frecuentes</a>
     </div>
 
-    <a href="/es-mx/index.html#waitlist" class="nav-cta">
+    <a href="/es-ES/index.html#waitlist" class="nav-cta">
       Acceso anticipado
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </a>
@@ -883,23 +784,23 @@ td { color: var(--text-secondary); }
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
   <div class="mobile-menu-section">
     <div class="mobile-menu-section-label">Producto</div>
-    <a href="/es-mx/how-it-works.html">
+    <a href="/es-ES/how-it-works.html">
       Cómo funciona
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/methodology.html">
+    <a href="/es-ES/methodology.html">
       Metodología
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/pricing.html">
+    <a href="/es-ES/pricing.html">
       Precios
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/compare.html">
+    <a href="/es-ES/compare.html">
       Comparar
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/faq.html">
+    <a href="/es-ES/faq.html">
       Preguntas frecuentes
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
@@ -907,11 +808,11 @@ td { color: var(--text-secondary); }
 
   <div class="mobile-menu-section">
     <div class="mobile-menu-section-label">Empresa</div>
-    <a href="/es-mx/about.html">
+    <a href="/es-ES/about.html">
       Acerca de
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/es-mx/veterinary-advisors.html">
+    <a href="/es-ES/veterinary-advisors.html">
       Asesores veterinarios
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
@@ -919,87 +820,152 @@ td { color: var(--text-secondary); }
 
   <div class="mobile-menu-section legal">
     <div class="mobile-menu-section-label">Legal y confianza</div>
-    <a href="/es-mx/privacy.html">Política de privacidad</a>
-    <a href="/es-mx/terms.html">Términos de uso</a>
-    <a href="/es-mx/disclaimer.html">Aviso médico</a>
-    <a href="/es-mx/cookies.html">Política de cookies</a>
-    <a href="/es-mx/security.html">Seguridad</a>
-    <a href="/es-mx/accessibility.html">Accesibilidad</a>
+    <a href="/es-ES/privacy.html">Política de privacidad</a>
+    <a href="/es-ES/terms.html">Términos de uso</a>
+    <a href="/es-ES/disclaimer.html">Aviso médico</a>
+    <a href="/es-ES/cookies.html">Política de cookies</a>
+    <a href="/es-ES/security.html">Seguridad</a>
+    <a href="/es-ES/accessibility.html">Accesibilidad</a>
   </div>
 
-  <a href="/es-mx/index.html#waitlist" class="mobile-menu-cta">Acceso anticipado</a>
+  <a href="/es-ES/index.html#waitlist" class="mobile-menu-cta">Acceso anticipado</a>
 </div>
 
 <article class="legal-article">
-  <div class="legal-eyebrow">Accesibilidad</div>
-  <h1>Declaración de accesibilidad</h1>
+  <div class="legal-eyebrow">Legal</div>
+  <h1>Términos de uso</h1>
   <div role="note" aria-label="Translation disclaimer" style="background:#FFF8DC; border:2px solid #DAA520; border-left-width:6px; padding:16px 20px; margin:0 0 32px 0; border-radius:6px; color:#5C4400; font-size:0.95rem; line-height:1.55;">
-    <strong>⚠️ Traducción en revisión legal.</strong> Este documento es una traducción de la versión original en inglés. La revisión legal para tu jurisdicción está en curso. Hasta que se complete, en caso de discrepancia, prevalece la versión en inglés. <a href="https://vetscan.app/accessibility.html" style="color:#5C4400; font-weight:600; text-decoration:underline;">Ver la versión en inglés</a>.
+    <strong>⚠️ Traducción en revisión legal.</strong> Este documento es una traducción de la versión original en inglés. La revisión legal para tu jurisdicción está en curso. Hasta que se complete, en caso de discrepancia, prevalece la versión en inglés. <a href="https://vetscan.app/terms.html" style="color:#5C4400; font-weight:600; text-decoration:underline;">Ver la versión en inglés</a>.
   </div>
-  <p class="last-updated">Última actualización: 27 de abril de 2026</p>
+  <p class="last-updated">Última actualización: 26 de abril de 2026</p>
 
+  <div class="callout callout-warning">
+    <strong>Important</strong>
+    VetScan is not a substitute for veterinary care. Read our <a href="/es-ES/disclaimer.html">Aviso médico</a> before using the Service.
+  </div>
 
-  <h2>1. Nuestro compromiso</h2>
-  <p>VetScan se construye sobre la creencia de que todo dueño de perro merece acceso a guía de salud clara y tranquila — incluyendo dueños que usan tecnología de asistencia, tienen diferencias visuales o auditivas, o dependen de navegación solo por teclado.</p>
-  <p>Apuntamos al cumplimiento de <strong>WCAG 2.1 Level AA</strong> en todo el sitio y producto, y tratamos los problemas de accesibilidad como bugs, no como solicitudes de funciones.</p>
+  <h2>1. Aceptación de los términos</h2>
+  <p>Bienvenido a VetScan. Estos Términos de uso ("Términos") rigen tu acceso y uso del sitio web de VetScan en <a href="https://vetscan.app">vetscan.app</a>, aplicaciones móviles y servicios relacionados (en conjunto, el "Servicio") operados por VetScan ("nosotros", "nuestro").</p>
+  <p>Al acceder o usar el Servicio, aceptas quedar vinculado por estos Términos. Si no estás de acuerdo, no uses el Servicio.</p>
 
-  <h2>2. Lo que hacemos hoy</h2>
+  <h2>2. Elegibilidad</h2>
+  <p>Debes tener al menos 18 años para usar el Servicio. Al usar el Servicio, declaras y garantizas que:</p>
   <ul>
-    <li><strong>Navegación por teclado</strong> — cada elemento interactivo del sitio es alcanzable y se activa con Tab, Shift+Tab, Enter y Space</li>
-    <li><strong>Soporte de lectores de pantalla</strong> — HTML semántico, etiquetas ARIA en íconos, alternativas de texto ocultas para gráficos decorativos</li>
-    <li><strong>Contraste de color suficiente</strong> — el texto del cuerpo y los controles de UI cumplen las relaciones de contraste WCAG AA (4.5:1 para texto del cuerpo, 3:1 para texto grande)</li>
-    <li><strong>Texto redimensionable</strong> — el diseño funciona al 200% de zoom del navegador sin romperse</li>
-    <li><strong>Indicadores de foco</strong> — anillos de foco visibles en todos los elementos interactivos; nunca se eliminan sin una alternativa visible</li>
-    <li><strong>Sin reproducción automática de audio o video</strong> — las animaciones respetan la preferencia del sistema <code>prefers-reduced-motion</code></li>
-    <li><strong>Etiquetas de formulario</strong> — cada campo de entrada tiene una etiqueta asociada; los estados de error se anuncian a los lectores de pantalla</li>
-    <li><strong>Enlace «Saltar al contenido»</strong> planeado para Q2 2026</li>
+    <li>Tienes 18 años o más</li>
+    <li>Tienes capacidad legal para celebrar este acuerdo</li>
+    <li>Tu uso del Servicio no infringe ninguna ley aplicable</li>
   </ul>
 
-  <h2>3. Probado con</h2>
+  <h2>3. Descripción del Servicio</h2>
+  <p>VetScan ofrece información de evaluación de urgencia asistida por IA para dueños de perros. El Servicio incluye:</p>
   <ul>
-    <li>VoiceOver en macOS e iOS</li>
-    <li>NVDA en Windows</li>
-    <li>Navegación solo por teclado en Chrome, Safari y Firefox</li>
-    <li>Verificaciones automáticas de axe DevTools (ejecutadas antes de cada lanzamiento)</li>
-    <li>Pruebas manuales al 200% de zoom, modo de alto contraste y preferencias de modo oscuro</li>
+    <li>Una herramienta de evaluación de síntomas que sugiere niveles de urgencia (por ejemplo, "observar y esperar", "ve al veterinario en 48 horas", "emergencia")</li>
+    <li>Información educativa general sobre la salud canina</li>
+    <li>Orientación sobre cuándo buscar atención veterinaria profesional</li>
+  </ul>
+  <p><strong>The Service is informational only and does not provide veterinary diagnosis, treatment, or medical advice.</strong> See our <a href="/es-ES/disclaimer.html">Aviso médico</a>.</p>
+
+  <h2>4. Cuentas y registro</h2>
+  <p>Si creas una cuenta o te unes a nuestra lista de espera, aceptas:</p>
+  <ul>
+    <li>Proporcionar información precisa, actual y completa</li>
+    <li>Mantener tus credenciales de cuenta seguras y confidenciales</li>
+    <li>Ser responsable de toda actividad que ocurra bajo tu cuenta</li>
+    <li>Notificarnos de inmediato cualquier acceso no autorizado</li>
   </ul>
 
-  <h2>4. Limitaciones conocidas</h2>
-  <p>Tratamos de ser honestos sobre lo que aún no es perfecto:</p>
+  <h2>5. Uso aceptable</h2>
+  <p>Aceptas no:</p>
   <ul>
-    <li>El SVG animado de la mascota perro en la página de inicio aún no tiene una alternativa de texto descriptiva completa — actualmente etiquetado simplemente como «decorativo». Una etiqueta descriptiva está planeada para Q2 2026.</li>
-    <li>La animación de apertura/cierre del menú móvil puede no anunciar los cambios de estado de manera consistente en todos los lectores de pantalla — en investigación.</li>
-    <li>Algunas páginas legales largas aún no tienen una tabla de contenidos completamente enlazada — planeada para Q3 2026.</li>
+    <li>Usar el Servicio para ningún propósito ilegal</li>
+    <li>Intentar obtener acceso no autorizado a cualquier parte del Servicio</li>
+    <li>Interferir o interrumpir el Servicio o sus servidores</li>
+    <li>Usar el Servicio para transmitir malware, spam o contenido dañino</li>
+    <li>Hacer ingeniería inversa, descompilar o desensamblar cualquier parte del Servicio</li>
+    <li>Hacer scraping, recolectar o juntar datos del Servicio sin permiso</li>
+    <li>Revender o explotar comercialmente el Servicio sin nuestro consentimiento por escrito</li>
+    <li>Proporcionar información falsa sobre tu perro o sus síntomas de un modo que pueda dañar a otros</li>
+    <li>Usar el Servicio para tomar decisiones sobre animales que no son tu propia mascota sin la autoridad para hacerlo</li>
   </ul>
 
-  <h2>5. En proceso</h2>
+  <h2>6. Propiedad intelectual</h2>
+  <p>Todo el contenido del Servicio, incluido texto, gráficos, logotipos, ilustraciones, animaciones, software y los modelos de IA que impulsan nuestro sistema de evaluación de urgencia, son propiedad de VetScan o sus licenciantes y están protegidos por leyes de propiedad intelectual.</p>
+  <p>No puedes copiar, modificar, distribuir, vender ni crear obras derivadas sin nuestro consentimiento expreso por escrito.</p>
+  <p>El nombre y logotipo "VetScan" son marcas registradas de VetScan. No puedes usarlos sin nuestro consentimiento previo por escrito.</p>
+
+  <h2>7. Contenido del usuario</h2>
+  <p>Si envías retroalimentación, sugerencias, síntomas, fotos u otro contenido al Servicio ("Contenido del usuario"), nos otorgas una licencia mundial, libre de regalías, no exclusiva para usar, reproducir, modificar y mostrar ese contenido con el fin de operar y mejorar el Servicio.</p>
+  <p>Declaras que tienes todos los derechos necesarios para otorgar esta licencia y que tu Contenido del usuario no infringe ningún derecho de terceros.</p>
+
+  <h2>8. Salida generada por IA</h2>
+  <p>El Servicio usa inteligencia artificial para generar respuestas. Reconoces que:</p>
   <ul>
-    <li><strong>Auditoría completa WCAG 2.1 Level AA</strong> — objetivo Q3 2026</li>
-    <li><strong>Toggle de modo de alto contraste</strong> — fase de exploración de diseño</li>
-    <li><strong>Opción de fuente amigable para dislexia</strong> — bajo consideración</li>
-    <li><strong>Entrada de voz para registro de síntomas</strong> — en el roadmap del producto (post-lanzamiento)</li>
+    <li>La salida generada por IA puede contener inexactitudes o errores</li>
+    <li>La IA no es un veterinario titulado y no puede diagnosticar condiciones médicas</li>
+    <li>Eres el único responsable de cualquier decisión que tomes con base en la salida de la IA</li>
+    <li>En caso de emergencia, contacta de inmediato a un veterinario o un hospital veterinario de urgencias</li>
   </ul>
 
-  <h2>6. Estándares que seguimos</h2>
+  <h2>9. Suscripción y pagos (a futuro)</h2>
+  <p>El Servicio actual se ofrece de forma gratuita durante el periodo de beta. Tras el lanzamiento, ciertas funciones podrán requerir una suscripción de pago. Te avisaremos sobre los precios antes de cualquier cargo. Los términos de suscripción, las políticas de reembolso y los procedimientos de cancelación se detallarán al momento de la compra.</p>
+
+  <h2>10. Renuncia de garantías</h2>
+  <p>EL SERVICIO SE PROPORCIONA "TAL CUAL" Y "SEGÚN DISPONIBILIDAD", SIN GARANTÍAS DE NINGÚN TIPO, EXPRESAS O IMPLÍCITAS, INCLUYENDO SIN LIMITACIÓN:</p>
   <ul>
-    <li><strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> — objetivo principal</li>
-    <li><strong>Americans with Disabilities Act (ADA)</strong> — EE.UU.</li>
-    <li><strong>European Accessibility Act (EAA)</strong> — UE, aplicable desde junio de 2025</li>
-    <li><strong>Accessibility for Ontarians with Disabilities Act (AODA)</strong> — Canadá</li>
+    <li>Garantías de comerciabilidad</li>
+    <li>Idoneidad para un propósito particular</li>
+    <li>No infracción</li>
+    <li>Exactitud o fiabilidad de la información</li>
+    <li>Operación ininterrumpida o libre de errores</li>
+  </ul>
+  <p>No garantizamos que el Servicio cumplirá tus requisitos ni que se corregirán los defectos.</p>
+
+  <h2>11. Limitación de responsabilidad</h2>
+  <p>EN LA MEDIDA MÁXIMA PERMITIDA POR LA LEY, VETSCAN Y SUS FILIALES, FUNCIONARIOS, EMPLEADOS Y AGENTES NO SERÁN RESPONSABLES POR:</p>
+  <ul>
+    <li>Daños indirectos, incidentales, especiales, consecuentes o punitivos</li>
+    <li>Pérdida de ganancias, ingresos, datos o uso</li>
+    <li>Daño a la salud de tu mascota derivado de la confianza en la salida del Servicio</li>
+    <li>Daños derivados de demoras, errores u omisiones en el Servicio</li>
+  </ul>
+  <p>Nuestra responsabilidad acumulada total bajo estos Términos no excederá el mayor entre (a) la cantidad que nos pagaste en los 12 meses previos al reclamo, o (b) cien dólares estadounidenses ($100).</p>
+
+  <h2>12. Indemnización</h2>
+  <p>Aceptas indemnizar, defender y mantener indemne a VetScan y sus filiales de cualquier reclamo, daño, pérdida o gasto (incluyendo honorarios razonables de abogados) que surja de o se relacione con:</p>
+  <ul>
+    <li>Tu uso del Servicio</li>
+    <li>Tu incumplimiento de estos Términos</li>
+    <li>Tu violación de cualquier derecho de terceros</li>
+    <li>Decisiones que tomes sobre la salud de tu mascota basadas en la salida del Servicio</li>
   </ul>
 
-  <h2>7. Reportar un problema</h2>
-  <p>Si encuentras una barrera de accesibilidad en VetScan:</p>
-  <ul>
-    <li><strong>Correo:</strong> <a href="mailto:hello@vetscan.app">hello@vetscan.app</a> con asunto <em>"Accessibility issue"</em></li>
-    <li>Por favor describe el problema, la página donde lo encontraste y la tecnología de asistencia que estabas usando</li>
-    <li>Respondemos dentro de <strong>5 días hábiles</strong></li>
-    <li>Apuntamos a corregir problemas críticos (que bloquean funcionalidad principal) dentro de <strong>30 días</strong>; los problemas no críticos se programan en el siguiente sprint</li>
-  </ul>
-  <p>La retroalimentación de accesibilidad se toma en serio. La tratamos como un reporte de bug, no como una queja.</p>
+  <h2>13. Terminación</h2>
+  <p>Podemos suspender o terminar tu acceso al Servicio en cualquier momento, con o sin previo aviso, por cualquier motivo, incluyendo el incumplimiento de estos Términos. Tras la terminación, tu derecho a usar el Servicio cesará de inmediato.</p>
+  <p>Puedes terminar tu cuenta en cualquier momento contactándonos en <a href="mailto:hello@vetscan.app">hello@vetscan.app</a>.</p>
 
-  <h2>8. Última actualización</h2>
-  <p>Esta declaración fue actualizada por última vez el 27 de abril de 2026. Revisamos y actualizamos esta página siempre que hacemos cambios materiales de accesibilidad o como mínimo una vez por trimestre.</p>
+  <h2>14. Cambios al Servicio</h2>
+  <p>Nos reservamos el derecho de modificar, suspender o discontinuar cualquier parte del Servicio en cualquier momento, con o sin previo aviso. No somos responsables ante ti ni ante terceros por ninguna modificación, suspensión o discontinuación.</p>
+
+  <h2>15. Cambios a estos Términos</h2>
+  <p>Podemos actualizar estos Términos de tiempo en tiempo. La fecha de "Última actualización" en la parte superior refleja los cambios más recientes. El uso continuo del Servicio después de los cambios significa que aceptas los nuevos Términos.</p>
+
+  <h2>16. Ley aplicable</h2>
+  <p>Estos Términos se rigen por las leyes del Estado de Delaware, Estados Unidos, sin tener en cuenta los principios de conflicto de leyes. Cualquier disputa se resolverá en los tribunales estatales o federales de Delaware, y aceptas la jurisdicción personal de dichos tribunales.</p>
+  <p><strong>Derechos del consumidor.</strong> Si eres un consumidor (una persona física que usa el Servicio fuera de tu comercio, negocio, profesión u oficio), esta Sección no te priva de la protección de las normas imperativas de protección al consumidor del país en el que residas habitualmente. Puedes presentar reclamaciones derivadas de estos Términos ya sea (a) en los tribunales de Delaware como se establece arriba, o (b) en los tribunales competentes de tu país de residencia — a tu elección. Asimismo, las leyes imperativas de protección al consumidor de tu país de residencia aplican en la medida en que te otorguen derechos que no puedes renunciar por contrato.</p>
+
+  <h2>17. Divisibilidad</h2>
+  <p>Si alguna disposición de estos Términos resulta inejecutable o inválida, las disposiciones restantes seguirán en pleno vigor y efecto.</p>
+
+  <h2>18. Acuerdo completo</h2>
+  <p>These Terms, together with our <a href="/es-ES/privacy.html">Política de privacidad</a>, <a href="/es-ES/disclaimer.html">Aviso médico</a>, and <a href="/es-ES/cookies.html">Política de cookies</a>, constitute the entire agreement between you and VetScan regarding the Service.</p>
+
+  <h2>19. Contáctanos</h2>
+  <p>Para preguntas sobre estos Términos, contáctanos:</p>
+  <div class="callout">
+    <strong>Equipo legal de VetScan</strong>
+    Correo: <a href="mailto:legal@vetscan.app">legal@vetscan.app</a><br>
+    General: <a href="mailto:hello@vetscan.app">hello@vetscan.app</a>
+  </div>
 
 </article>
 
@@ -1071,8 +1037,8 @@ td { color: var(--text-secondary); }
     </div>
     
 <div class="footer-lang-switcher">
-  <span class="footer-lang-label">🌐 Language:</span>
-  <span class="footer-lang-current" aria-current="true">English</span><span class="footer-lang-sep">·</span><a href="/es-ES/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ES');}">Español (España)</a><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a>
+  <span class="footer-lang-label">🌐 Idioma:</span>
+  <a href="/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('en');}">English</a><span class="footer-lang-sep">·</span><span class="footer-lang-current" aria-current="true">Español (España)</span><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a>
 </div>
     <div class="footer-legal">
       <a href="how-it-works.html">How It Works</a>
@@ -1083,9 +1049,9 @@ td { color: var(--text-secondary); }
       <span class="footer-legal-sep">·</span>
       <a href="compare.html">Compare</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/faq.html">Preguntas frecuentes</a>
+      <a href="/es-ES/faq.html">Preguntas frecuentes</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/about.html">Acerca de</a>
+      <a href="/es-ES/about.html">Acerca de</a>
       <span class="footer-legal-sep">·</span>
       <a href="veterinary-advisors.html">Vet Advisors</a>
       <span class="footer-legal-sep">·</span>
@@ -1093,13 +1059,13 @@ td { color: var(--text-secondary); }
       <span class="footer-legal-sep">·</span>
       <a href="terms.html">Terms</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/disclaimer.html">Aviso médico</a>
+      <a href="/es-ES/disclaimer.html">Aviso médico</a>
       <span class="footer-legal-sep">·</span>
       <a href="cookies.html">Cookies</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/security.html">Seguridad</a>
+      <a href="/es-ES/security.html">Seguridad</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/es-mx/accessibility.html">Accesibilidad</a>
+      <a href="/es-ES/accessibility.html">Accesibilidad</a>
     </div>
     <div class="footer-disclaimer">
       VetScan provides AI-assisted general guidance only and is not a substitute for professional veterinary care. In a pet emergency, contact a veterinarian immediately.

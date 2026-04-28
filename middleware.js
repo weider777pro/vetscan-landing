@@ -19,7 +19,7 @@ export const config = {
   matcher: ['/((?!_next/|_vercel/|.*\\..*).*)'],
 };
 
-const SUPPORTED = ['es-mx', 'es-ar', 'pt-BR', 'uk', 'ru'];
+const SUPPORTED = ['es-ES', 'es-mx', 'es-ar', 'pt-BR', 'uk', 'ru'];
 const COOKIE_NAME = 'vs_lang_chosen';
 
 function detectLocale(acceptLang, country) {
@@ -27,12 +27,16 @@ function detectLocale(acceptLang, country) {
 
   // Spanish — split by region using geo (more reliable than Accept-Language)
   if (lang.startsWith('es')) {
+    // Spain (ES) → es-ES
+    if (country === 'ES') return 'es-ES';
+    if (lang.includes('es-es')) return 'es-ES';
+    // Argentina/Chile/Uruguay → es-AR
     const argLike = ['AR', 'CL', 'UY'];
     if (argLike.includes(country)) return 'es-ar';
-    // Accept-Language hints (some browsers send es-AR explicitly)
     if (lang.includes('es-ar') || lang.includes('es-cl') || lang.includes('es-uy')) {
       return 'es-ar';
     }
+    // Default Spanish → es-MX
     return 'es-mx';
   }
 

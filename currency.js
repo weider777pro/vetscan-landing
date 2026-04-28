@@ -390,6 +390,7 @@
    */
   function detectPageLanguage() {
     var htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+    if (htmlLang.indexOf('es-es') === 0) return 'es-ES';
     if (htmlLang.indexOf('es-mx') === 0) return 'es-mx';
     if (htmlLang.indexOf('es-ar') === 0) return 'es-ar';
     if (htmlLang.indexOf('pt-br') === 0) return 'pt-BR';

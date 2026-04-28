@@ -17,6 +17,7 @@
   // -------------------------------------------------------------
   function currentPathLang() {
     var p = window.location.pathname;
+    if (p.indexOf('/es-ES/') === 0 || p === '/es-ES' || p.indexOf('/es-ES') === 0) return 'es-ES';
     if (p.indexOf('/es-mx/') === 0 || p === '/es-mx' || p.indexOf('/es-mx') === 0) return 'es-mx';
     if (p.indexOf('/es-ar/') === 0 || p === '/es-ar' || p.indexOf('/es-ar') === 0) return 'es-ar';
     if (p.indexOf('/pt-BR/') === 0 || p === '/pt-BR' || p.indexOf('/pt-BR') === 0) return 'pt-BR';
@@ -36,6 +37,11 @@
 
     // Spanish — split by region
     if (lang.indexOf('es') === 0) {
+      // Spain (Iberian Peninsula + Canary Islands) → es-ES
+      if (tz === 'Europe/Madrid' || tz === 'Atlantic/Canary' ||
+          tz === 'Africa/Ceuta') {
+        return 'es-ES';
+      }
       // Rioplatense (Argentina, Chile, Uruguay) → es-AR
       if (tz.indexOf('America/Argentina/') === 0 ||
           tz === 'America/Buenos_Aires' || tz === 'America/Catamarca' ||
@@ -44,6 +50,10 @@
           tz === 'America/Santiago' || tz === 'America/Punta_Arenas' ||
           tz === 'Pacific/Easter' || tz === 'America/Montevideo') {
         return 'es-ar';
+      }
+      // Explicit Accept-Language hint for Spain
+      if (lang.indexOf('es-es') === 0) {
+        return 'es-ES';
       }
       // Default Spanish → es-MX (Mexico/Colombia/Peru/elsewhere)
       return 'es-mx';
