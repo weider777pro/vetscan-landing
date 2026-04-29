@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
 <meta charset="UTF-8">
 <!-- Google Analytics 4 + Consent Mode v2 -->
@@ -25,28 +25,122 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="VetScan">
 <meta name="mobile-web-app-capable" content="yes">
-<title>VetScan — Saiba se seu cão precisa de um veterinário em 60 segundos</title>
+<title>VetScan — Know if your dog needs a vet in 60 seconds</title>
+<script>
+/* Auto-redirect to localized version based on TIMEZONE first, language second.
+   Ukrainian users with Russian-language OS should land on /uk/, not /ru/. */
+(function(){
+  if (sessionStorage.getItem('vs_lang_chosen')) return;
+  /* Already on a localized path → don't redirect (prevents /uk/uk/ loop) */
+  var p = location.pathname;
+  if (p.indexOf('/uk/') === 0 || p.indexOf('/ru/') === 0 ||
+      p.indexOf('/es-mx/') === 0 || p.indexOf('/es-ar/') === 0 ||
+      p.indexOf('/pt-BR/') === 0) {
+    sessionStorage.setItem('vs_lang_chosen', '1');
+    return;
+  }
+  var lang = (navigator.language || 'en').toLowerCase();
+  var tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
+  var target = null;
 
-<meta name="description" content="Assistente veterinário com IA para novos donos de cães. Descreva um sintoma, receba uma pontuação de urgência instantânea. Construído com veterinários.">
+  /* PRIMARY: timezone-based geographic detection (overrides browser language) */
+  if (tz === 'Europe/Kyiv' || tz === 'Europe/Kiev' ||
+      tz === 'Europe/Uzhgorod' || tz === 'Europe/Zaporozhye' ||
+      tz === 'Europe/Simferopol') {
+    target = 'uk';  /* Ukraine — always Ukrainian, never Russian */
+  } else if (tz === 'Asia/Almaty' || tz === 'Asia/Aqtau' || tz === 'Asia/Aqtobe' ||
+             tz === 'Asia/Atyrau' || tz === 'Asia/Oral' || tz === 'Asia/Qostanay' ||
+             tz === 'Asia/Qyzylorda') {
+    target = 'ru';  /* Kazakhstan — Russian language */
+  } else if (tz === 'Europe/Madrid' || tz === 'Atlantic/Canary' ||
+             tz === 'Africa/Ceuta') {
+    target = 'es-ES';  /* Spain — Castilian Spanish */
+  } else if (tz.indexOf('America/Argentina/') === 0 ||
+             tz === 'America/Buenos_Aires' || tz === 'America/Catamarca' ||
+             tz === 'America/Cordoba' || tz === 'America/Mendoza' ||
+             tz === 'America/Rosario' || tz === 'America/Santiago' ||
+             tz === 'America/Punta_Arenas' || tz === 'Pacific/Easter' ||
+             tz === 'America/Montevideo') {
+    target = 'es-ar';  /* Argentina, Chile, Uruguay — Rioplatense */
+  } else if (tz === 'America/Mexico_City' || tz === 'America/Cancun' ||
+             tz === 'America/Merida' || tz === 'America/Monterrey' ||
+             tz === 'America/Mazatlan' || tz === 'America/Chihuahua' ||
+             tz === 'America/Hermosillo' || tz === 'America/Tijuana' ||
+             tz === 'America/Bahia_Banderas' || tz === 'America/Matamoros' ||
+             tz === 'America/Ojinaga' || tz === 'America/Bogota' ||
+             tz === 'America/Lima') {
+    target = 'es-mx';  /* Mexico, Colombia, Peru — neutral LATAM Spanish */
+  } else if (tz === 'America/Sao_Paulo' || tz === 'America/Bahia' ||
+             tz === 'America/Fortaleza' || tz === 'America/Recife' ||
+             tz === 'America/Manaus' || tz === 'America/Cuiaba' ||
+             tz === 'America/Campo_Grande' || tz === 'America/Belem' ||
+             tz === 'America/Boa_Vista' || tz === 'America/Eirunepe' ||
+             tz === 'America/Araguaina' || tz === 'America/Maceio' ||
+             tz === 'America/Noronha' || tz === 'America/Porto_Velho' ||
+             tz === 'America/Rio_Branco' || tz === 'America/Santarem') {
+    target = 'pt-BR';  /* Brazil */
+  }
 
+  /* FALLBACK: language-based detection ONLY if timezone gave no signal
+     (e.g., user is outside our 9 target countries) */
+  if (target === null) {
+    if (lang.indexOf('es') === 0) target = 'es-mx';  /* default Spanish to Mexican */
+    else if (lang.indexOf('pt') === 0) target = 'pt-BR';
+    else if (lang.indexOf('uk') === 0) target = 'uk';
+    /* NOTE: 'ru' alone (no Kazakhstan tz) is ambiguous — could be Russia, Belarus,
+       Ukraine with RU OS, etc. We do NOT redirect to /ru/ on language alone
+       because /ru/ is specifically for Kazakhstan, not for general Russian speakers. */
+  }
+
+  if (target) {
+    sessionStorage.setItem('vs_lang_chosen', '1');
+    var path = window.location.pathname.replace(/^\//, '');
+    if (!path || path === 'index.html') path = '';
+    window.location.replace('/' + target + '/' + path + window.location.search);
+  }
+})();
+</script>
+<meta name="description" content="AI vet companion for new dog parents. Describe a symptom, get an instant urgency score. Built with veterinarians.">
+<link rel="canonical" href="https://vetscan.app/pt-PT/" />
+<link rel="alternate" hreflang="x-default" href="https://vetscan.app/" />
+<link rel="alternate" hreflang="en" href="https://vetscan.app/" />
+<link rel="alternate" hreflang="es-MX" href="https://vetscan.app/es-mx/" />
+<link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/" />
+<link rel="alternate" hreflang="es-ES" href="https://vetscan.app/es-ES/" />
+<link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/" />
+<link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/" />
+<link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/" />
+<link rel="alternate" hreflang="pt-PT" href="https://vetscan.app/pt-PT/" />
+<link rel="alternate" hreflang="fr" href="https://vetscan.app/fr/" />
+<link rel="alternate" hreflang="de" href="https://vetscan.app/de/" />
+<link rel="alternate" hreflang="it" href="https://vetscan.app/it/" />
+<link rel="alternate" hreflang="nl" href="https://vetscan.app/nl/" />
+<link rel="alternate" hreflang="sv" href="https://vetscan.app/sv/" />
+<link rel="alternate" hreflang="da" href="https://vetscan.app/da/" />
+<link rel="alternate" hreflang="pl" href="https://vetscan.app/pl/" />
+<link rel="alternate" hreflang="cs" href="https://vetscan.app/cs/" />
+<link rel="alternate" hreflang="hu" href="https://vetscan.app/hu/" />
+<link rel="alternate" hreflang="ro" href="https://vetscan.app/ro/" />
+<link rel="alternate" hreflang="ka" href="https://vetscan.app/ka/" />
 <!-- Open Graph for social sharing -->
-<meta property="og:title" content="VetScan — Saiba quando seu cão precisa de um veterinário">
-<meta property="og:description" content="Assistente de triagem com IA para novos donos de cães. Descreva um sintoma, receba uma pontuação de urgência em 60 segundos.">
+<meta property="og:title" content="VetScan — Know when your dog needs a vet">
+<meta property="og:description" content="AI triage companion for new dog parents. Describe a symptom, get an urgency score in 60 seconds.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://vetscan.app/pt-BR/">
-<meta property="og:image" content="https://vetscan.app/og-image-pt-BR.png">
+<meta property="og:url" content="https://vetscan.app">
+<meta property="og:image" content="https://vetscan.app/og-image-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="VetScan — Veterinário com IA para cães. Saiba quando seu cão precisa de um veterinário.">
+<meta property="og:image:alt" content="VetScan — AI vet for dogs. Know when your dog needs a vet.">
 <meta property="og:site_name" content="VetScan">
-<meta property="og:locale" content="pt_BR">
+<meta property="og:locale" content="pt_PT">
 <meta property="og:locale:alternate" content="en_US" />
 <meta property="og:locale:alternate" content="es_MX" />
 <meta property="og:locale:alternate" content="es_AR" />
 <meta property="og:locale:alternate" content="es_ES" />
+<meta property="og:locale:alternate" content="pt_BR" />
 <meta property="og:locale:alternate" content="ru_RU" />
 <meta property="og:locale:alternate" content="uk_UA" />
-<meta property="og:locale:alternate" content="pt_PT" />
 <meta property="og:locale:alternate" content="fr_FR" />
 <meta property="og:locale:alternate" content="de_DE" />
 <meta property="og:locale:alternate" content="it_IT" />
@@ -61,8 +155,8 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@vetscan_app">
-<meta name="twitter:title" content="VetScan — Saiba quando seu cão precisa de um veterinário">
-<meta name="twitter:description" content="Triagem com IA para novos donos de cães. Verificação de 60 segundos, $7.99/mês.">
+<meta name="twitter:title" content="VetScan — Know when your dog needs a vet">
+<meta name="twitter:description" content="AI triage for new dog parents. 60-second symptom check, $7.99/mo.">
 <meta name="twitter:image" content="https://vetscan.app/og-image.png">
 
 <!-- Resource hints — critical for LCP -->
@@ -293,7 +387,7 @@ input {
   -webkit-backdrop-filter: blur(40px) saturate(120%);
 }
 
-/* Partículas flutuantes */
+/* Floating particles */
 .particles {
   position: fixed;
   inset: 0;
@@ -390,7 +484,7 @@ input {
   white-space: nowrap;
 }
 
-/* Make VetScan stretch to same visual width as VETERINÁRIO IA PARA CÃES */
+/* Make VetScan stretch to same visual width as AI VET FOR DOGS */
 .logo-name {
   font-size: 23px;
   letter-spacing: 0.012em;
@@ -563,7 +657,7 @@ input {
   transform: translateY(-6px) rotate(-45deg);
 }
 
-/* Menu mobile overlay */
+/* Mobile menu overlay */
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -927,7 +1021,7 @@ h1 {
 }
 
 /* ============================================================
-   CALCULADORA DE ECONOMIA
+   SAVINGS CALCULATOR
    ============================================================ */
 .calc-section {
   padding: 80px 0;
@@ -1273,7 +1367,7 @@ h1 {
 }
 
 /* ============================================================
-   DEMO INTERATIVA
+   INTERACTIVE DEMO
    ============================================================ */
 .demo-section {
   padding: 80px 0;
@@ -1422,7 +1516,7 @@ h1 {
   font-weight: 500;
 }
 
-/* Perfil step */
+/* Profile step */
 .demo-profile-card {
   display: flex;
   align-items: center;
@@ -1500,7 +1594,7 @@ h1 {
 }
 .demo-next-btn:hover { transform: translateY(-1px); opacity: 0.92; }
 
-/* Resultado step */
+/* Result step */
 .demo-result {
   border-radius: 16px;
   padding: 24px 22px;
@@ -1976,7 +2070,7 @@ h1 {
 }
 
 /* =========================================================
-   CONFIANÇA BAR
+   TRUST BAR
    ========================================================= */
 .trust {
   background: var(--text-primary);
@@ -2146,7 +2240,7 @@ h2 {
 }
 
 /* =========================================================
-   O PROBLEMA
+   PROBLEM
    ========================================================= */
 .problem-grid {
   display: grid;
@@ -2357,7 +2451,7 @@ h2 {
 .problem-conclusion > * { position: relative; z-index: 1; }
 
 /* =========================================================
-   COMO FUNCIONA
+   HOW IT WORKS
    ========================================================= */
 .how-section {
   background: var(--surface);
@@ -2558,7 +2652,7 @@ h2 {
 .demo-body strong { color: var(--text-primary); font-weight: 600; }
 
 /* =========================================================
-   COMPARAÇÃO
+   COMPARISON
    ========================================================= */
 .compare-grid {
   display: grid;
@@ -2695,7 +2789,7 @@ h2 {
 .compare-card.featured .compare-item { color: rgba(255, 255, 255, 0.92); }
 
 /* =========================================================
-   FUNDADOR
+   FOUNDER
    ========================================================= */
 .founder-section {
   background: var(--surface);
@@ -2769,7 +2863,7 @@ h2 {
 }
 
 /* =========================================================
-   Perguntas
+   FAQ
    ========================================================= */
 .faq-list {
   max-width: 720px;
@@ -3442,11 +3536,11 @@ footer {
   /* Demo screen */
   .demo-screen { padding: 24px 20px; border-radius: 24px; }
 
-  /* Fundador card */
+  /* Founder card */
   .founder-card { padding: 32px 24px; }
   .founder-quote { font-size: 18px; }
 
-  /* Perguntas */
+  /* FAQ */
   .faq-summary {
     padding: 18px 18px;
     font-size: 15px;
@@ -3481,7 +3575,7 @@ footer {
     font-size: 13px;
   }
 
-  /* Comparar cards */
+  /* Compare cards */
   .compare-card { padding: 24px 20px; }
   .compare-item { font-size: 14px; }
 
@@ -3991,27 +4085,7 @@ body.page-hidden *::after {
 }
 
 </style>
-<link rel="canonical" href="https://vetscan.app/pt-BR/" />
-<link rel="alternate" hreflang="x-default" href="https://vetscan.app/" />
-<link rel="alternate" hreflang="en" href="https://vetscan.app/" />
-<link rel="alternate" hreflang="es-MX" href="https://vetscan.app/es-mx/" />
-<link rel="alternate" hreflang="es-AR" href="https://vetscan.app/es-ar/" />
-<link rel="alternate" hreflang="es-ES" href="https://vetscan.app/es-ES/" />
-<link rel="alternate" hreflang="pt-BR" href="https://vetscan.app/pt-BR/" />
-<link rel="alternate" hreflang="ru" href="https://vetscan.app/ru/" />
-<link rel="alternate" hreflang="uk" href="https://vetscan.app/uk/" />
-<link rel="alternate" hreflang="pt-PT" href="https://vetscan.app/pt-PT/" />
-<link rel="alternate" hreflang="fr" href="https://vetscan.app/fr/" />
-<link rel="alternate" hreflang="de" href="https://vetscan.app/de/" />
-<link rel="alternate" hreflang="it" href="https://vetscan.app/it/" />
-<link rel="alternate" hreflang="nl" href="https://vetscan.app/nl/" />
-<link rel="alternate" hreflang="sv" href="https://vetscan.app/sv/" />
-<link rel="alternate" hreflang="da" href="https://vetscan.app/da/" />
-<link rel="alternate" hreflang="pl" href="https://vetscan.app/pl/" />
-<link rel="alternate" hreflang="cs" href="https://vetscan.app/cs/" />
-<link rel="alternate" hreflang="hu" href="https://vetscan.app/hu/" />
-<link rel="alternate" hreflang="ro" href="https://vetscan.app/ro/" />
-<link rel="alternate" hreflang="ka" href="https://vetscan.app/ka/" />
+
 <!-- Structured data (JSON-LD) for SEO -->
 <script type="application/ld+json">
 [
@@ -4021,7 +4095,7 @@ body.page-hidden *::after {
     "name": "VetScan",
     "url": "https://vetscan.app/",
     "logo": "https://vetscan.app/og-image.png",
-    "description": "Companheiro de triagem com IA para tutores de cães. Descreva um sintoma, obtenha um nível de urgência em 60 segundos.",
+    "description": "AI vet triage companion for new dog parents. Describe a symptom, get an instant urgency score in 60 seconds.",
     "sameAs": [],
     "contactPoint": {
       "@type": "ContactPoint",
@@ -4040,8 +4114,8 @@ body.page-hidden *::after {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "VetScan",
-    "url": "https://vetscan.app/pt-BR/",
-    "inLanguage": "pt-BR",
+    "url": "https://vetscan.app/",
+    "inLanguage": "en",
     "publisher": {
       "@type": "Organization",
       "name": "VetScan"
@@ -4051,11 +4125,11 @@ body.page-hidden *::after {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "VetScan",
-    "description": "Companheiro de triagem com IA para tutores de cães. Descreva um sintoma, obtenha um nível de urgência em 60 segundos.",
+    "description": "AI vet triage companion for new dog parents. Describe a symptom, get an instant urgency score in 60 seconds.",
     "applicationCategory": "HealthApplication",
     "applicationSubCategory": "Veterinary",
     "operatingSystem": "iOS, Android, Web",
-    "url": "https://vetscan.app/pt-BR/",
+    "url": "https://vetscan.app/",
     "image": "https://vetscan.app/og-image.png",
     "offers": {
       "@type": "Offer",
@@ -4082,8 +4156,10 @@ body.page-hidden *::after {
 </script>
 </head>
 <body>
+<!-- TRANSLATION_TODO: This page is in English. Native Portuguese (Portugal) translation needed. -->
 
-<!-- Fundo animado -->
+
+<!-- Animated splash background -->
 <div class="bg-mesh">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
@@ -4091,7 +4167,7 @@ body.page-hidden *::after {
   <div class="orb orb-4"></div>
 </div>
 
-<!-- Partículas flutuantes -->
+<!-- Floating particles -->
 <div class="particles" id="particles"></div>
 
 <!-- Confetti container (filled by JS on form submit) -->
@@ -4102,7 +4178,7 @@ body.page-hidden *::after {
 <!-- ========================================================= -->
 <nav class="nav">
   <div class="container nav-inner">
-    <a href="/pt-BR/index.html" class="logo">
+    <a href="index.html" class="logo">
       <span class="logo-mark">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <g fill="white">
@@ -4117,18 +4193,18 @@ body.page-hidden *::after {
       </span>
       <span class="logo-text">
         <span class="logo-name">Vet<span class="scan-grad">Scan</span></span>
-        <span class="logo-tagline">Veterinário IA para cães</span>
+        <span class="logo-tagline">AI vet for dogs</span>
       </span>
     </a>
 
     <div class="nav-links">
-      <a href="/pt-BR/how-it-works.html">Como funciona</a>
-      <a href="/pt-BR/about.html">Sobre</a>
-      <a href="/pt-BR/faq.html">Perguntas</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
     </div>
 
     <a href="#waitlist" class="nav-cta">
-      Acesso antecipado
+      Get early access
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </a>
 
@@ -4140,55 +4216,55 @@ body.page-hidden *::after {
   </div>
 </nav>
 
-<!-- Menu mobile -->
+<!-- Mobile menu -->
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
   <div class="mobile-menu-section">
-    <div class="mobile-menu-section-label">Produto</div>
-    <a href="/pt-BR/how-it-works.html">
-      Como funciona
+    <div class="mobile-menu-section-label">Product</div>
+    <a href="how-it-works.html">
+      How it works
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/pt-BR/methodology.html">
-      Metodologia
+    <a href="methodology.html">
+      Methodology
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/pt-BR/pricing.html">
-      Preços
+    <a href="pricing.html">
+      Pricing
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/pt-BR/compare.html">
-      Comparar
+    <a href="compare.html">
+      Compare
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/pt-BR/faq.html">
-      Perguntas
+    <a href="faq.html">
+      FAQ
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
   </div>
 
   <div class="mobile-menu-section">
-    <div class="mobile-menu-section-label">Empresa</div>
-    <a href="/pt-BR/about.html">
-      Sobre
+    <div class="mobile-menu-section-label">Company</div>
+    <a href="about.html">
+      About
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
-    <a href="/pt-BR/veterinary-advisors.html">
-      Conselheiros veterinários
+    <a href="veterinary-advisors.html">
+      Veterinary Advisors
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
   </div>
 
   <div class="mobile-menu-section legal">
-    <div class="mobile-menu-section-label">Legal e confiança</div>
-    <a href="/pt-BR/privacy.html">Política de privacidade</a>
-    <a href="/pt-BR/terms.html">Termos de uso</a>
-    <a href="/pt-BR/disclaimer.html">Aviso médico</a>
-    <a href="/pt-BR/cookies.html">Política de cookies</a>
-    <a href="/pt-BR/security.html">Segurança</a>
-    <a href="/pt-BR/accessibility.html">Acessibilidade</a>
+    <div class="mobile-menu-section-label">Legal &amp; Trust</div>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+    <a href="disclaimer.html">Medical Disclaimer</a>
+    <a href="cookies.html">Cookie Policy</a>
+    <a href="security.html">Security</a>
+    <a href="accessibility.html">Accessibility</a>
   </div>
 
-  <a href="index.html#waitlist" class="mobile-menu-cta">Acesso antecipado</a>
+  <a href="index.html#waitlist" class="mobile-menu-cta">Get early access</a>
 </div>
 
 <!-- ========================================================= -->
@@ -4200,60 +4276,60 @@ body.page-hidden *::after {
       <div>
         <div class="eyebrow">
           <span class="eyebrow-dot"></span>
-          Beta privado — entre agora
+          Private beta — joining now
         </div>
 
         <h1>
-          <span class="h1-word">Saiba</span>
-          <span class="h1-word">se</span>
-          <span class="h1-word">seu</span>
-          <span class="h1-word">cão</span>
-          <span class="h1-word">precisa</span>
-          <span class="h1-word">de</span>
-          <span class="h1-word">veterinário</span>
+          <span class="h1-word">Know</span>
+          <span class="h1-word">if</span>
+          <span class="h1-word">your</span>
+          <span class="h1-word">dog</span>
+          <span class="h1-word">needs</span>
+          <span class="h1-word">a</span>
+          <span class="h1-word">vet</span>
           <span class="h1-word">—</span>
-          <span class="h1-word">em</span>
-          <span class="h1-word"><span class="h1-gradient">60 segundos.</span></span>
+          <span class="h1-word">in</span>
+          <span class="h1-word"><span class="h1-gradient">60 seconds.</span></span>
         </h1>
 
         <p class="hero-sub">
-          Quando seu filhote age estranho, você tem duas opções ruins: entrar em pânico e correr para o veterinário, ou torcer para que não seja nada. Estamos construindo uma terceira.
+          When your puppy acts strange, you have two bad options: panic and rush to the vet, or hope it's nothing. We're building a third.
         </p>
 
         <form class="email-form" id="waitlist" onsubmit="return handleSubmit(event, 'top')">
           <div class="email-input-wrap">
-            <input type="email" class="email-input" placeholder="seu@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input type="email" class="email-input" placeholder="your@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false">
             <button type="submit" class="btn-primary">
-              Acesso antecipado
+              Get early access
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </button>
           </div>
           <div class="form-hint" data-hint-for="top"></div>
-          <div class="email-microcopy">Grátis durante o beta · Sem spam, nunca</div>
+          <div class="email-microcopy">Free during beta · No spam, ever</div>
 
           <!-- Trust badges row -->
           <div class="trust-badges">
             <div class="trust-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-              <span>Cancele a qualquer momento</span>
+              <span>Cancel anytime</span>
             </div>
             <div class="trust-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              <span>Modo de emergência grátis para sempre</span>
+              <span>Free emergency mode forever</span>
             </div>
             <div class="trust-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><line x1="2" y1="11" x2="22" y2="11"/></svg>
-              <span>Sem cartão de crédito</span>
+              <span>No credit card needed</span>
             </div>
             <div class="trust-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>Conforme LGPD, GDPR e CCPA</span>
+              <span>GDPR &amp; CCPA compliant</span>
             </div>
           </div>
         </form>
       </div>
 
-      <!-- Mockup de telefone com conteúdo animado -->
+      <!-- Phone mockup with animated content -->
       <div class="hero-visual">
         <div class="phone">
           <div class="phone-screen">
@@ -4266,12 +4342,12 @@ body.page-hidden *::after {
             </div>
 
             <div class="phone-content">
-              <div class="phone-greeting">Olá Helena<svg class="wave-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div>
+              <div class="phone-greeting">Hi Sarah<svg class="wave-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div>
 
               <div class="phone-card">
-                <div style="font-size:11px; color: var(--text-tertiary); font-weight:600; margin-bottom:6px;">SEU RELATÓRIO PARA LUNA</div>
-                <div style="font-size:14px; font-weight:600; letter-spacing: -0.01em;">Mancando, pata traseira direita</div>
-                <div style="font-size:11px; color: var(--text-tertiary); margin-top:4px;">3 perguntas respondidas · 47 seg</div>
+                <div style="font-size:11px; color: var(--text-tertiary); font-weight:600; margin-bottom:6px;">YOUR REPORT FOR LUNA</div>
+                <div style="font-size:14px; font-weight:600; letter-spacing: -0.01em;">Limping, back-right leg</div>
+                <div style="font-size:11px; color: var(--text-tertiary); margin-top:4px;">3 questions answered · 47 sec</div>
               </div>
 
               <div class="phone-typing">
@@ -4283,15 +4359,15 @@ body.page-hidden *::after {
               <div class="phone-result-card">
                 <div class="phone-tag">
                   <span class="phone-tag-dot"></span>
-                  Veterinário em 24–48h
+                  See vet in 24–48h
                 </div>
-                <div class="phone-result-title">Provável distensão de tecido mole</div>
+                <div class="phone-result-title">Likely soft tissue strain</div>
                 <div class="phone-result-text">
-                  O mancar traseiro em cães jovens sem trauma geralmente é um entorse. Não é crítico, mas precisa de exame se persistir.
+                  Hind-leg limping in young dogs without trauma is most often a sprain. Not critical, but needs an exam if it persists.
                 </div>
               </div>
 
-              <div class="phone-action-btn">Encontrar veterinário próximo</div>
+              <div class="phone-action-btn">Find a vet near me</div>
             </div>
           </div>
         </div>
@@ -4366,7 +4442,7 @@ body.page-hidden *::after {
               <!-- HEAD -->
               <circle cx="100" cy="92" r="56" fill="url(#bodyGrad)"/>
 
-              <!-- Rubor -->
+              <!-- Cheek blush -->
               <ellipse cx="62" cy="105" rx="10" ry="6" fill="#FF9999" opacity="0.35"/>
               <ellipse cx="138" cy="105" rx="10" ry="6" fill="#FF9999" opacity="0.35"/>
 
@@ -4408,7 +4484,7 @@ body.page-hidden *::after {
             </g>
           </svg>
 
-          <!-- Corações flutuantes -->
+          <!-- Floating hearts -->
           <svg class="dog-heart" viewBox="0 0 24 24" fill="#FF6B6B">
             <path d="M12 21s-7-4.5-9.5-9C.7 8.6 2.6 4 7 4c2.3 0 3.8 1.3 5 3 1.2-1.7 2.7-3 5-3 4.4 0 6.3 4.6 4.5 8-2.5 4.5-9.5 9-9.5 9z"/>
           </svg>
@@ -4460,24 +4536,24 @@ body.page-hidden *::after {
 </header>
 
 <!-- ========================================================= -->
-<!-- CONFIANÇA -->
+<!-- TRUST -->
 <!-- ========================================================= -->
 <section class="trust" style="padding: 24px 0;">
   <div class="container">
     <div class="trust-inner">
       <div class="trust-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        Construído com veterinários
+        Built with veterinarians
       </div>
       <span class="trust-divider"></span>
       <div class="trust-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Treinada com casos reais
+        Trained on real cases
       </div>
       <span class="trust-divider"></span>
       <div class="trust-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
-        <span><span class="counter" data-target="1247">0</span> donos de cães na lista de espera</span>
+        <span><span class="counter" data-target="1247">0</span> dog parents on the waitlist</span>
       </div>
     </div>
   </div>
@@ -4488,7 +4564,7 @@ body.page-hidden *::after {
 <!-- ========================================================= -->
 <section class="seals" aria-label="Certifications and standards">
   <div class="container">
-    <div class="seals-label">Atende aos padrões empresariais de segurança e privacidade</div>
+    <div class="seals-label">Built to enterprise security &amp; privacy standards</div>
     <div class="seals-grid">
       <div class="seal">
         <div class="seal-icon">
@@ -4496,7 +4572,7 @@ body.page-hidden *::after {
         </div>
         <div class="seal-text">
           <div class="seal-name">SSL / TLS 1.3</div>
-          <div class="seal-sub">Criptografia de 256 bits</div>
+          <div class="seal-sub">256-bit encryption</div>
         </div>
       </div>
 
@@ -4506,7 +4582,7 @@ body.page-hidden *::after {
         </div>
         <div class="seal-text">
           <div class="seal-name">GDPR</div>
-          <div class="seal-sub">Conforme UE</div>
+          <div class="seal-sub">EU compliant</div>
         </div>
       </div>
 
@@ -4516,7 +4592,7 @@ body.page-hidden *::after {
         </div>
         <div class="seal-text">
           <div class="seal-name">CCPA</div>
-          <div class="seal-sub">Conforme regulamentação da Califórnia</div>
+          <div class="seal-sub">California compliant</div>
         </div>
       </div>
 
@@ -4526,7 +4602,7 @@ body.page-hidden *::after {
         </div>
         <div class="seal-text">
           <div class="seal-name">SOC 2 Type II</div>
-          <div class="seal-sub">Auditoria em andamento</div>
+          <div class="seal-sub">Audit in progress</div>
         </div>
       </div>
 
@@ -4535,8 +4611,8 @@ body.page-hidden *::after {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
         <div class="seal-text">
-          <div class="seal-name">Revisado por veterinários</div>
-          <div class="seal-sub">Veterinários licenciados</div>
+          <div class="seal-name">Vet-reviewed</div>
+          <div class="seal-sub">Licensed DVMs</div>
         </div>
       </div>
 
@@ -4545,8 +4621,8 @@ body.page-hidden *::after {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </div>
         <div class="seal-text">
-          <div class="seal-name">Não vendemos dados</div>
-          <div class="seal-sub">Apenas assinatura</div>
+          <div class="seal-name">No data sales</div>
+          <div class="seal-sub">Subscription-only</div>
         </div>
       </div>
     </div>
@@ -4554,13 +4630,13 @@ body.page-hidden *::after {
 </section>
 
 <!-- ========================================================= -->
-<!-- O PROBLEMA -->
+<!-- PROBLEM -->
 <!-- ========================================================= -->
 <section class="atmo-blue">
   <div class="container">
-    <div class="section-eyebrow reveal">O momento das 3 da manhã</div>
-    <h2 class="reveal">Todo novo dono de cão conhece essa sensação.</h2>
-    <p class="section-sub reveal">Algo está errado. Você não sabe se é nada — ou se é tudo.</p>
+    <div class="section-eyebrow reveal">The 3am moment</div>
+    <h2 class="reveal">Every new dog parent knows this feeling.</h2>
+    <p class="section-sub reveal">Something's off. You don't know if it's nothing — or everything.</p>
 
     <div class="problem-grid stagger">
       <div class="problem-card">
@@ -4572,8 +4648,8 @@ body.page-hidden *::after {
             <path d="M7.5 16 Q9 14.5 10.5 16 T13.5 16 T16.5 16"/>
           </svg>
         </span>
-        <div class="problem-title">Ela acabou de vomitar</div>
-        <div class="problem-text">Comida estragada, ou algo sério? Você reproduz o dia todo dela na cabeça.</div>
+        <div class="problem-title">She just threw up</div>
+        <div class="problem-text">Bad food, or something serious? You replay her whole day in your head.</div>
       </div>
       <div class="problem-card">
         <span class="problem-icon problem-icon-2">
@@ -4581,8 +4657,8 @@ body.page-hidden *::after {
             <path d="M7 4a3 3 0 0 0-3 3c0 .6.18 1.16.5 1.65A2.99 2.99 0 0 0 4 11a3 3 0 0 0 3 3c.34 0 .67-.06.97-.16l5.86-5.86c.1-.3.17-.62.17-.98a3 3 0 0 0-3-3c-.36 0-.7.06-1 .17A2.99 2.99 0 0 0 9 4H7zm10 6c-.36 0-.69.06-1 .17l-5.83 5.83c-.11.3-.17.64-.17 1a3 3 0 0 0 3 3c.34 0 .67-.06.97-.16A2.99 2.99 0 0 0 17 20a3 3 0 0 0 3-3c0-.6-.18-1.16-.5-1.65A2.99 2.99 0 0 0 20 13a3 3 0 0 0-3-3z"/>
           </svg>
         </span>
-        <div class="problem-title">Ele está mancando</div>
-        <div class="problem-text">Dormiu mal ou é o quadril? Donos de cães grandes já conhecem esse medo.</div>
+        <div class="problem-title">He's limping</div>
+        <div class="problem-text">Did he sleep wrong, or is it his hips? Big dog parents already know that fear.</div>
       </div>
       <div class="problem-card">
         <span class="problem-icon problem-icon-3">
@@ -4594,31 +4670,31 @@ body.page-hidden *::after {
             <line x1="15" y1="6" x2="9" y2="10"/>
           </svg>
         </span>
-        <div class="problem-title">Ela não quer comer</div>
-        <div class="problem-text">Uma refeição pulada, ou um sinal de alerta real? O Google te dá cinquenta respostas.</div>
+        <div class="problem-title">She won't eat</div>
+        <div class="problem-text">One missed meal, or a real warning sign? Google gives you fifty answers.</div>
       </div>
     </div>
 
     <div class="problem-conclusion reveal">
-      Você passa uma hora pesquisando no Google. O Reddit te dá 50 respostas contraditórias.<br>
-      Você paga <strong><span class="curr" data-key="er-visit-low">$400</span> só para garantir</strong> — ou espera, se preocupa e se sente culpado de qualquer forma.
+      You spend an hour googling. Reddit gives 50 contradictory answers.<br>
+      You pay <strong><span class="curr" data-key="er-visit-low">$400</span> just in case</strong> — or wait, worry, and feel guilty either way.
     </div>
   </div>
 </section>
 
 <!-- ========================================================= -->
-<!-- CALCULADORA DE ECONOMIA -->
+<!-- SAVINGS CALCULATOR -->
 <!-- ========================================================= -->
 <section class="calc-section atmo-mint" aria-label="Savings calculator">
   <div class="container">
-    <div class="section-eyebrow reveal">A matemática</div>
-    <h2 class="reveal">Uma visita à emergência evitada paga anos de VetScan.</h2>
-    <p class="section-sub reveal">Mova o controle. Veja sua economia potencial.</p>
+    <div class="section-eyebrow reveal">The math</div>
+    <h2 class="reveal">One avoided ER visit pays for years of VetScan.</h2>
+    <p class="section-sub reveal">Move the slider. See your potential savings.</p>
 
     <div class="calc-card reveal">
       <div class="calc-question">
         <label for="erVisits" class="calc-label">
-          Quantas vezes por ano você (ou poderia) levar seu cão à emergência por algo que acaba sendo menor?
+          How many times per year do you (or might you) take your dog to the ER for something that turns out to be minor?
         </label>
       </div>
 
@@ -4637,44 +4713,44 @@ body.page-hidden *::after {
 
       <div class="calc-readout">
         <div class="calc-stat">
-          <div class="calc-stat-label">Você gasta em visitas à emergência</div>
-          <div class="calc-stat-value" id="calcSpend">$1,000<span class="calc-stat-unit">/ano</span></div>
-          <div class="calc-stat-sub">méd. <span class="curr" data-key="er-visit-mid">$500</span> por visita não urgente à clínica veterinária</div>
+          <div class="calc-stat-label">You spend in ER visits</div>
+          <div class="calc-stat-value" id="calcSpend">$1,000<span class="calc-stat-unit">/year</span></div>
+          <div class="calc-stat-sub">avg. <span class="curr" data-key="er-visit-mid">$500</span> per non-emergency vet ER visit</div>
         </div>
         <div class="calc-divider"></div>
         <div class="calc-stat">
-          <div class="calc-stat-label">VetScan custa</div>
-          <div class="calc-stat-value calc-stat-vet"><span class="curr" data-key="founder-yearly">$69</span><span class="calc-stat-unit">/ano</span></div>
-          <div class="calc-stat-sub">Plano anual de fundador — bloqueado para sempre</div>
+          <div class="calc-stat-label">VetScan costs</div>
+          <div class="calc-stat-value calc-stat-vet"><span class="curr" data-key="founder-yearly">$69</span><span class="calc-stat-unit">/year</span></div>
+          <div class="calc-stat-sub">Founder annual plan — locked for life</div>
         </div>
       </div>
 
-      <div class="calc-result" id="calcResultado">
-        <div class="calc-result-label">Se o VetScan te ajudar a evitar até <strong id="avoidedCount">1</strong> visita desnecessária:</div>
+      <div class="calc-result" id="calcResult">
+        <div class="calc-result-label">If VetScan helps you avoid even <strong id="avoidedCount">1</strong> unnecessary visit:</div>
         <div class="calc-savings">
           <span class="calc-savings-amount" id="calcSavings">$401</span>
-          <span class="calc-savings-text">economizados por ano</span>
+          <span class="calc-savings-text">saved per year</span>
         </div>
         <div class="calc-result-foot">
-          <strong id="calcMultiple">4x</strong> o que você pagará pelo app inteiro — pelo resto do ano.
+          <strong id="calcMultiple">4x</strong> what you'll pay for the entire app — for the rest of the year.
         </div>
       </div>
 
       <div class="calc-disclaimer">
-        Somente estimativa. Média <span class="curr" data-key="er-region-label">US</span> custo de visita à emergência veterinária: <span class="curr" data-key="er-visit-range">$500-$1,500</span> (<span class="curr" data-key="er-source-citation">Associação Americana de Hospitais Veterinários, 2024</span>). O VetScan não substitui o cuidado veterinário.
+        Estimate only. Average <span class="curr" data-key="er-region-label">US</span> emergency vet visit cost: <span class="curr" data-key="er-visit-range">$500-$1,500</span> (<span class="curr" data-key="er-source-citation">American Animal Hospital Association, 2024</span>). VetScan does not replace veterinary care.
       </div>
     </div>
   </div>
 </section>
 
 <!-- ========================================================= -->
-<!-- COMO FUNCIONA -->
+<!-- HOW IT WORKS -->
 <!-- ========================================================= -->
 <section class="how-section">
   <div class="container">
-    <div class="section-eyebrow reveal">Como funciona</div>
-    <h2 class="reveal">Um primeiro passo inteligente antes de chamar o veterinário.</h2>
-    <p class="section-sub reveal">Três toques. Sessenta segundos. Clareza real.</p>
+    <div class="section-eyebrow reveal">How it works</div>
+    <h2 class="reveal">A smart first step before you call your vet.</h2>
+    <p class="section-sub reveal">Three taps. Sixty seconds. Real clarity.</p>
 
     <div class="steps stagger">
       <div class="step">
@@ -4684,8 +4760,8 @@ body.page-hidden *::after {
           <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="13" r="4"/></svg></div>
           <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
         </div>
-        <div class="step-title">Descreva o que está acontecendo</div>
-        <div class="step-text">Use sua voz, digite ou tire uma foto. O que for mais rápido no momento.</div>
+        <div class="step-title">Describe what's happening</div>
+        <div class="step-text">Use your voice, type it out, or snap a photo. Whatever's fastest in the moment.</div>
       </div>
 
       <div class="step">
@@ -4693,8 +4769,8 @@ body.page-hidden *::after {
         <div class="step-icon-row">
           <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         </div>
-        <div class="step-title">Responda 3 perguntas rápidas</div>
-        <div class="step-text">Nossa IA faz as mesmas perguntas que um veterinário faria primeiro. Leva menos de um minuto.</div>
+        <div class="step-title">Answer 3 quick questions</div>
+        <div class="step-text">Our AI asks the same questions a vet would ask first. Takes under a minute.</div>
       </div>
 
       <div class="step">
@@ -4702,144 +4778,144 @@ body.page-hidden *::after {
         <div class="step-icon-row">
           <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg></div>
         </div>
-        <div class="step-title">Receba sua pontuação de urgência</div>
-        <div class="step-text"><span class="urgency-dot green"></span> Observe e aguarde · <span class="urgency-dot yellow"></span> Veterinário em 48h · <span class="urgency-dot red"></span> Emergência agora. Além do que fazer em seguida.</div>
+        <div class="step-title">Get your urgency score</div>
+        <div class="step-text"><span class="urgency-dot green"></span> Watch & wait · <span class="urgency-dot yellow"></span> Vet within 48h · <span class="urgency-dot red"></span> Emergency now. Plus exactly what to do next.</div>
       </div>
     </div>
 
     <div class="demo-screen reveal">
       <div class="demo-tag">
         <span class="demo-tag-dot"></span>
-        See a vet within 24–48 horas
+        See a vet within 24–48 hours
       </div>
-      <div class="demo-title">Provável distensão de tecido mole</div>
+      <div class="demo-title">Likely soft tissue strain</div>
       <p class="demo-body">
-        O mancar traseiro em cães jovens sem trauma geralmente é uma <strong>entorse ou paniculite</strong>. Não é crítico, mas precisa de exame se persistir mais de 24 horas.
+        Hind-leg limping in young dogs without trauma is most often a <strong>sprain or panniculitis</strong>. Not critical, but needs an exam if it persists more than 24 hours.
         <br><br>
-        <strong>Hoje:</strong> Aplique gelo na pata por 10 minutos, a cada 4 horas. Limite corrida, saltos e escadas. Observe inchaço.
+        <strong>Today:</strong> Ice the leg for 10 minutes, every 4 hours. Limit running, jumping, and stairs. Watch for swelling.
       </p>
     </div>
   </div>
 </section>
 
 <!-- ========================================================= -->
-<!-- DEMO INTERATIVA -->
+<!-- INTERACTIVE DEMO -->
 <!-- ========================================================= -->
 <section class="demo-section atmo-mint" aria-label="Try the demo">
   <div class="container">
-    <div class="section-eyebrow reveal">Experimente você mesmo</div>
-    <h2 class="reveal">Uma amostra de 30 segundos de como realmente funciona.</h2>
-    <p class="section-sub reveal">Veja um exemplo real. Nada para baixar.</p>
+    <div class="section-eyebrow reveal">Try it yourself</div>
+    <h2 class="reveal">A 30-second taste of how it actually works.</h2>
+    <p class="section-sub reveal">Click through a real example. Nothing to download.</p>
 
     <div class="demo-stage reveal">
 
       <!-- Step indicator -->
       <div class="demo-progress" aria-hidden="true">
-        <div class="demo-progress-step active" data-step="1"><span>1</span> Sintoma</div>
+        <div class="demo-progress-step active" data-step="1"><span>1</span> Symptom</div>
         <div class="demo-progress-line"></div>
-        <div class="demo-progress-step" data-step="2"><span>2</span> Perfil</div>
+        <div class="demo-progress-step" data-step="2"><span>2</span> Profile</div>
         <div class="demo-progress-line"></div>
-        <div class="demo-progress-step" data-step="3"><span>3</span> Resultado</div>
+        <div class="demo-progress-step" data-step="3"><span>3</span> Result</div>
       </div>
 
-      <!-- ============ STEP 1 — Sintoma selection ============ -->
+      <!-- ============ STEP 1 — Symptom selection ============ -->
       <div class="demo-step demo-step-active" id="demoStep1">
-        <div class="demo-prompt">O que está acontecendo com seu cão?</div>
-        <div class="demo-prompt-sub">Escolha a opção mais próxima. Você pode refinar depois.</div>
+        <div class="demo-prompt">What's going on with your dog?</div>
+        <div class="demo-prompt-sub">Pick the closest match. You can refine later.</div>
         <div class="demo-options">
           <button class="demo-opt" data-symptom="vomiting">
             <span class="demo-opt-emoji">🤢</span>
-            <span class="demo-opt-label">Vômito</span>
-            <span class="demo-opt-detail">Vomitou 2-3 vezes hoje</span>
+            <span class="demo-opt-label">Vomiting</span>
+            <span class="demo-opt-detail">Threw up 2-3 times today</span>
           </button>
           <button class="demo-opt" data-symptom="limping">
             <span class="demo-opt-emoji">🐾</span>
-            <span class="demo-opt-label">Mancando</span>
-            <span class="demo-opt-detail">Favorecendo uma pata, sem lesão óbvia</span>
+            <span class="demo-opt-label">Limping</span>
+            <span class="demo-opt-detail">Favoring one leg, no obvious injury</span>
           </button>
           <button class="demo-opt" data-symptom="lethargy">
             <span class="demo-opt-emoji">😴</span>
-            <span class="demo-opt-label">Cansaço incomum</span>
-            <span class="demo-opt-detail">Dormindo mais que o normal, menos brincalhão</span>
+            <span class="demo-opt-label">Unusual tiredness</span>
+            <span class="demo-opt-detail">Sleeping more than usual, less playful</span>
           </button>
           <button class="demo-opt" data-symptom="appetite">
             <span class="demo-opt-emoji">🍽️</span>
-            <span class="demo-opt-label">Perda de apetite</span>
-            <span class="demo-opt-detail">Pulou 1-2 refeições</span>
+            <span class="demo-opt-label">Lost appetite</span>
+            <span class="demo-opt-detail">Skipped 1-2 meals</span>
           </button>
         </div>
       </div>
 
-      <!-- ============ STEP 2 — Perfil ============ -->
+      <!-- ============ STEP 2 — Profile ============ -->
       <div class="demo-step" id="demoStep2">
-        <div class="demo-prompt">Conte sobre seu cão.</div>
-        <div class="demo-prompt-sub">Para a demonstração, usaremos um perfil de exemplo.</div>
+        <div class="demo-prompt">Tell us about your dog.</div>
+        <div class="demo-prompt-sub">For the demo, we'll use a sample profile.</div>
         <div class="demo-profile-card">
           <div class="demo-profile-avatar">🐕</div>
           <div class="demo-profile-text">
             <div class="demo-profile-name">Luna</div>
-            <div class="demo-profile-meta">Golden Retriever · 14 meses · 28 kg</div>
+            <div class="demo-profile-meta">Golden Retriever · 14 months · 28 kg</div>
           </div>
           <div class="demo-profile-tags">
-            <span class="demo-tag">Vacinado</span>
-            <span class="demo-tag">Sem alergias conhecidas</span>
+            <span class="demo-tag">Vaccinated</span>
+            <span class="demo-tag">No known allergies</span>
           </div>
         </div>
         <div class="demo-profile-note">
-          No app real, você cria esse perfil uma vez. Depois, cada triagem o usa automaticamente.
+          In the real app, you'd build this profile once. After that, every triage uses it automatically.
         </div>
         <button class="demo-next-btn" id="demoNext2">
-          Ver resultado
+          See result
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </button>
       </div>
 
-      <!-- ============ STEP 3 — Resultado ============ -->
+      <!-- ============ STEP 3 — Result ============ -->
       <div class="demo-step" id="demoStep3">
-        <div class="demo-result" id="demoResultadoCard">
+        <div class="demo-result" id="demoResultCard">
           <!-- filled by JS based on chosen symptom -->
         </div>
 
         <div class="demo-cta-row">
           <button class="demo-restart-btn" id="demoRestart">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
-            Tentar outro sintoma
+            Try another symptom
           </button>
           <a href="#waitlist" class="demo-signup-btn">
-            Obter o app real
+            Get the real app
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
         </div>
       </div>
 
       <div class="demo-footer-note">
-        Esta é uma demonstração com lógica simplificada. O app real considera mais de 40 pontos de dados por avaliação, incluindo raça, idade, status de vacinação e histórico médico.
+        This is a demo with simplified logic. The real app considers 40+ data points per assessment, including breed, age, vaccination status, and medical history.
       </div>
     </div>
   </div>
 </section>
 
 <!-- ========================================================= -->
-<!-- COMPARAÇÃO -->
+<!-- COMPARISON -->
 <!-- ========================================================= -->
 <section class="atmo-purple">
   <div class="container">
-    <div class="section-eyebrow reveal">Por que não simplesmente perguntar à IA?</div>
-    <h2 class="reveal">Uma IA genérica não conhece seu cão.</h2>
-    <p class="section-sub reveal">O VetScan foi feito para uma coisa só — e lembra de tudo.</p>
+    <div class="section-eyebrow reveal">Why not just ask AI?</div>
+    <h2 class="reveal">A general AI doesn't know your dog.</h2>
+    <p class="section-sub reveal">VetScan is built for one thing — and remembers everything.</p>
 
     <div class="compare-grid stagger">
       <div class="compare-card">
         <div class="compare-header">
           <div class="compare-icon gpt">G</div>
-          <div class="compare-name">Chat de IA genérico</div>
+          <div class="compare-name">General AI chat</div>
         </div>
         <ul class="compare-list">
-          <li class="compare-item"><span class="compare-mark x">×</span>Esquece dele toda vez que você abre</li>
-          <li class="compare-item"><span class="compare-mark x">×</span>Sem memória de sintomas ou padrões anteriores</li>
-          <li class="compare-item"><span class="compare-mark x">×</span>Respostas genéricas, iguais para todos</li>
-          <li class="compare-item"><span class="compare-mark x">×</span>Sem triagem clara de urgência</li>
-          <li class="compare-item"><span class="compare-mark x">×</span>Não te diz quando você realmente precisa de um veterinário</li>
+          <li class="compare-item"><span class="compare-mark x">×</span>Forgets your dog every time you open it</li>
+          <li class="compare-item"><span class="compare-mark x">×</span>No memory of past symptoms or patterns</li>
+          <li class="compare-item"><span class="compare-mark x">×</span>Generic, one-size-fits-all answers</li>
+          <li class="compare-item"><span class="compare-mark x">×</span>No clear urgency triage</li>
+          <li class="compare-item"><span class="compare-mark x">×</span>Won't tell you when you actually need a vet</li>
         </ul>
       </div>
 
@@ -4849,11 +4925,11 @@ body.page-hidden *::after {
           <div class="compare-name">VetScan</div>
         </div>
         <ul class="compare-list">
-          <li class="compare-item"><span class="compare-mark check">✓</span>Conhece o histórico médico completo do seu cão</li>
-          <li class="compare-item"><span class="compare-mark check">✓</span>Acompanha sintomas ao longo de dias e semanas</li>
-          <li class="compare-item"><span class="compare-mark check">✓</span>Contexto médico específico por raça</li>
-          <li class="compare-item"><span class="compare-mark check">✓</span>Clara<span class="urgency-dot green"></span><span class="urgency-dot yellow"></span><span class="urgency-dot red"></span>urgência todas as vezes</li>
-          <li class="compare-item"><span class="compare-mark check">✓</span>Construído com veterinários em atividade</li>
+          <li class="compare-item"><span class="compare-mark check">✓</span>Knows your dog's full medical history</li>
+          <li class="compare-item"><span class="compare-mark check">✓</span>Tracks symptoms over days and weeks</li>
+          <li class="compare-item"><span class="compare-mark check">✓</span>Breed-specific medical context</li>
+          <li class="compare-item"><span class="compare-mark check">✓</span>Clear<span class="urgency-dot green"></span><span class="urgency-dot yellow"></span><span class="urgency-dot red"></span>urgency every time</li>
+          <li class="compare-item"><span class="compare-mark check">✓</span>Built with practicing veterinarians</li>
         </ul>
       </div>
     </div>
@@ -4861,78 +4937,78 @@ body.page-hidden *::after {
 </section>
 
 <!-- ========================================================= -->
-<!-- FUNDADOR -->
+<!-- FOUNDER -->
 <!-- ========================================================= -->
 <section class="founder-section">
   <div class="container">
     <div class="founder-card reveal">
       <div class="founder-avatar">
         <img src="data:image/webp;base64,UklGRpKkAABXRUJQVlA4IIakAADQfwOdASogAyADPm00lkikIqosJHGaaYANiWVukjORys05ZXkS7AtDhiqcGVP3tbIu0/7WFsriLT5+bui9/vyvyP8P+eLy9nT8XfvL+UfqR8yP9Zv+Z/feyt5y/Mw81z0S8mf/d/0tM3l86XyfsH1TWJf3/wV/EIhXIP+ZPQGkA9a6FP2DyH6Bagr5M//V6Bkg5wBCpPzLsVRQNTI4A7SBMlzAeXhmVnLfRZn/Fk8yq4GIU65GSIpx284ZiPZKix/nwSyednKy6g+MPI/9JflD9MMeQ8mhb4DzC0GbPn2P8U4JSai1UNHuRKVqN7qOADNxmZTJ2DOF8BDuQwDFYGQhi3lr6ZL0iz9aqNiFNaJsgyp7U+jF8R+zXJiumzBupuqo/L/hZNtptJG1I65bFT0lmeNRLQOz/DnqiqLsHB65NYavvy5gvfYnTJsukSMPPTcvFnqPKMr45DSYPQkCYhnBpCaR1jKB8CR3ytiDQZLj5KZekUfGCNOmWSfI/KXpew0JANyfdX7GytlQsdqBk0xGTVzTFd6CDO5sJfazivIF/llsYThrRZltF0sLYShiFCKnH27XxbtDTJa+jKdOUpbYPOlloMy6sekVlL51jTFFEOQs/nHE9vVUZsll0ITRyQtuKjm0T/FKpxIOhBSOtE6Ep03NMMD2f+mYxcwgfv0JOAfGSmGL8y01uNFVMHwIlbbyOnHC5kGjiemCr2gRyB+Fcal7bNyaDVmdrxrr8txG/Vm8HoCKd3w/cswDMwgXjrWRYTQkL+z/dwLBD7eDqXRtNrmRLBSbyQjvGmckdKBIo1yTAldpXQf7wlq9m1heBFt/0vXYr5vRenhbyyjejtRSpkLWFCft/qo0ziatKi/qc/+Z8+ZPWQNLems/4boLJKWjeq9EOg0e4Sd9riCRutKIE4eeq6lH4iknLCHRMCS104UnY2rvjdrWvVMTOhWjOvtiLxrtg+54/a1l2YjmttreK1hHDf/nP2OAd/ajLPKmc0oCUtmF540ryt4pQsTTh9cwE47wRaHJvGatnLmWUVJoTZiIIcTEJC0BjH0X87ZEOKW6dLuWPu25tlUDgDw9zDxtVPXDU4d0apsp/LJr7D950hKukmX/0JWTvESiICbJfPzcQ22nHE4LrtSBtYl9QmfQBwrqlmLI2+nWv9vpbuGW/z022DTNCohB1QfZAjdJnmUmGJi4/iVoS3GQieTtem6suXyb86M7WIMgI5QyRhZOqiBRPrxZ22yzk++z80CB0eThZL47Azz1As+9IQgKtzU/opAiTvtI/xFUll1b0tNBgkN7Pp0nIFJJxyt7IeDOhA9rcb6s76UmiVsH57zwJkU0JpaHXx8n0TxTiQ+LNuD77VJU6is0lsB4QbcLJ+i9yZ9RgwAVaCeK+/8AfVoMCtHjkW0aNcRawx9wKRafEf3aWZuIatAKqVJqfoED+q6gQ9px4I2e7YsnZ+svT2msjErb1WI8X4UIUDOcE6cPUYYl31msQ+22aixfwImyH9lcQ41+uykv1U0Xgf+SI8Or9d2uKT75JsYBSi3iVW5Y/ODQXqEoljFUYxy5s9wcocli78x2YyyUC0u9nxIlvgbzumbTm1mTCvoeBeYUXf2kqWIGJ+Ho+539iq4+U0HCtCxsLYizWVkvMC/+qMSGcjxtwV56nkvruZtOQHTFRQ9PFSPgIUsc/jcrkivtjBKPjek4xYratQDic3m7jGRn0gVFoEfVj3GguDEZ4A9n8yeOiGlKL3FQdUf2Hfu6aHrgrBmZGt1r5NnQa9g8kKIa/YyZSGNYAX/I1NwGqXi1/9vr+cR0FG2xCgMrrvYtEarjpqvimtxVyytpPZJfDh2E7c8TvfAisN6wwPLhc3ZMTdC02VvRwjPkA3g5uR5XLKxh1FagcjPc6pUFNnStgd2QDzvMt7Fe8cvid34qKDDMuLaQWB7A4YFHS/Am45xw+t+5CEv0YKBUr8+AUf0lBqLYWA2TyHs93IGo7HJS5+GkoC4SO4UXplyxc9wEvcqvJWmz/o0DAYG7CndOKRdfE4r9m4YNhMet40zHVtst5vWM8PktU6UZ8AcOTCG94BGY3aQIPHbhY+3JBJiStDqZvw6VKEwDiK+99+8h8HN+qj7P9/3h2/VvLpIAXo+MDkK02TkgSF5Hr65mEzrhx5/UzWqSmHubAnEOsl0jMTOaFALXg7REp6iGYgwJR8FhAboNn0+kEnq7vxd6u415rRoUGNsf/t/Fz2W7Au8sndf4ZSAhGpG/FurWYKGUnz9dZVaDFduf0i/TY/Uj2gSjsf4j6vcxhyW+lmVHeyDZeh3Z1Gpg4Ny4ABRQKsn/eKL7Jlz2+5b7oXgJfuQz6gsc17cr98hfGWQn2+iV4t1W34e3mbEcnikqI3CRdlVgoJ1pLSClB1H3bpijWLJYJGYFVwwwIx1CvZ3Fi4SHUimy1vJ0jlVJQv2Ii1nAP8SWl7AusjQOnZpG93ALJN3Vh5ZyPrzgzR7glJ327hn8dCzUNuD32RDRbRB01rT7vYl1JTqCfElffpA6WO9Y+VxEI0b62+WDk1m9NUNcbMrYUqcowjLUfUlC2UYPJGjiG6JkDqkkGiHHeqjrVoHF0STMJnMmlxPjonKsHSVKV3KGqPs3pN2WpTcwBCd6CIlR/NTO5rHgl8zbo6wmgCUxXpVZd+1/NecIHOu8Dy2ldudpZTWMGNgCReW5y2AGmT9KydkGtz26ZRmDVl/spcyuL8rIkFIA2fSAcfhOiJfAvzFa2HnDMaodoGPiCuNlPmdMIG3Jh01pqjiZIYYPKKmC/W2FmDic1WGzeWfK+JB6kxV08c/86A3fpbvXls9NEazsWvVoVg0uwV6CKP9JS2Cjnjk/A/kgzzNWmqdvzyO4T0BGolPlmf+tTPwFZmQjKp1M2QTUrtsbCwgGAf+NZFRGlwraDB2N5NCEUPZIKStNo+iheUKZCkKL2YNH9RovJBWv6T0nosLWemOhLJzlVyy1zttwVffF0QwR1kpc6kxT2kATrVcBx1ZbYTB9AGqXGfjw5VntkO9//co9RCPP3q6ZOs7nXiM/5GQOV8SAoetyMNM/1kCoPNf3boeXHPyNjwSA6p4i8zVWiZ9bzKe9cLuqX12kawCkcikOm3vNpTp747uEIHjUNMCqNIgsfYUU6piKdu8OjxFf3Xf/7q8w6g17h9G37F9/5ag+oqnMMf04ilEjbk0d3bmxN3J4RSvYNBDtka3sgVFghHw+XGe0dzNGAQ/Lc0EGeXtqmZnHY1fBKU4hdD67TGP118Pb5Pl6jX+8GnKAnYfv+rfbVjQiNZRPcfrxY+ylxhXOyV0Klnj6SW7P6u/B29kC1s9uX1j//+voLQcUpiMr3DULGJsYSutmas+Jf/3Aa+1wCE0SaSVwVvPQUwwFVmeC3FxS0T9T3cmzXjip4JHsZBgfFQmho0eEPLYb7EmuuOO/qme/iG07ya2UNVTx4YfKNSDF+eeQYRzI+YcMrvVo8TXQuAecgLzq6JbfTV80X5J5P4tW9AvruUSAwYA/DYrR7i5o6DZFWLcdbpf9KdyzZzmECTt+bQzjpWkviAIZSV2+L31orGvPW/Cg6flkNrgl7AskypY3T0wVWV66LFSl8GgWwhFmGAQkFTsr77kJJwcyd1pPQIlkriQJwq9hC8sWbJYEgE4E67OSogUitvQNoIb4UmNWWjzkb3yDKnA4nACTHQ7MEI4fXa8bT2KfVjqMdH3U3SyCXxYmz4XLLzMMejEyMcIa4yAhR6f3PseTQhJidHELRLOC1BAeqhzBce7KTSJxn4CYn/rf+ygXDyojG4gzFcrdftZDTtkaQcoTfbVhlduNUfg4cWxM+eik4MOWp4fxpfj6CMpy5LgJMBxd2hjIYmw1JpfOVzzUfqOYAYR/OASNYeERgA9ekhlh18m42QhycSnuEzYw8yZtyR4+i2KGceI6lMF8TiSVuyj2HrS9U2Xx+nTMpRyG6VQVZRohw+8A5HT/d9VJTgXN1PvHOhqDyFdbC6S8LhBIxRLxfE8g7JwFUqHuMU/Q+EVIByp0y4nr+Ibw29FmqnLXi0Rq8+SMJD1N7aGs5VHQEl7tsS4apps+0CEKEMX6ZAEGdXOJE5Gb7wFZkDwC0djtmo3pc5Uqm2M3HR19W64yH4TlKqvUywUm8EZKPABnwUMvXOq+KIDcppJyc38S/LvFkItUIR+satVQsp+wKRb9yG6eS7CSfS4AX/TkwchZb55xUC+spPUJcgVMLSs0f1U+aaoXfalT95JYMBZqhdOJKt/hf0tZzJltVkJFBi3+Papu6q7zZStyWB2h1m6KT0F5k/NPQrANeMaByQduvqWyJhs9hkoSKm8cVIiL8VHMCfVUSbY8fuZenyDG4Xz8wld6Y561JaM8pGTRx3QCcJqIElG9UvMaVPwaUKlcYdsL9uB25XI9PVoNt7zxTzsDNZtBbKKqRFx3AIn9Dnh+9RcYwfz54WrBPTjj8jz1LiyYE0gESAKRzmOnVlzI19KcdIiUgrfyGmT6jBWkJRGVtWyGf5M9OcbGp4eW0TX4NAQamCxPzI6HMTMBA/TAG4y0hZU0hjjKbegU2OYWGeoInPQki1u2krWS+QHWwTXtd/NOJlnO1ldlt8kLH0vT0oYKId32p2xN5c5jkjqlNst0qixVKyXTQ10AkPrdStqTBd8AMr+D8S1nRhs2Nqp8uwNy3ot1Ugf2FZqPsvKA5+GXyBS9+vCjSInpxOl7t55mOk7iNdlE3/OFW9xuBwz7G87Xlk3kwZMkMhklCCSeXf2qas7ijkVSP/dTCVthyCTbJDZH83QKyA8WKB/lbEDAvzHKT3FYY0R8QtX1OUqUIBJDzWdMMOHZrPBSGogTmI6U7wVg02R5HLbSzz2yUAFIL1ogTR0Wn70zdu9fPQDyxBRFLAfPvWAbAgBuU33ja4Gbb/jHU39qv6ApK5qaMWzPINTh3Ov+y5n2co4I0CAAJASREqrHCNg2sEOh7XsyI2OXHlopBsTekqpUut8HBN4TskPxheohmLogEXMw100hctBAxTI7V0baG2w0oyzkI6Mxa+HbwOqI6z4zgwOqF/9uOPq+ufPHguOAKxK2ds1o0jmPMk0qs/vRiGwVK3c3G58DJ7qIiJ3ZIjXfadXkjvyGCKh7dZfzobWzQkI29EnuYukXkfE+JpsU4E0LVtdczlK8FydfNCNzDtuVaOUA8IaBAI/2VA4dIoCcLTH8rT9T+HOUggGezmGVZk9QjtWTwHm2GquiTp1M/xFQYeqRNSSVuJDICemXG0/gq0FyCeZmFbtkOs4NLx+iaZ4/s8FfXo9PcsYU+SsK0IQsISVjYlneXYwj0VVfCIrvoT5NFOl9Uz/ZAWwM91VKpEAxcdJHWgyaVGLuHgxYkZefGcnTgAJ0t5qO0mYPEjvtDgI+oUok9gFoayvwc+pLgy7V92gvqIJLwfCq/xCd/uJ4x7TMEarpySq2pJHnl/ns7h5xNZthzCRA2JZDeCY4fM3+DqVgodjypkltb9ADrLz+GCrnrZV35YR0IG37lElRaF1pbRNsgq4FSi6P8mbOqu7yzUXDqcvIjqv14noC+jf/0sjV8SpffMBgC8Ff485/mN/9W1X2vG4PVPCZo6yjY0cghVIFWuw+E9ALdKbnhk2P/JfpXHqL9egHyN7yuKr2C+XMMlO8f2tRVWx+6JgeQbtUtIWhu+7Q0x5wekbWAutl2MrVa2ASwIb7LWf9hbTSPp3RMdcR3YP33hIVlMTyLofrFOSju7V4zsJ/TGPGKVproYuSq30qZB4GYvdhJdA8tnwANfFBv06qGd2irOEMlQ+5OxzNiR0WOMZkUfLbtDR6nCF8e+C3zFOyntX/pZxKH9KUFvHNFuo8VuLtawI1oB5SjcepitW8mhiOOaCk3QmJctuCCkTr8kt+FUzb0T1DQWnc5DY9a6EMj3XYar+fl5pFCd/C92CTXi0v+xqMUfTVzdf9fmpvYajSdZOG5PDVwAtSK0kQBvS45BWQWdNsvliDZamJgFDg5VhwUHz8FL4y8EH390Pf/qUnI+h814YziHdpFSnE6sf6U6wAk8H4HRMnauuLokJkP65ZWHzVGb+fWAWtvCd/PSLAJtf/QYa5mVQYsqYAvqj6KNTJ0ad2UgxUbvT/ovQECcnxBj0HH5AAAChIQk183PkqdW2nny1LsOnGsGVbMWR3ITzuHPG5e3JT+CCGRWRLQ3uajCMv5IrZ5h2F3sl5aGbFvsIdgRLAXzWBfz9gi0dXhy8cGWPm2/YopxfjY1chVtN9m+YnnNEQ0XKMHjtosuFyYjBBh61XY8kYdf2MGpjtipGWji/u522QlDgrvpMsq4AKiHAnjENe1QLFm34O7z6kyd6FPipvuoAwi+rYgljw9xA57YRDFcYizcveBXLzOT57YD2/ML2GptoH5wv6kFcww5S5pJUethvrmOjgbR+EAIOEOJo+7QvSSl8uWdT59QvvyWkC/NsrX3XjpYUSCfMb/glDSaBKRwphXJBK23xSbXSXlKrOdW8tdU/xWpIn0D1K7bo3neimrZuOPXYBBm9XMWZCJBHuFf/Ag/ci5riWS7MybyQxOsym7O1/TxFDjAIdwjF2lLHwDvPkEe4Q4arZI9PymIpgWTKcr/8hyySPitXKIEOP3LefAvH0ytBseQXgm5zKVQGin9tUd24DIFwCDqH4sa4QSc+vK5I6C1x/n+VCdl0lLyts3sOzPd+i0YWHcmXZJmWTEkWtno2tNH6d7yWsgevG0/WuPx8GJFmDCd9XW/wFj4nDcglMlEkU9DP1alMYGPoutR6wlnV/r8nvtL2YPa0LG3O1lprqOP7yYgVGC0BeJzr/5ruRC0S6PaOFmcBb6yWUvcZBrhnCW94f99ezx8+a81qfs5/89kvHRtk//Z62JirsLnQm3NBghmkdux1oDL5Cz9RPBl1hTk47qIxLlJTIlGTCm+ZSyWcQJrtkgPm3bIPkF+GN8nE84qZUrSqXkNDU/o8vsi+sdZ+/gRJfknK4Wd9iPAtr1BwIhQVUHjh4+dOQFlPXEn1eW554+X7CAm8PnveXqM61u3bzrOf7DEOGS6rL7hyzf/jgdvD1prikbSAE+KTjHb+Acx+lIHxYld5zGbG0armV9cKtVIKZE3u+B5eVvQsLyg5DRoe2HdAxtu8E1Y0AxZkReTOhGMVv+vIot3qxPqw4VdjetChrPoxroy1AbG+FSjeJcr+f3r6X2P+HZpYvUtxGTKH78Qte9p0BHcgbKi50KaaI4ZxrKrp7pgcW8EqSW4zlVhMTKQQPDfBcOBYIRTeDt+FLtVUkjTcyCWD+GvG47F/zCEaE28wm7nm+9DQiKNnGMDC1/k1AwAe4MokCw0lQRS+0xxIhcGKKPlFKEH2mOsyvAycHEQkh1w2PAUIP+yVE2wLjpBySx7Ln2RZkVKvS3I3Uczyzyn0ux/AZtqp8jAbeM+MvIwvUTE8r8rY+/mOUqMaTMETds3RtiiuByFo+RhE1M2jhbgH9PrbcyfMK7OAOnPiHn2V735dqyJxZmJWqjpg1L7cE12GOqDiAKl6Ujkxo1AYNSuIdmf5E1CVAFQTdqUMaMifeCd3pv7vTu1imIWPH/xFyp3YSkPpg3kJMKPTavSGXvbwlYyt25d7hrpTPEyRxVyqPqIEpODevkaTPpy/qxNdUE0yjW3Cz/yPRIFNIraYasJBI3/6pnbv/i5hEAvzHkoCYYGh8lB9nSiYmRHtbpwAVZ/O8e87MkqKXspg/0hx9RjbFPhEGYPH3eW2IM5s2Gt21vyIkX/9M10t+Srk7sss/whnQ7yg3I6jCKogxSqFfif84ERbgIdcA+eCU1B/FMidhYlUkbvc+hjwX2dApzixuocQztXzWTZPdL9ofpwsDMFQZhNBmtv/0R+rf3awbz/JdEDaVIORm+q6zJ7Pz3oCGFn98UEghjEwT/AAvB9rmX8RWOfJhTJJjc3M++8L62iVL92GdPG17OE4Q5BqShpk8aN6K9d93u++eI8TkvJLB+vaar3bwnBcpAEisNqYU3aApkkAzcnUMMetLzggBhm/p6eNuXbX40GajWIAAMw4GSIRWixd05hNX7FcdjHFqO6O2Kn1aRX2KIED7wN5zkTDQnzQVgX9/A/ptoSm/XgHFkS8uQ+fg9RVElb80TcF3H5TTdJJNURzrtsxcm15daOsw4mTqNoWuZxmV0EzOUaPH+KxpAvvl0TXUizBnSeYoOnZwNdTD0OOF17QYMspvhcOku/lWvi432xM6HMbvBp/dZ0aaf7JBHZUhez86RWms6/FnPJh8V4+d+lH87IWjQuw6V7EnrhDlWQ3Qo4n4I2FQ0bDT1bju6x3+5qxsebKt7FTFo/sRMFuhCQeB7ndmgTBSAyZknc1kNwz34UhomWjT+kF7YZ9IF9uTthc8z8S/hbyhPslPjlZ27b9jdJXgG/n9Id57Lc8bflrjxNxYT1sEGpMkJM3sppc43Mxh1BQ7xh/nV3IlfoWDd10GJungMWVuDv2/ew6lDTiF1NjI4D8TAtdM70W8JAyeL1LhFG9XklH6QJBEUa4Hss9BM5il7gbZnz5S0/sA8Dk9FV7DEpOEo0r5KW/zQUla7GJBpuMKw706XvsIvNTGVS/CDsJW5Rxar2YOUVsfqi1mkTOxlLxUlpXQwdZ37nRATfI0D+RUvgyqef9C+/ZUN0PPweWboEGd5r0+1NG28KFv1JzqUtDX41PjCVLw8b0chIKq7EGtndlOCgpTVTN0MTWdIDSjijCrRYByH33lSXAFdmuss8itWcEiO5B3IkjVn/s10jeGBZQle/Cw7RwU8BryZGOq1ZiLXDygQuirO75+zs3nxK32QQgwBN+GpS6n1ysV2GdQQJR1VKt6szRCyB+lSHGY4VoKcsPVqXxmFO5JGqumpuqkxePh9ThkRVEnZezqeR/PaJu87K7jSz0pvcCXB4NTk53FumSUS6I8x87vycGgx3D4H8znuQXfuRlRxQGNEQgIZpUQ5diidbh9I7blXuvfje5Tne56IcW13aSG0aK4uIQrjPwxg9ABUmxRpaFwUwsg5fEDqaPa6ymRimMcmkj0sD5vzyvo00sCYCqeLda48ppoFo9OGzRFGsWjceZjC9aNx30kZEmd3zzUyaYyLnqQtMnQta34MxGI+iYk//4JvemqhL52D9jKU1lmyObcbv+Mobdh4AKSxyu6RJ08b616XKQC47N8dosC/z/qebyqC7CstmdHaHKmqNOQO2VyWDIEu2Lqj1a/fy74NwwIM1qNY1+EAPjSPdwTi2xMWVNtcCQ/LkkMm9FJSyL/qexvEY0MAmuX86Adku73OYXghG/eswzkn85cSgVFCaSwS4NMfawiT9Qs/1PTFjYltdHVAmdqIw9t/GW3M7laJqgubkftddeB9gfVU6oZuivAfui4RCUsc4vLfgwi5UX/JxWz9m/HMOHj0a7p4LY0U+G6q5uku/umkjQ3NQYw+AGSljwmxqds3RXPxx/Q9wmHGHaWNZg+wmUtdf/6jcn/8mW2ptCPltNbLd9Vv6Z6YS5Z5LnrQijBmYU6SNgbZapV1k7t2S1taTIDMAD+8jqrPDMWwlbFP3mkekYgJNjPsktpjzaNsMkI+7MeNa8hwABspJ2A9CmcZMdx2dXUcegh9vhLgdkOqlqgi5zPYghgZkiAmhxRn0igxEaTl3WJHfDgrbhZLebzQjn9jNd4f2plkxm+NNmlfDmCWRG1zbHMOriRlLwpRyV8fVKZaaJb6MuL0w/zCLc5MxOEiw/Aj7UG27dPjwdTCGUQVo9oCHUV+CYgECLLpRx6zxpAFSsIZHc8RIereP6fpeFzdKLXAEoZNylUEBz/14QAZEzfy11LljbFmSzKwb1Ph/UBIAUj+6NXGT8nhlHZPtItSXC/jsXlzD7WjhCma8SLVjLvKeMptUcbUoh3WeGyXZdrgemGieJO5l24L3HXun8d7eDgqV1zoBC2D2D1yX7F/bDsjgHBJk2FcRcFFayRfj5SiMxHudKnyuZP6KTz3g72fkqve+isbN00cD13MHHIwV4rJR6rjrNhBZQSBBG4lJzZzdPvHFIAEAsTd8yntQLajNCwm4xMji/Rmg2LSbghzBFz/Tu7bu+iwBifj71t9uDtkD6RlrH3hw6eFZGNhgv2jDtFVLmGUY86DOF8rrkyW71/NQN1aJkehfI+JOQz8dBwTl05LTuIPxZHZSohCCu/t5KybpQe55/ijp0IJsaIr7UmDg72tTdK4TD91rG85AnunJildjgLzLCsfzvPqfz3Ec7SyGHXX0LFpquYjsF0l9tSaSUS+BCFnaPN/9zC1dl7ONkRu0O1JwONSveJ425DxHQPQqUSOR/wAN9W6CZoQR/EGCpMQFdbVuyXAqExSwwX4YN9Z6IQ9ajhpoXa1x/TUW/fr5hfRx9sTWfLmgJBu4h3nmnef6YugPS6Q3kRSuQvjfXMBEw5MjeHkcBgMYBkbOsWNbzCrqAACqVXWY5BiC72FjbHpqtWVXHBRyUs1H3KGZt5jdtpUXavCnlOQ6NBXC/wFcnCgtQbweWGFjmwRs0yN9C5T6g5NVehVZKpOWHrMgQ7Oc8AX3XAAb8DBsG5vCh0VytgkVv0ctTZOePh1QgDIJWhoNB/Xs6vG63SC4CHBiKV50s0z1/K2bKEuLkJmPs5dC8Hiu+3fKExXQG2dRAl36rD5q9SgG91AiZPmj9RW9gvmJ1mvcihUE1BTIv7rUPRaPb5T/M/07sDddhMwT7xfAwdtWEe/CVqHeD4FkitwoTIrDR89fVQEMUz6/OXfidT20HuqJ6qp5T8bvpjVo2LzNoF+MqDWXiSGvQ9S1KI986f5CeNNZmRrP5An89kEsNr8g9X+rFtcnEopNQBqGhNVccycSc8qODggYYOiXQDMzIrMMG8ZkSRjpSWgwDEWY+giRYlFaekIC/669sic0uTZJ5DC5GvIDpJh42oZ7tJeLxapjIwwQP3sbCI4M+E6SKEAl3D6PwW0FoXGY/BDuwL7z1NGL9gP2TMwFkJvCbG/rUFhVFvWMzKLEHAjonDbUYgOWsfIzmWFGl1WwCh1rC4+EWXuU4Gmyc/bYJ1s/JyMVrLn1fFUKGK4zkGKYC74Lur4FSviCNZUXf7TphM4BvXGs/t1ghyum1VjbM22uOLfx7aGiZmWGS5+RDQ6maLobr2WDVkNRJrACuY5dAzstDA+LuOT2JVqmC5ZlSmc7SLrO8SWgw36lDg7u/au+qjMK7KKgRvI5mrKp9LY4xJ2nDAn0r79raAtw3t5N6BpnGlc2krBLd7uBsIKoOjJOYCYDgWlSSB7Kpbn3gtrXSkn4psQC491vHa4E414eBmxasN/CLQLS+ZCSKh7h0ZH2boIRMwC2slrsE3jZwH2Tli68/DECpZpn1vQHcud5aTjWXbfotTfOHBw7WtcRCb3NgTL+baIBS0DDm6dqYKqx35kRz25TVveI7UOFggsLOF25DCip19f5YGmJOtNpfi3ZuqdpXEQte2mNDLfWc/x4j+5D3mQegh8AWvkcU9AbnqLtzRkpLsGpdKQEis6RIiF+O9sMZJMaJdkKI8xq4lqXIOPZ1q+PGACzYRyeZobobcSif/h1ngFcQiKBuO+5lBdp8tp+M3HTG5rzu34T2IHz6/Ua+VdWKTR+0d6sOMfU5d9aulXSMcDcPnSvum0oxzdewtBD0TsF++qJrhSzGEgjH4++mXe1WkP0p5jjc6dOldvCTI69TqBFHjmTUHwW5oMwYcahA7kGzAMxFoOpL0fKD8PnOEDyBB3blE9VRiEU5Sty1AfquO1BpP59zrpYLpAd1osD44J7MnV7AlBj9STgAAU6nYMZyMe9620nlfmSIJKa3fsCeapsK9H9TEoI+4S91L4KCYKqcGofXhWGdYE7N/s685uWnVbiI6/DRBm4IwB1sUZ4PuFTlzAv4VvYB34YoyAv+TwNcgkLpAGHP6upEROjFDyAoyvEeBno70PK+E4w96O7fNurumtyFrWkzSXv2tY2vpQRW8oE9UvmAu9CGxsVAiOSm3EXIRM6M3BkFd0Ou3PaRZaRfV51/M1IZtnvMrIdmSZmrex7cgxP4E3WfFXYIsr2HTOGWOdDZeqaaGdRn1mJ6RuxHxcS/bsm5D2gaTO9uDDEZEOtaQJ0vdW8uDh2IwLWZgIJZZ2Fll0RaMM5ga/j8me1/3zc9IYRPnVAbOxwxSq8xLS/yNrcR1VlNDbH6qwiNWkUg5i7ddlrkWhXd3lr0HmQ7wZQkIs9lyLoKf2Kr0jeYBGnqsYJB8QM3R1Qbr6lSVpbI3W9O9UEGDIrZSun1PzhbLbIXjMKdNrpGSTwzIqYfaShBq7+lmWY6DTGTQ3cPspOrsFwI1+wnSlk/pAyg7tOZsj/gJzgaKSJMchrNbyAYBD17ib54A8NooMjqUgkRcqoAmyFqoEFz+awQMR+fzC7QmeZI/I1Wkzo0TX5mqfCyKbaNGnbACSFGlPvAGsxq10JoNfpnFXMzwqntIJODh8pu4Tit46CFPcGG5iFdN9NVu9O+CDEjV4SU7351IFJ4dATmueDLojDKfBKNOB6ZLm/jppmzOjHE0Pnt04I2csnGaGhGCPBJ1wO8etxxMxu69gB9sXNa5NgO5FLdsU/vdnJNNmvM/Ya+nm5kWjM4wohFZzcB89zv2gatORpJmUWQRKs/DQhz4H3Wn+pgdq3BiqaHwPnMpeVEMCoxzYlos+prPLU81B8w/orp6V2w/8z4MRCKEIe++wdmHMG7bA4gR9cT6J91248+6QSmvi/2o7j9Nr387oK+mA79cw0fqo7CrTnRFsDCcoCcL2Cm75vXYlKIxcwPb7gi3uMBHF0jjDnKOWQiNEBHNJsB6HMUNErbSJzzjRl7zz20h2HFG7W1NBJ7uS91TcNQFh76OuRZvjlXTDrjR1/EzzvBOw5cL3Y13t2fltFKrOsOhaV1jUZ1Ppqo7scp96b+TSW9agP3lYzIGnqkoh9ykLe1teQzNopQ7U8HRo3RMs5gBI5AYuoa+fQSW794QbE7oMedWgRhlD/FjTBSyBHkggPilm7zHJE3bsNkwDMAW0nMaXnOBiW6RVyWWyEn/D0whG2CxFYMh0DMSJfaVKaIlws7o6S4f7reYfE7+uvBiKDr7/Y+0UG8Jfq3y6XtoOZBVcyThdJQEVhQVFOm7Os9kzqYws/IovxCuMZKV8anii02caiTWyxHO86YzBnwGmgQZao0hiHZVFQZIBILWrWUYXedw26bOKalPBsJ1K9NivHf4gM7RaHiIaVrRrQABEwr+blLmolT5WU2SdZAUE1q1I+jWb4E43i1Rb+ZQ6Mc4UYrNVNLUmtclY6Vr2IuGfcN82npBV7IQdttUdHxmlmHPChBXPoXeHDWh0DiQP4GDSZzs36kiKNFM3DObjJFMeBUKo3668alDCwRoR6bliU9U8P9n9Fs5zkzQbIM3IH1k24X/8j2/+9gyiAP6fTxqVVASNkxqBE4xgnszZGUCo7bB78NkrzPHzNIsnxsaS/Hxxa/jQwz+aBGlw9hoC4jbFD2YELkOxPhmnyn2pWDSL5XLC+dhCiXlnIaQrNMnP6IqylFEQVjlboHMuClO3p0ySKpbXuAGuuTCgNEEj6z1B+0Yu5cLzmBkfAe8EB54XwV/MYsMSJM5+w1wFbLZHVboYMIcoRi8GTFTdQmyvOmx4v85vRlMqOBT6tFDgcM6iJWnmD7G0CLkTEwN+AK9SGgNbFhdAFx/WOHJTpTSImD55f7NAmXUxIeMm60wExfmZsAVlNgxDo5EToFTjJNGQRO3w4wmIZdthMzNYXqbO896B4IHn/0ASOcxh7qH/Sk9X0l8e9MUY1RHkZXL1fhCGP8dyVL2qZUIybUXQQBTjzG2j4i2DRIQwWTZ9RlL4Vh+eackYAqGYvsaWTfVvjgLlUZOGwqrxqdiXV2buFEwXcsHnSBNpKBifrlmte/mZbo3xpLNX1ou7k29a3gLOnB1UwfpWhqC1Dz7EcHHl8MvEsYOXI7L3J14312Q+NBGq4IZAj3Kbf5B6fZevVzNYKMuwrmYwbtenmIB/0xkHMFuQjAAIzIvJvojevncGDCH00VSjoP5n+hNdyhQDAfuwI/p6k2/4dWa04t8/rnEupljxPQRomh/A4CjRg6laY44OhapitcbgPh7ciR8sV1EQS+D1LO3hnMGRkpV1buFWli0CvgdW6zTn0T2/A73SY2HVm6LVpZQDBGa/Tg7M5un0CE+Q7HkxxmBuR++AIF31nm9wKx2jnjhJ2MOvyo1DZSktjXH3+QytnbfQ6YjQ0CE9hC6CjI6Ewe2p1zsHqMTyWzErT4xBqRST4m/r6yYcAn+EPIzpq6xtVsvBJLPh2JtTemWOH90DJtqr4rBDzS6DhkQZGzBexbwl7X4gUlBu9K7CmL6JoKbEQtZPlDevNSkvX0JmRgCmNm5TslI1Lc9tDZhjPyIvvfPRqdg0kw+5MU6AZfYH1ojpE98TgHZQU/seELe6X2xAYA8XdebiTvKpvDZafw7iGTuLo6ZRfxstnMcgQ1tlDtqHDsGq1ptwchhFgPW5I3r3FFbZN+0UEg/kFncxIYuSKo8rjHZGLeFVZJujVNKsmqc1AnxqG9R5DFXKveXSdJoUuTZwD0wr53NVouwkrf5NHkcO4y9qmfVL5jWruNGX8wFOMaxgVFH+nTlPih30XVCYHPg0oj4t0ctVPru1tp5zV3yVut9MWdDQzL56843diHcGy/K94Vz6H2qDcz9h3h7lE7UxQteMv7FbwhIkzWRYUOPmFnBCEyiQgYsskgWhS7EvvI9tVDS7ePU+qGfJ9+h9jnMnr0VF++c9PsL3ZwIuIsauqNe9jtW8VVNJOF+26rcnLvli6A3L+If64hUM7k4Pa+Y1dqmLS6A0d0DIA27wJQN5jAO290M4T2ZBFgARAWxQg9Pgu7ybpzGbrCbmTEAAAJ7NSjQNWePTAEHhg54OVemQTFJ1nhFWx+tdHXxnPKxBziBINSwdfmUq5sdKPxQcxIvuJTksVz2IsyZJGUKCz1cx6XT5iS2F8ydO/u+VPgNWsO8tPzqcUjRGSa1ZPviwg/fL8H/uNvBih8mFdLERj7qoQ8jUVZGCyJEjbsLFkFHuWfKx1te1ApeSM0YMN1bWV2wgO3reXgO589TAzXMJjkbfs2waXX/XC9gpt100TGWqw3f0DeTJ0wSziNHrBjBfHQJ4Bw4W7xx5AZ8d3tVqLz2zU+xJNMWf5mYSz7J0yc/K7YnXxXXcAWEXbShysp5Cs/JbKrG5/5NWD2kovh0kUvVZ1rZQ9U0091hOjJEIimmhDElxFbuRk42bHwp7370kAgSx3/kzC5zNrWrJ95vDWkJVjVC+HXevrCpSPyXJfITO8MQkg2lB8p+4Fku5WRJRaLN2MLruHKL/7zliwB+GsbS5urr+3wtbSzkBZcv+ndRnx6wfIS7DG/+LVk+7RpdelLJMT9s9Fl0pBxBb1yDxZyDVJOYl4iJHSw+ETHjhigxGx3dznOBrmslCB7cUn0zFgW3tM1Cy5ebMhMcLpZ0SW01wCGse0NzG0bGRPDe8o8g2fitkpzgHw852jdn27VHALCuVOfVrCx5+n/WX6IQAVqTdF+rJ7zurpP9EkfWUx0QrOWNQW0lXMrIsxNMpJbFQcJG9CFSBmq3FNiKOfjxkWD3mRDMo189rsdrrvsguQpNRnovuCNFLH0GLj8AlE9dg56T1McwYM0fWfrPqJe4Mvo6xJ1qyFk/JdpEYdWN/0kpQnjU4BmLKM2pcIAB7pB/N4OeZkp7we7xqvpF/DhN+oa2Bn8HOmzEHYsQEiY30KSZiwM2tK6Xh35CxiCcGd8LDSEDM3BNpDqHjxu6Nx5WghVxauREB5nnXXqtT4VGgoYamwu1M4S1FnbjzMNKZ7abTJDUT251zsRPYRpICjS7d2W8v18JdTM6UuBACi6APShlZXctbXkZv6VN9JRjKYlhBGOPNJ3bOQRlpEg+5O8LROupZi7R8OySt6k6oYC8qtB50t3xZahy7TFaU4e0+k0hYsG7WfurYP3LR2fjnyigixywlwA2UDun8roFdY1jBx5Uqtcd7TqXua4JNMYxz5TJ9qXkY82JVIZTr+AV8O1BVQqKuFUsnf9k2VkJqJ3zvVZIY6HdzWDGoKQyJnB2zHPOCUm1xP73MqMb/Iu8+yIeZfu6NNulALfYhOGs+a51Lpfc4MQkm3E6Xxdl594mrcwDiIWx1jFujnL18oQDFR/4HgFWYtMf3GmkFwzSxPLnPttQ/gMrywRI4qabojpCQ7tfN9sKvzNzX4gMGy2JDYa6b5Lq2pfwi614FWCxdsbK4tWBQGnXTB6mYwK6EW948LCsL1BBATr5EmolUYvRmwlAWzTmDCaJjR7MZs3DsXoGiI+uY4oxRrYPzr0CJ9SziroFQWasif8PR4hsylIOHBB3Ok4lsvjdQYJX8BcXkDC2P+PBTbYJQihihIt6mdUH7sodlL70KY62zmNyM8TdZ3UbQ2hoYE+3KURBO+f+FohJhSOsYgTQL8RraB0MNi5bxObGEiobuJ8MHCM8bIfUH6YTAOSq4mCga4HtZybibuXDtKydSk6UoQvwGeQ8p83cZ/snZGYCJAPPNU3/+JoBf9pkhot7nnlfhXAb0FRElEyAe/YF+UZl8r7LNYvr1wbQUfIAqIcHcEaVuQwIiAcCGp0x8vqm11uifQ4OU9kFJpC51GBc2WIkSr69xTtCfXKotyBIk/ujsvLOgLSGlTbZYI7ve/mLMJn5sJkdcj8d+wP2CLJA6PLtCaUWIaAvdBr9PjoA+pdv8jJNAPHRAmlEqQNAf4mw+YQ3hoz+igOU1C30ShDimLxULABRdHGI/74hWP/kV7xg7t81adXPfqFU8k4lQs39BX/2dhRiUMBkIEOW3XfGq1Kwj8gLgsmioG8xmvyTAERbRPGQO+O2LU3cmcBKrhD36js4oL+06gSark3P2pC1t9X+GxahB5PXtp1q2t/6W2IenW1zGw+sjFpKVXFizjdgAVy0MLN+iBVqlLYDcJh+HEge1ROlWmUxMbbEfYqsj/lJ0pNSZW1kn8vCF3nKy2bihAtq0JJFfxFbNWCVm4djRFVST+usoC0fdW+0ULrtodV/IylnetdEn+eR8D6K3L6DjNLFNlmSjc+XYlRhf0PCNTg7bNR/hJm5CY3vOVX/yjMnEH0MT8VRqhdOUDRY0XxtN7paPawcfoB9DHiTuJNs2M0Dqcnbusm/gu5nqIpqk9CqXz5A0bQONB+DJweqhuzXPRCqs6OEzP0FCwZFOGQhcZnTwyyyoPVwAAEeKZgNq8Flk9Lw1umz1T+VOdcGoHfPqsgyKcnTScwL4p3gw649Q1b/+/uKXo4N3I2gPLJXmHpUfwO+dv9rWS9sj5AbEP0zjGiXf4JXwYzYSR6UbdXWviOkDfMG3dc5pqHTfnYPFSjHcun4F5aT2t6uJR45JCFopuw7OAoEOb53SEq8G0BHspp0S2m+6Oy6UMODhvk/L35fJ0mm2D+cGo6m06OdCN83B+U9wGF1yDXLP3ilrNTAOs0yT7k0h2sc/BTXeMuVHF5isCTOrjsSR686bbIUM9RR6t7BSIxyDw+uOBLHFzIb+dNe7Jt1OKsmRgYX+jtHBgXkTjcNurVXr2zfC65Tk6ew9978tIvD/8yvhJNIAcrEjW9mhABxthqQ22km/T2oBrRusD/Owad61idd+NN+jSjZUX0oIuYIPeyx+cTnPCx/cPgYJ5+gWF73cnETU/F7EUQvcx5Ql7GmnKyD1q79PeDnm9utYB3jXcqSqP1zsu9PSrVZHmQWhRlrUdiqk5/bwNtJkRZsXLynbi6CM9oE+grSzcou/mR0ehIjxBRQAQAz9U0/MmXZHI5fqOglG2vlm06II1AbzjYVaczuomRfysR2Ze3qaoE61fmcSx7xv9CzuGfMQcTKlZ+QGzapb8BMJo3FSARjI1AZLnzDhevIL7W4DqBQkZL6oRoRUzwG6dOoJf7ZiLGE1X39U7KDrAWaKCG0H8RPMYNJMup7xG0+nVsje0BRBJrn8OpjUyy07mJgZhPoCIACahy0vc1wvIzKue1+M7eDnVO3dPFXNDQZgFlOOteMp6/OBE7Mi0TeBDpeuOuoJrWaqD3VrVGhkyYKmtnxJjThh2zM+KayypniK//NehxW6rPCIQ6o64iprYNpFSseNQLuMChC3j5GkiJOEkvzf+VRdAWJsu5i9cN5ibO0KgUNSvHRsykk1N4KFCc287sh32G1+fbh0bi/WL059+z3MdCi3+N3fZVuwmalT155TxXtmAk4OKePFknsuME8DKmybqBPs9ig67zX8ETjqJZBVVU4Zl5MQCgmqUmVNRiBav52Zj4xL1rVyNIarM66YfMTDHNPXYgyhLDXxbOVlwFitw+IufmjXpqqvZRZFv84dEtljukQqwHOXny+iwxbhEyY7HoNlsTAegeuefnPEEoL3AVAVwCxBAERXdabJlYEsfwZL5gz1PkNSrNNV2ycg2JJ96KbYX0gkzYkryY8ZcvCQ9jvQ5BDxwJ4e7E3HzRPE/vaLn1En3SkEAADppeDWyC/WOdbQzz2WgPki4AHkn1fHCfJ4sn9BI5ubYQYHJBuFiZflq+ALSDH3lYf6fRGrSTlEAJ4VXGPnIRtBvhop7pf1zvDosEAxV17L6MjoFOQjlpmFyFw37HxjPDdKFf91Td+aV+Gpwmt9mPOn1xVEWfXQrVrs9/e1JcjmU8Gpvd1jW72PnMlLPeimQy/1P+4+qGNa+QrLQjD1kvjD9kAyiRFspKN3S3cZQ1TY2GBAGRp4p80N3kRIvUdgZ9wP5P2g1hloCLWizX3L9oMby2r9CJFTwRNXVxpMStHuzc0hvwz+CpkP2kK+sxgqpXcP8dNriGJCdzlON0acQ4jHR8Qt1AIf2MWIXUk7bL9xJ3sP0B3y3KI/ksz1jwQDfWIUm90h9dGbK/Hqn4kM876Gfb/fojX6QmhB+AM6U6BoxB13dsBpqkRHDwpOUZSod2aJA6pgUeL+dq1YlJbwovjSi5o7t+RGk/4o2STA0qIysrPeGa/YMpowpFTeewAAPMFT1GVGCmkz3zw4zngI3ThrYNJoXBaxUxWfd7HpW/iNKZFKC3bB1Np/nXmATc+y9PIKd7pzQ3R603LQBJBxMTfpz6aQVFBoEvMUeigcvREEDG9RIRVLx6XdowRuWiHVB0zxcIiOHCH4+zw5JXZLbfFqbcQ6roLtEKMkdOOa/zaTbtoVjUBkPm1nH+x6v7HGtyEVpLDG33JuEOCSMg7/xCe6Bt3dBfTpmctR1LLS/nGDnJOktySAqkSE4mZO85bQzzGJMdlI1ywMxBEb6vbbEYWdM9qYpUXxUnzsJZEyZCJdVMKiYrHngwSjl8HpIQB533qFlOPCK/xKdWgVT/vyIkviyG4CfOA1n13AufjSvBzdRi3cvkGpjBOSwuvxl3vo35+dVNVMqbtjh3YTaVok0jfkL786LRgQ08HUR8LW2cxnKjEVLlgdvDrXvVWl4GXDSGIZBz/PNCqNyLnb7pQfS1qlKwZXV4Y+/zTkA6TUVCGVowQHNdRgn+3nbDa+9kMbp/rRed2sRimWTTv2CpiBgu8zSrdRDOEATu9BL9emp/qS8jg5Nz9vrFC76YYvMUsnS8ApjrZcHQ02vaw64isCPZRAPihhMEMiWTzbJslIiKfQ2gIz9ZSLkUUg3Mu5ZRXdIOYsG8lBoYz21vKgUAI2lEGh2opwbbPNt5rZcZJBiw3+ALi9xY09VQUpokN5CdI5KZS9UIjagsuLJmYHHtj2Oll8eZqb7pdKKL/oVLLESd/gtEh8MaBgHLmSFy/oTW6JzMECzSNREwEUTenm0SlsnmwK5w8lcxPckL7G6MjZdHBUfCFqUrMaQr3rMQ7U79lg0sQpaps7eWLCDtthG0FpLXCj8jkuNZifTnCC7arB114M00NnHAlsGwaFzgXTuF2H+CnkUtzKUgEIdEolOduKcYFu1wMOPCpP9Ho2coKjVnkuZrv3ba76vHW3++7bvBNPXIwjU9tYo/IB4QALNo699OGtWhFN5JMUQbPYKRagRL2w7S4a6MdX7ms2OojmVrqSRGWt44TSgB4fpKU/i9ubbs+YZ++Wd1bya/8Iblr1Nr1ZAUdX0RCljmaGrpA8K2lt8dIWu4pXQLkLYnvbnePze4KXIQwyhg5Ixs1Y8wlnPBX71/xiI5ixMnyd1jvFauWZaACaMRCGf9U/kSZrT+jnoHjXWyDUlkadn8naq4k9uzAnukdWE2gIbHxnu1S212GP035V30y71762c8wIYJ9Q15ImBJMcasUhGxnjT5ldwFfnEiihO1aS4lpp6Tmz8h6/4nSjjGF5fG8aAwHZgn5B/BNuPj/oXKxo6L/a9kmrclEJybBHUcQjkFhYe+xr/3m4GIS2Uru/9zVSaSVvqrh536EMS51YpSsI1LRXtMfaoZuz0CuVpjH//EUznotpM2tCw/JcO065XcJsfnyAs36V9Db7NOsVnVT/csHOocNhpzu7HTGrfl4ziiaEVAeltPFr4wSLrZqFX70N67Exr+j3aRN5Q+IXIyMU/VwkfHnmeiZs1wG1vvx8rLsTPSiQwtxtjTVPWhivjq5CKTWCeV2a+1OsvTSCB3g/poYlxuSkAWbyQzdI0kTGryQGH6HCqSCN7U9Q/ITEmunStLnz0TdDw/RmV8x+GpQEODfo3+dUMqW1ynnahTCUxS0RO8+AvwOQsy+VFWirHE+iUiZ7uR4j1QMSROIkhC5AW9hH6s0/YRldDZyYe02U4fBc/tNX5E1W7Ylpx/pChBIQ2KdpMpddxw8viMpU6TBCRpWe0DdDwTFeMKanNJcSmaQEjbLkhASFqC4oCHeVDAP7Kw6r1c1Xi0b3s2L7TRqAw3idX2xhG0OoPZQpkEC/tBnKXyEEzYWuM+m17FV7U41n8YURneYXqWDJ2P4TqZWj9DyclBrI2+T3euhzbXjZwX0L+7raGacVVQLCa8A0gQASd5CPhI8TMNcCvlDa/J/uJDr0mdHIygwWOpblpcNT73/gVFXdZlYb6TXQ9KCc86V/J+2Jz03ei24MpbA+hJ8I3tO/dPNbDAWTzn87+GkGXHun8+0ADanK+53oOEjHw4zt22viL+WyZSl8QFusvIIeq9XAU/XkqG2qRYTwWK4h9mz/JXocH/OjtKMxLWslYarxDiF0TOQvRutLUSieQ2vHFNIYorxHizUOtgq61ab2wCGsrdYXPt9YS2HOaeZFJmCPFKcu8TccFXY2CxKpvn5x4IYpclANJC9tlqPko3RSNnYwc6IN2doxzNNp1I9XcUPu5iwdc5JDW2WKwL5ZraNT9ihMbQoRVkGiE/3Tn27xr87SR04NNErIRNBIMpxX9Z9TF0xVhvdA91RWdch31M9FOpnrD8y6WJ4QvEc45g75qtCL5iP/Si2fJjbtAPEt9j2sfrBO+l3DmlqjkWJrPMH0/OhAX7MNQlJQ/NOKXI0zZuHcpbbt+01Y7xeiibuDteuQ1eTwZOsp1a5UZo4DNTWF6NDE/1DIwG3RkxOAEtKoMMwdWTF+acY/9uMOje2Fa5X/K8qsyZzdMdg3KTYhniQ1g+1QLRAhdbAFPdn4jWS2hmT0bXDe4jRIMNDTvPBC8IVh76SeNUA9iVQniOUOGS9c5oYJf9+Lcgwxdw6Yz+zOZot19X3/SRJy2W6lwMQ0HcoT6VHfLIoqYN0lMfyA6sj/rmonwiC4DER8WT4iWy7+HjElLRJbQF1mfmmJlX3hJbsS1e3tWEUvMo3bB7v61lt0UvkuT4NQ+YY7u2ABiJY24cH7XoJ8N8LmGFfRuZ0525Q/QNTcMuOd1RwhfE7ePm6QYiuZ/M+pBvgztd2X+UBU/K42V+QEJa9wFwFLqJmhO4FEX3J0NCkhbs1hGUug2OIwKFmXRf2capMA5RZo+cQHdzxqZWgUsB6CB+gA6N+rcRM9obTXafCVfwGgs5TSIzaAtfSsNM/fqPGHCies8KU+xwd5NR2Q252J5rN8Uuxr/F/bjzBKqPaxlJ70QiqBq7NhGu8d2OsJyQXcuPLlFFA/hKZ8sjNks98aXEqNgOzqL6RvNNYhH/x6S4/M8pe+/TJgcMHy2JPdYaVKYL5gwYyCJw3l0a8QKHDCvCjshdVPk37U3sPbmmRH1kn5l9kkkxLkXCuT9Ge3Bhufc9+ThuKF031nw1/KOr3imyeqiin7+7n8WXFdLP5POrAFYl4/Bgjv3HgSc4BxxaQRyW7quT7yXC7aRR3HbKZSbjBJlwpKDl6FEKYgDmYx1gKg/yEcI7/gvzbNH2hhuxpzATtHoe8pG1itRrL66SUBgq669DHcGuXu2FfaGYIcfOKQNzYsEc9AjOVp4NI5cZExT0HMueA4L6IofTYc118YnBBLjZf4rZ8Ab02GL5kjZFIaJnwmQQWJMASRXvLqqhBaYwsjprffSnHng0BjV9voLbHVt/KGEIDvfd6XEdBorcK6z64fExSJVp5Ln468LrAKjoCRmGT70tpOvZMcJtQo97ohgPJSax7+xgvVYTBMqlm8c5myn5G23bDx3++KQHdWyOwqx4vXmh5iWoOWMl1rbDsK3GxzxrSHAIFt+cMAa4OoIHw3e5fSXzktSMkco20xsLpDiy3KkskAf0tYE+vB5MRV4KztjIgwFLtnygFGiPchPl06bybeXLTBb3P+BuEo4FUXBS5qyycQGCur2Qml5Hov5U5OAk9LmUOic9RQbYU2PFjnvWoIfJCP30kUocHv93sHkgc5MLuDeUc0J29SnK7oE3uu3PfyCzYJGgQEs9AZ58M+uOCdWcUAISK4YnJv4FImg6Tix18SV0JOVc4YcGwmgurBJrS52eMdhxZlAqhojwd0jgBPUMb3rdckX0biCchKUMtwo4jwS4AF0KENrIib+JXPBed0BposTs7T+ipUYfzb+YMEtwKX14M8wViYShW0ZEqr8lLiGpT1XXfinGhPCRK6/asMwMww8McIZIKREL5vO8Si0KdNnJele5BCgFRBHGxUtKjE4L4BlOdJ7Lc0AgtIEnGs3O8erGUO1uIxeGTPFGkDshvx1f3P6IHswhQS7EeLEA+H/ZmJjdIhJw3bu9ah+e+L/bQW4qEkPtujm3OvKUr1pycmsdWqcjdQtjXQgcdn75jdXQMb+wIQAk2bNqVgN/DvpvVJnoo+zKjrUQDxmb8Fawq1tH+DnKzznJ7FhCFtR1k73Cq483vMBn/Y3Dyq/EjT5xW2jfXTQnUMqvMwIvzasklvkzH2UBtfmLORFU5oDKvU09MZinkPbSESdm4Yoljhcjni36iDOCvExc79WWVR8Jws01qmmL2rXYqUvtvU6YPinBYlwuUAw3Vc1Pm6B2HFVg7AUprzi3r9bRD+V9wmsWlKIllz0xDAt4w1Cwete/zpc/WlXKQfS88JH738UkWP4OMG0G/QaX4/EDpxvj7KnSJMa/t6rtVLAmtxVw9uIBBjqsVIsMhSXxjQ9WMamHTRdjVGHIraMs92cB7w8IhAlzQ1m6D2Bz3jWsSklBjjQhsMLF6027Z5GoQtWTKaLi0M8UypcqdPq6Tf9w1BnZSE9ah3fKF1PkSi99O6GbkoiM0oyFi8WKN76sh2hWP+vAKvWmkgo1CZ0VQz2EGhj+3pcJlxj8BGLbmyjn+v5twS2oieXZXs30PYkoDTgOFMuanqFuEA/b/iwYCj6mWoeaCgO53pZBb9GNEOQf5mbVaMdbN/5tem20Rbt2E277e3MekwvtpUJAslYqs81+3AEPr6DuwB6VtEEy+LWiEP9edp+BVbXr2ZVvINVpH+xdX4TfR9mIJi4tIfNo7egSbiMqZjUTuyO/wC5SA/sOPXKokfWTr5nfeeqLqbpy1NwX01beAQiovF0s8ACNEIZ4G3oixPn7AJlrs7ymIVMM4unVHmncvF8MuVuWJibQOWc461gIQvDftZDcyvTL0LfH5a14wNKBTeU+B9++srxU+eb4ar70G1yAUeJOEUz6nXdCt56/MQS/ZeZsIUG/PEqZ71h94RyiBbl6/iW687l5X8M4EXVlZ78k6BB1RhEe1XUk1a9UV6j0WHfLH11Npz3JGKnv1HIP6C60dy9kcqyajFcPr+JjRd3g/RcmElBWuUORyDmyZfwpa7KXR05tzIJd5xAQuBj/h58zvlpXA0u2aXOL5co4ieQb5oWobvLiZctuALr1g+bF8oPM/F5k8odR4u9mrsLIEfbgKBYdCgP8U4XdGr4cXZ/00/5ag/0f62t+/Bfgm9pe6y5VLcze/xLZWTuDSk24Z15DEcHzefxiNyGdYT0eDZtmc3dpo4Bd2XwaW/GVOgwEOSmI5Jcox/2h8qkHdAbdU7F1dgOgd2ZOqHmQguZEO/ON1hS7xfdyZhjRpcgwDcqxs6IKRtDp2eckrQCbvXJdVSBOxVJF53Xa5H5Tr24bhg6P5/JNMY1HcpAWHJni46J10XxI8Bfthfz/lLS4RHmWkJqjJNKwJ1ajOowAlQyyb9ONvDVm2oRtoMjEwSn2yMicqOk93eIVcITK+xniNopSZOVWYahSiLdVkjl1rKk3w08JLw7oZ4dZSa86Sq2sQCvJ0PSh4MbvJ6W+yqPLczYQIvJHVIJne8A0bkJhKcDXIvYcfW0H8/vNg/D1ygWR4Swr75r8MouFDG56Dg1Yl6q+isUNbE2H3KB1ALuOr//qB5iOWfIwJHwKLlZ4O4xE0Wk2V82/u2j7dn9V3kOZrsHBy04KGtgkAVCS3fmhDdTVQ8h+xzjyNr5DunRUex35o+mr81N/aOztJoz3fh9pbYwvI+4fng12grYcALthyknwm2BYVgSEsYDGG1mDUcR8xAiLcdKSKg+cBZjDg2fPKPUBR9GHVT9CX5wVrLGy/dp4pC/k8Q4/yz45jBOdd8YC7+YdETzHcJu3iYAkAWmsTjH4eh0spfPUacowNU8GERtGzIXsZaNCtMlBPmQsS+seAA+QbjwB6yfRit4VCzLH2gn/WdeqlZI5cdjlEJfOj7QgMM6ZOPVhlo6Ya5tKYk1uqZfq3gha33fEDUAAiI+CAV3kD/7PCG8UIEYI8XwQ1Z9Io0wLUcgO3afYP1f9KdZZ1pRmHCgcXac2+786Un13nX8+LBnb0Z2oop0fpwELQf3UwYzKSM5O3WYpssaAlk+D3uhgp0Mh8W/0lz4vpbzlAMHpSAd2sd6jBedvHni9oMD82wREU2Q8mntu5G/ojEN27/RuzAhAHNnyeUNFd7ixtIWN8pFy+hesJmvwX2Yt8yUqvrs2nZfVctv47Iu3Ck1WKSHF9rl5W6wAMmvpU1aucp59W1HVHaV/1i1Lx8IXkcVftbc4T/DYoaWBExgsMwzd1jPrc4ESyRyF29BEbOg8m9gZannTy6qYXG0cun6mmjfOUy0XgtnZu6z/898YiqHX/SzfDHE9oTGXDTrwcN7gmLje4ZIjh74ua8QVYvfRzpYZ0otA+NafcgaPpQH0Om8jUeXFbqXsysj3ZSLx2+i8pGWJBp7U9IwNVoCSxs3jakAURiBXqwiv71cEyFfna/TMKAn2Gyo+iIsqxozw1p6NCYGDvYtzlRzjpfSngxtNkzArLdqyZsN8PQtcb/v7uQPd/Rv6jl6M35eIDn+6ymzyDL1hQFoBUHeRp1+M4+kORTL0SlO4Z2cJnTB7brBRp4od8CSKZBGzHJHtc67yd/a409uJBMmIe2nTkHMyzOG7SrLslyqJC1Vew2Pav5jRT8G+KnFfGGk5+aqu1YxOnCVtQ5B1EM7EzIcBWFNbtJlNLAQypTAji12dZbGO5qc4RUCwoJlBgx9sJ78D0/+tDMU1b+AOUGIZjN7TieP5f+WQlNjqFbZ0hpJase0/FVSRXneSlVpGRqy8xE7MYvjgspxfpQJNtlTHvKDNtpsZY3lGm12k8EDyrtxw6yINBfGU8l6DBw74SXsWzU9s3nELVY7vR96w+z83noM3RhyOtgxCyo5t8ub8gLj0P2aRyLUWDLjdlnAOgpnchwNLiAvxEqaNIRefNfSMxKxGPqWX/Ujoz9QSbaij3lV1vhsA/i0+nnojA+r6RV/230C2az7Vll0z+TjbsYyBfcFLxAYcjJOQlZBFAS0/xs/KjWALqp7Hk2ZGw7RuQuNWo2oWjCBmtOhahIkpBje3gZC82Ahh42W1sPZOUw/SgX7r4NPuGhry03Z2EHh9JzMoIoTfj6wzryVhxnCkTgCdDUlaIOMKod2+XwYtNak1RNRTJJmznzjX6tWo56944DcvfmC9of8AKRps2xXWbo/mdnM6hzxn9kXcOAFTWpd/CY3xXi9S4v3lXfgVjX+WrtggxucLUPpXYlcMEm8WbDVXp7751UCX//ABaGess5pnLU5m5unfa/sxhBh1DlKez5Sx1LlgQYkeIklBT9yfjf5aTS/35XGredkqHNZ673lCILiGALyLxSaJ/usEFBKJ+zfKa2PaaYCgN921EmDhs3lUtheCPvAikd73FJiQWSkIAchWCAriujg2C5KkgQkIugwRI+n/H7AybXJXtOr6AaUViFFjuhflXkpT0aeSjGCKHnmD6wvTSwJHaBaRjvuleshMfS+K8QKzXtm49YLiMSuQws76ZGb6PPCD0BnwJOZRsV2MHpPgr80t6NiVJIh8f3ZBYDVX2YQaCvToOYaealosg6Die6hYdcW3tpZjqlA15hFWVvhuuhUW6GFuXpGA2KRBd/rEfEnZKgzLc6zeg48FP8DwVdHDL10uPImKVU3HbHd+lj6WxA5XB9phDlQySGgbPlDT+9E1Jt0yEsAW1lEJNNO9CxTFFH6XSovBsMJddLxtlF41pOjiLW+mIFaqffcFtc8+mqb6bGltJfu5nfPk5TsoH0Q6NggMNLm/1iSHMJnEjBdEI1QdcTuWxk6uwDnJxi+B+bi5c81P5jflNaL29vhRNwM4WSt0Rs83mkVlYAT/ypFhmwrvcoB6ySsjYfdF/hOHowXVp9OawN7lV1ood8dbU6zPSIC5gPWEUtX1V4sUOYkyBNJbZP1/A1XuxwNlNDMyzPnOcXfbY/lfBOCbHxI96VpvbYeaxbMFCA2Xc1UNz48w16Ktt2SyNpy3uHzSDyR+JguzGVFAKc3CpR2CJ5wiC5SL6GJY+P365WxP0LOXjo8pkV/DPPk1kLBWg4O02XDMEf0T5V2jRqVttN3WCNOilh/bdfk+lwJVhy+jOYlYYkDZvXSOethiU7JAs+b968I+akx42/vZmlUVWXNSJSpeoGnOGI/IYIRJL+4nrUs6Li2fXrmh+sC+THQv3sEQkQdK3OKPbZ4ULtXYD0wMx9hZoTU83XSIgGR68tGiffeLJtH64HoLp0W0F57oZLdb2xnpgwpDGxi3Gd/yU7/b1Lxd+EgbLZOvm4ix3lzxx/Y6BDWJ1WxCPFlJlAlmdYbHSisbTU6uO5vEQ50nUCrSzNW8vVPZ1eS9eLfFluq7nzsqbhh9ltrbhV4Fuo25k8Q3b5liqOjGimqgLCGmrDsk0UA8l9jZBFz4EWHvbVGp1wNjQ3i+idao+PCpi642/RHle6ja85318+JeHziHi+vsmsGd6CkNcyuKevXuYzDC7clEWZrge0amDCxjRsPxRS8iv3+L4JmwMh2lezGok4jQjxk4IswrlP3snnTkMNMYyCL3heeHSMCQRFR2MTNJjdrVdZAc4McvcjDZRhLpIHDzhZr/nEqNmQPMtPasmcDQ/8SoPTuEO1I3HqtAPptLm7ZKhOBurR6KYBuT+41H/tdXSwESlvXSgyvL9QQzIvDd7GkwoR/xanMbvhOBC93b5gbYZDi/T1l2EzboxpT8NS7sohlPAme04Rj8/ZMumt65JEfFfGxnUhXr9tAuYYq6Yb4DmOGcrb47Xs1EayHJpSUPvRC9p3djFT4Q0zdtfhn7A3geiwMdmvvFdSXh4y/0Ql8MLxFQdDy7xS4PMuAxQNMPAK04V0wvwdDtiaWLLOi2YZn4x+Rx7/ld42w7QW0sFW+9AQNCNMLU8R5jY/LuPf4m9c66ZKaxy1dS1NydHgnpkxJiyDbqmEdbKFTwO7PoDWYUxfJdV+rlA06KNpcpxr0S/mZLzCzc2yNw69TeBADISnpqg1B59EObsqZEb6cvxGE6HOrfeZMw+7sbD84HssJXgAPiQ6uNQGzAykRndoX+D9Rgux6tZVDodMLFp3qPresXiakxFIgE25wPhdc+LmP88iU98bthI/WCwSasYTB/3+Ng3XZB5zFQUlh46nWpnsqGHHoX9kvSu0vZvZ95w2pFKlU38RbPuDOPxoT996curBGluWJ/XfuejZadmS6rT4gcQ2VmzaKOGa/bzEw31WjsPN/LDY19SZj+4mTBOMGW/Q5OXsn7xM7jgGhV6bDVWmgjtl0pcUP7eF572tnFkLImj6IkPUD8nbaObGAueRsmR+5zPE6qbCYDHQnXXM34JTvCPCSEcn5kTooJLK0yDnSQiJX79ibDKnBVjsOB3116EbIKWbaEF4u5mf1/jB1CT/dlPPTiMX2P+5DMFuPTqSNitu5v1ky4Rxb+5tAxzp6DhrGM0AWcEJvR/JB2RdeNe9KX3A53XD6nt4tHN99c2vm7kglOCdktQFaZ4JWtFOodW/30aE8JLWi10VcXA3ktO1EjycBCHnc074pyR7cuZO7EKX5HxwioE6VQ1v58+UD/EBmraPN4llBbFa4wzbh97bwZobLlA7BJuwfq/dg8Tpx2jf9eSC7KNsDDJWfxj8K43e7eo7J8L96k1b92XiDK9hkWnNd5EPUis3h1NRu1w8gDKN8GNAjar1af5NcxUmExXxgNk7QXyyrooQ0keYU9PdaARsPccX2QY1CUHhz75zAr55/uD5bx6HWHigmty3hbQ9GjTRvu09tVlDfWOz73Bfbcr2DpeIu+Fel1YVoCoZDX/k5FzFOF28+nQFL1hpWIqEXi3iBZpsWRAquJjvmJc/jS//fGpb9iZZZacc9tEQT3+eRq4QGSuR9cpdCkLEOxi3XfGhs2t7+MJjU/TRQ+ZWiwo7+PAgrRx2gbblrKdOJyisAmY8wUJjBHE1r2jloCrkLinkp2S5dy4WYRbTgV1N9xwB51DqQ2S4ytbwAVYh8uqV+b7pjKQNlQIZ5kemqj2MdqeZ+XGnlz5RVLotprHa9qUwqCM9rRmJTLWGLgzixn3pNPa/idQT9rI+B2Jn9DIFpjDAnIcwUcrv4DLmoO9wykpaBCmMPHmhLIAVyCPTL06hKoZ5zNr3JZZQ0HnUNZBITcehZgBIhNaAfZSdz007RkdppL6YUdO6mkC8P3zQ2WiKwvg1ymVprbUVj/cIBZOveug3Jid6M1INpx/pD6fstnuw8Fa72Wh3SeAYG/dibQnWavtJKj3XcLK0/E9yE9sZ/+Suu97Kq+JeeHS/6XE0p6aAygklbiVtSYdDhMS4nVTaUWgLZ1BXW976cBBIu+urK1f//fulKKjNUcE5FdPkc+jvfYKHtkGzO6VdxW8fcvOLEJ4v5mRXsh+7etdnkE3vkcJ6p+3omzWG7fwl+HHrroSwNwSnqMxgCBsoDkNYUcMBO7/Hd1o6mKYTs9mzVxvbvmilabljlv6JOGM28A/uP6h6m8PasLXv3Cb2q+8eBmGt2Bv5j1r/U0r5zqy8tHlce7TmrvbhPsTn/6/zy/5mtQg94y63pucdIQVwf+C8Pi2n2ECyH9VFQmqOSZT9kEnQvnNFZ8IzKZqtq1d9MzXsAGt0blJfPvQkMSNL+d7RLX3axt+YcMArN9IdNezSAihmvWA7GXGBcrClaosPbeL1PjO8h5cscYzB+Pk43G8uP1+SMq/ShwdhCzWnjb8QnGmxbtVg0/hmJX8YQCQlqRcbcwO3k+zcwwjKoMgglFsqIk3CO3st+Xhth6aA+Q15MdsYd10viO3KgCRg0rLGnTa9JfWkARidUIGAvc5dekdmHKRMFk7oVMh0lc0r/t4TB5R6H5nSQWlVVWnPb12i/8yW+T2Cd62hqRtabR+FTKRuEa8RIA8+drBMK8ygTa4CTe1snxqX2WKD/fOulmOmkxnxrwclEUqmSLwzT37qHpYU0waIBxn1U/oR6H5Uz9ysP/GFr7NcFc/M/y3c8yaPbVDzAua5fFAUd/nMNRFjvx0kcZnx/kDAQckoDLc4tM2BOlJZScAY5RuThN+aB7E4NQx+/B6c4jeZ7KCmuzb820iEQ5MidrYhsUX/F7NOoyHTyYB6oCEG2GnWbwGR/NYCPT0sVi2sGgtE55unNA/RkHtHUrltWyBn5m+p09SmJx7oyb9BLg2VS+aBV4bc4ZJDAmolwKgWC9IZtgP4XftTdULGcklCUv+fQpk2tuyK9Upe4ReUfdx7tr61UlfTPnUApMNDBqSi/ijoAJUpWyU51Lb6l+9HAeIRu2yfjFC38mV+3V7fdP63SxPqHzVLfoKNRlvPC6dYVgNjr3WYFt7Ounpbi7HF/tDMarml8rrvsh84oExwlsSSUdO9S2q5BLq+xXkc8/vnEITNG7MIZtJr7RqSxesWFmXz3Ht13tEt6g8UVaZuYQdgqygfC1rvswfCOiPAEOai1mZKj/TVvaDnuZ6egfLbB4JczsmVjqRuDorTXw5cOA00e68MnIXFfyTh8lGNQsKXTX4G6NSHMQkMfGlFilQqVctAVaodMNGDn8GeeKHhBhh+4gj3lGGOJozhq/B5cswLLYYYsX/guRuLwlSbUXgied+eSSXCMUPurnKDJNYZfodVwq1MNiyevtvZd9qtUXDO5zXUeS3Ay8VJ3OW/mrpwX3ocHWdLXJCzLTG84EJ5iF0cnEdIu6gPhPWOleUotMBYEmaY2PQMTeoaDYF50DHsdaG53u2A2WepIgZLmbn8Qmg4FwjG4+aihXOIGm58qpHkddM6PsHPZMakvpP7a99NIb6nI3v1s/vi6M3th/vz4rOtFOYYXTExBcsrGKrRHDtIgfWHPxy5aqo3kKed+6fZjJCTcsLoBlmnAWXQBbwGiUMg+2fpc+uN0hwWM1Iq9+0BojtCFg3TDHw3MN3Zh3Ob+0JYWoGkOmipO+1H06S9TvXvHUSVLfvr4XhSrJezMgBWtpH+grSiET3kQo0cWRZaBz9e2RkkQNoR2+YxOgMOL3yPjZGve9xRA+GM3CPcIDWSdPy4dNVNTWWSJVN76lNbEi7jAXt7L9xTNgmZM8p50ResrMRAY84o9cMDwjEuxETU5myb9d4McavKXoH+jjJjVwBl/wmDxa0EHdK4B7hiTBaZGz7/gYvB10zrj0xDNcLFH1yKZpLVWeH8cxNt4Vq0gy0AVq26nN23lM+Yu2etDHi+P4mzp57COfnFNWq5hV5MGi3eZ2jxAHEseSSaMNN4rrxPGu1gJDUKzr/Q+I+ANLtnW8xdzaCq0OpF9WQPUeGWz++Ah25kpomhuK7qgwMxf+cONKetjVXDsQCN57hIGSrOtM2VCWzPJMDlgeomk9YmFhwiae8CoXTB01BOgmGQAPryoUiALhmMkn+8eYZKAbA/fatXjhhBqrvsABizm1yLNzF6fzBnD/0YFZfduVWQj6x0OR3jGAu2ziqfrABKTyLXNa8s+5OYN/dhEqYj81EoJb5+mtuFcShIJm01hy3G1FmF4NZrheTWk0PRgpXOCFkw9L88nSP7F+Qg78uhESGq0994+MLzr6f7LVCNqOlAobYn+n/kSAl6XyWISaSJPuFpkZKN0AFGR//un04XrvOYI1aQb3RAcqxTyo+44DD3CSHR03F1c9L0wtUEUsdiasOA/RK8IhtFPIP6OET7s8YQPlhe1R2K6HDu3GVc57yKFvC8IBWpWaJlfS+q8FStJkb7f1/jDL+shDorZtBfmpOMKlGJJ6wI00QLzopIsCfvbIcTFIP7ZTmGumc1GlmOwrEJTaF4QvDKvPHFT+j4VBsXxAxabyceYUy7M+nkr+jyz6PlM/ClGKPA5mTRW8f3gCXiN7W8OMuMpbR/hTwD35cYAB4WgMHrZpma/XWLWg5IgIP12ntAVhipVBWNVSfuUuhJAgG+lOs+Axs1Emle4mWfAuYD7YkUE5zkhTQrSaZVpiHljxxmCaZk8f4mXBjJGbZ55GwlcDuAlZTXUKg/336jRPH7TG6I7VJk3t6fG7yuoCGReUYPEAQJ5J010SpSh2/ifPtI5q5Naw9kVvA5EaZdDhibXVzhucWiGICxjYJMd4rIcDp1po65XjF7s4gyxFgKMpLaBC5Q9gHZ40rzceaqcfPc1qq1fbPy2f35aPsH+DPMEfn33xEwhtpriLexdnbbLjJ6zenAE/q7gtC5KGtGsL8uAu0a05x1/tXcL5uy3oAkF0jdlXwnqFxlAq9pn3ipSGS7tzJcU2Z4ANwUj1Qm5nCh0QXbYa3U1vb0wojitFdJb8FILL/LXcFfuVsR8/Aa5JidATSk5Uo/fsDGur+QNFFCsEaZFSoKq+//li5Uj1yVztvKcxMvL+fv5bQE8Z7xPWzugm80B4uzf2gkK7+nmAKY8mZZBcmmIvpvOVDS243UsZxdhy87lXl8Xv7kIMQ4sbBzeOp1AYUcf5arrXkMEkbDvo/QsHUuu/u3Eu/BAgSYMMHy1/O+mys3l0P66Hn+wzWCPTug1F7tcilW99i/auAQsNvSF28yXtRn4Xkt0A0p3M9OykaYQANWqARdr90p1HpcCR7Zl89rGTj0Vc4/kaVy/FGFwvO7pJ5+F5YOX0hk0oB8cNAZyUIu4cDjtC7OcV+aevGv9WZbUu6fZj2UlurcoMHo7XeCTECgA7Itdgy0F0UNoDdSpy1R2fx408c4YbDWMipwr5mLeTFdLi7B9j5fASbIVr3iOeSMQ3ATfvDb6pRfu5h9dhxGW2XacI6sFOoV5IldBcLI9a/py65HH9A359XKTrN0hARDIKog4ao0DYBug7IAR3QJvPOhmw3RvrKesXaFaKJ4RKK1g7Z4ySs1Hz5oLMF72mTOI4r3mDfyWIvyluBJJNqdibfUHxn0yX3bHQLGslOuAHkCuE5mwpe6dC3pAWOYVOvx7/GANA/GvIsw2nODNP37HF+5gH4Ii3ME/Vh/VTNDGOnZXYZ2Vo+gofPvQqINLmTTZZHUXv3wuomTxhpgpIP5G5Id98M17iMRsvAoCxkert8nLuIUUMyeVnOe49pM9hsICFXSOTHp0w/OBWHgLfM9SLezfdjGU2kuKI4jR27BuzpnGJqrFva7IwEmX2vOE+4UQatRamNUX1kHcqPs48DQWKte+TLjXO+73IVAAN+NnckpJrqUsUyBMXkR8DpVhtBAEL247+MPmGXN4QX67mG+ycNcqut4iDyjupfrKYUxmcCJv3BQGnCLWP7SJcNYUm32sWPGeVKgnEdePz7sHToevfVMxXqanyVDRWUIqOpEJF04feLoY8t5ejklSOxO+gcU6tlM6gF0Rv+omLGJ83dzR9fdUzL4d4J4EENWHNCWZsHtrhK+RuRB6ALRp6fDkzRn2gAVgWLGTr3yMS0hITHtbjpFWvF3JaLHcTVE07rFMkfa8AUGo2ZvsYIYmw1XH+iz3d7Y+lbB8ojMaq2M3HOR2z1NvW6gU3K7axVOEwyeMaP467ngm/b5+k+BPzxd4VQBr6gzJZdk5AYQheDUeoUkL6qC1EwYb40EzIX75tHReX/A9r0PiuuhaYN7fM0pBreRTTodKdPlxiUJjJAZRaHd9Pzp/nec067seX281WxFz3Zepw1f1OMRMzBBYk2qwEudYs17hoMZxEPezYIs7nBPmGVxAMB0rlvO/KPv8hri6wGSVc+rGYpoVSX37eYRbV9lfXJab5wKNA0tZux8dAoU8QJ4I2pAN4mMYMIWH3KuMfbBtHXKTr+kvsRHrfkCH35k50za9Er2xpJYkxSJYMxtm2JPwiQy4NxcHENkap0WXIxsEjp7fMu8kh11X6qHwrDIfgWL1TXWDej7Rd3SinYRR/mskccOseBlwnzNA4lDUu4STtIj0SZ/YMh+VI9PMvkfqw2NTYgsb55gbX2ttJ4oXwS17p+D84eIH/8s2qPo4eanYPdgZJZx8/DtBSg8ZWgkYIPMhtZREhUVfMB0ybjCsdLygD7jILiHyTcjidWigHuljLo8mt8W0XDLcVTizjh3hQAYx6R07d1ixNIYCJAzuZCNJOzYZce8zhmFhjopKeuoYX7bAbnx6wQHgKl7qC4Q7kqW5DBsfCK4Dwq798ETQIw26b3SQmN8WnxcQ2eIKRLB/MB/fHubdp03wnA5+gtdPPn2wZjlSOyV6RcOWqTt4ZT+peplquBfdvmbz/OStdlpp0dL/YaZIux7hYEwl7K7Bf2VelbtdO4+1PjvpBsUdykv3nKdqnnTHI2oRR3NFMLHMPab995odZXGoWwOskVTOQhxxfQrj/PI/Vu55Kz+UWNIfGaCErqC/ITjsSumfj4eGe63iYHQOz/trh8e3sowN83YtuFNQZ8g+6LfC5ZijUT9RyAaaHkQOhjPg1YH+bMV2+aV8SR7ltBUlb7/3m4TcCip7LNwDJRy9XrZaHRsp5B8NLMYgbHShNDL1of5cwgrawAybMZdOC2KxRjnPNfEd8jOFaAuDZngExgjnYwQqK4Nm2OuCouBxuc34EDjprAiL5LppzMLvlMKosBp+JZy90mlwoDIh4uqBsai5OVOWwJKI4eqIqfURl6yG1wA76etz3sQjUq3nWEhFlhPuVclIRJZ3+w64DDztc+0g4WCCyWVptkQNDku6FHcwxz03D73y8sfoPXEaGUMw4EWGykSmjFqxPj5rBuagM8U0+JH96cfBYeeOjurJU6DsgYYl72dF02v6Si2M6MwqHywPtXyRRjj6N2N/N+xHVhaJqcs8seStvQeA0ONpTjXwRKI+UNzCjJlWyn97XfBn4OiLbR3LlBZYBTstDSTaArNvjWdZagdVrpNWv66L7QesXbr42pkxDmqm9e3X2Jabf5DMyVfsnE8cem1QAo8N0Y2DADAb7juT8wvwjb1ai1btSYufIE2t544xUT6uK+Qqia7o3QSzcH0XSVgP1Q9Hq5akggpvpS5bw7yxd8vngeWmiBp7U61mDITu6zNB3XTbm9GCTS5aQ/BQAW4reyvWHApcpGF8TFgwJOGKT07+FjRr67OyhsBoR3Bg+yJV35UY/F1ORACh/9vpws9rKOwKkNcGWVa9Iyz4VKBbE6vQ9Ant17obTgAaY39s7b1HNJF3m9lHgK/mfa+DcYZYK5oH4Rmrfv8loKdSlHY4p7asBSJxMWhKEwKl+MCU4R9C/+7lYuWswEf+KlRe5UwYbucN+ySROb73tGYEjsE33LNpP87l5+9IA/1wMd2S6GBSdsY840ISa9za+OGnP9HTiLTbNm8ztfS//b+tTZ3K9mTmAi9D+Jo0G94hdYE0F/jMBkYSn5mYhBTwzatXnGBYMeYEaLG04r4qBY+GbZMHWy7IU1/2o1UZPAomF+AY18g0kZpfrdRz7qgFCKldQUEr+fGmdm8rkyx5GP1zcWp0TpCNYGLjZ8PKfiCvPr0tRWWR52lkqcgh+WI0s3GTQxfi86VjPkcc8IxINFgeBr6T/AinvK8fPAbUZaW9WKADZHwTbENAQ6M0IW0usqhFhARKayBngeSwGTRwgjOF7Ydzvl6+7VsYzYxh42NwCSGu/dUtmWVbHBD7F825rELeBJVLSI76BASk1C2eGX2GgFZJDDEh2hFt3FJVlUueLCcIFsIVmPfLm6UmyxrVMmfNPz6mUwC1CrducOqRMcOrm4GP2ciV9RbRnkME/+nXpRtrol9WEUB/Kk+YSlAziZ1AoZof5HmaAqB72CWnP3VysqDH806yqyu9NaaModmtvl/DEkXI8Yo/kWxvbtr2MWoAj4VxBqqY1qT3lxJ/ufMgOmPSJ5Eaw4BaW84FDL+ZoQYmTDKr5b2AObio7Cgts04kS8tufgsjUTDaIhZxVrqq+PztVNYgncZNHWwjTCwfBWC2M6oyKkdNnRMoigSAq7JerV/RTte0GlQEFHFXdOZFInD9z3ocoWwtwBTfAAf16T8sJ+rBMvO+k1r3Px7HjBCQ1s1ZBsNQIl3Lqaj1HbIV8qN4r9SuuEA8LrPts4m0+3TZJUv5aTCGyVCH4QUuFmwyx4anMpFtnUkY8QxK7Ph8IcHnkhgK9w9HBal+ymo+shTj2aOMUo1HkZvgYB17euQzw+aaJov7u4Qx9B4UTuwrlTB0Lq5kbzZ+u8lj0ZmMxgmHdrbVxsmlkZXz4B5HF34d4E/J2m/5e9VPpMpd8znQsSsLJkpWpy90tFnRuQvxpXPQdTVq26jC0npCCnovIbJINGCZ30G1QCytc9IRXp56Cwm8+PceU2fA3xOmg2DuTZOdig+NCOjqqA0ir1Ps57yNMXBQDbjmobUxX+65HsHfVNZT7t9t3T5ZbAiqmBxwkqixLiHQEuC1He7xVOJX3WgPlejMA9rxY0GCGP0jOlU14O1MsKrIsocvEvskJsrdHYQ9d4LtkBLkHoBdKymUoyQwk1k4vypzWWaS5FI66N7WCaq09ZSUOWILLUsR7toYDjqWTZajfCNiw4iwyACMYZVJfytKmChywv/4uGs8wWATdVmPBqnDOa0LDdKhiFVCQ+jCOelq1ICE3Q5FNtAkbi9++uH3VUankP6CstM5/TgMlJhhHn3tGfwle+sj5LLwRMmolLCNG090BG6nx75uSrVuZFQcfOyepLRPzNGHqq7mtS2fzLMHQNEhEdyCWvgx5UOdgse85qtfqUG/C9XYS3XstgIjQLkU2WaHxwCf3Y4XNaRZYy5wcoX0mQ8Bj5Br/cDPhsYlHT6pM5yOt6nRE7V2ydEWRqA/DDt9wEISQcV/dgHY4fYbL4azA3lUKTAEbOrTDXdik6IJ36W9pT1GaDVkazJS0frj+bcBXz3vUKx3qFVbQbXkSZT5ayKTbiztp4IQhlyktkUtq1rnI24n1Z+YIFDp4EnFele4bY43q5BIOf2az/QoB3aLlj2m+qr1VhHSiJqtT2ZAWryVnr6IYq1uhmbt7jgvTKZOxr5bJbFVYoAP7RsKJAQ6ZcFIQaxauAqsTa9ju2VdBh3aUcCOFypJFajLAz1+OTQkCn+O2YGUbWFCVPN53PBBZ89+yGjbT56lJBA/bx3+7wdnrAm+KDrgK6zIsdPT4GOohGy/YjDfrPYKOIFcaEcOxb08qpW8mi4czsPEBI71YBZOxEzT7jnTEj5ovdzf0Sc1scw/6Tos5JI9tKJv5x05YHa6FS0kaRxXvIox4dyEfRV10/CeaxC+OJQqKwkbqTMWjI0Gjc+w4PnQSFDYLJwyREnvw9ACdtVC721+tkcsuGcxGWT6o6wm2DN4pS61YvyyTrYQNXdBSrh/o/EYOVST9rkxRiQF1+Fv5U2onN0kT/06a+ficH24wW/iE2zVG3iK8b9MRhWYStBdnzUODUqnLwm9o0riLm/r9dqIy7Vj48UIk/uOOrgC1MPr2JIlaha5mTHjqixrCOj21FaIJDQ9qEoiuflMV6Kt4tTzfu+BU3hjV/0Ru+BM/EUI19vP1PBjfmd8p55cY50ylj0xrLwgy2HXC67BAas2/QOxoskxLlGIJMMt3TcTwX8noH+NGy0MP3/B4S57yZWXj/ChEv8ZiEZtTk4+G0WviZk3/3farFtHZof2VpQxXoRsB6dANEYLAN2cmIx858vsAjKeMMg/QEIPVOU/b3IdDtEkBrauT4oepVS6XbDAQgrprgBDEH9aEXLNbqz8QVBXqRxUEnBWXH3bz0Ox2gNTpWHs66yFUlRBvxKAPVWNEJKjr7EOqCKnUu3QhsJsfttGVdVm7xCaU4ePtxVfiUsWuQpbQc47RWG/yLoIBasbVPrXBuhxkFBk8NeFXSaZzB8WqPewOrO7+F7EvD8ilKm7ZN+h1xEH3k9QS353X8gx3fCcpw3K8pvxREKNNDoqcmg/KeI9bGrYs/WY22xV+qf1k8KruX01FNH1pOc2mK/CC0Cc/UhBr6faacyatyZqgY2HCJ2JrTjtpIfLfVT3ZUPSUVlryJ/VXt4wLpyMg38UxXmqpE3u+TDNiBtCM321fCGd+BjA5cJYQlwFrPFeICirwl0Kgoa0VYkyIWtl8xSb8tIyjs43xffpeq2r+dD9AoEbSw3fvHWpNb4hSP8jHrsUPfm0MLZHKl3PtBmN4VrYEYaHEB718REzX7JA8v2L/WKy/6CaT0TIz2opONnD1HW+3HH8hNJIEJll88e0cYCkA9rEzdcY2jr7GzCd14CGqNZDNeouXnPdHBd/FHdlU5+12I2oKamEWARS2NrPRDb580PTt0wo5TQjTIISmzZqsGrSiXD9TF+RNn0qNDXVtngwyLS4nrFQ7HRVtcjkr7mA5LSgh763BY7HOvK86x/CHjIITebwBdng4LWvwbRLoJlBsEIHD15DZR7ZbZzL1khgjReJbBRlVHby0RKKrKzh6g9oS487qWoqElDCQe1QjA7KW32aGBqb9UOJzFMLOus+/GENWTQp0dvliGCtgpi3Qr3VUy6ckq4n25mXrG/5iHVSZRNKayMO1D+Meu6d+XW0X7wGVPNwZFPcKTxoQBnAJPDtBFgs9JboXXlov65LT0NE3jXWv/BHH3/XMjhfU0AK0URZlghHhB0O7V0EvBtHAz/rGAXUAWaD4CBLDAq2zf05wr2tw688ylFkqW6/Tzv5l4vsS9W0O3HMszZUVOZsIAx9lsQi8sGsejXSDVK8I9vFqwoJ2r7LVnERSPEnRc1x7U7yq+0DvxpWs/ySOIw7iYsa6HD+nrMml58WaA1keZ+waYq+6GzwLitdivhVHUIBUPQPwr8r6oJQbdgDVTlhXpVY8AyZG6b3DSffDcxQCo1+AI07sVU4UgVZAFhOXlXYQBM8I5J3+ltAQOWKTKQ9/1n/VggRFv0S2nN/EbGUOZiRRQ4/YuWAsUqEO0WJ7iSd9QDC92RteRBsWBjV1lBsf6XxCC8/8cMrAGf+8zdokuNTiacHQRmtGCn5QoYnt6d/cERWVJCQ9kdmsdyj6Q12tSRCVIbyx6yt7o5hbMhQZJJjTSqfNXcKGntjLxdhHNeIzpIl3KPm/jSUpH+K2TtjON93M1AbqfhnQG1P9AQFyJRWsquWTeb7GwHCJ5tSdSFGEywHy4wjhWxN2c6v0432NUKVc28QdMKfU8u8QVpwZG82vwkpwfu8wmRjKwRtqYTfQScytu0RIv6u+sleySK4sS1EAc/uMVeXqGjebxVJdLhdoE0JFIURxqh/NAmj3Ng/+KTsGxT0PiVEc7+crQGDaDhi8lva9LRY8Y4CBhtEaUtBAdk9vp9SAMZY0HfiKN+rq/46ei/v30HQfPDpSHCwg+B8BOnnSXV3uE0+WzIAKuG+Y4sMC00acZng6uJHV88J575w6zepSdi9Taj/ykoh7lB5zhgrH9byJIIEXqLdR3Te91u9b8TVSUxYYqGpcMbDDPRYqeNAqp1zEUd4IlebRiFXnE0h1kmmBH0lmV6FYU8bkkEE93LkQisB+xwzBzY0ae60Sl4GUSLuCkea6twytwkcw/pUrMjxst0PVdGwf9Z+3FnPnnaIzIGlGqfRkm/+mMNGvfASuZNGr8c5kucHhYMHFZkMzC1KDqeBodCuQ4orV8lNCEL8fqJBdW5DxHxQ1zBWohhq0ee4uyZo4/FsSQjxX0GMKR5HZ0vTfvndNhUgoxNfh8gqUR2KzJ1n8ZUIcWHmf3vTU4D8IjyjJ5WL3UIoYzob+T3sGOvFXykPKF82h39btzVxohiAaZz9UttjoprGZrX5PH74WjITHsgFvYHxjz1iXTUqVCUkgbQnLN3YZWWPGM1N4gZ3mciN0jUmx26VHHZV+T/7ss9LAafIJx6JeFf070zmDAOQoSemDwQvMvW+WAAsEeGNbk303zg5uSD/ZyovcD2v4tKyCskY54Le684RJrZRqwJPl5VLTfRdi7ibYnEgAMMpMrTTghw9/4Ex1YQxN/UKLuZwdNT8SnAXJPllPN9SDbPlzARZpB2ZU++grCu8Nk9tt9Y9LAHOitb1Lf5q7bpthbTDw0fXWBYJKDPI4dRtGXG2bFGhQ7EucTHrhojPZ8uq+7WjOZTdYAgbudb4vaEKxrUkaIZ7+Lwq+m92z/1ZnhpBuWH3VHIZPfXNxdEW2t7ZL0j7SGX2f1nBllXwm3GDa3yPUEthTKJxyVXjqzlTQJZHReI5PveqZVMJU3eK1wj3ZxWtMYNc3G7QsUbRUkMBxlBkBKDpW7T2DS86z3/BOv76V5DOdYwJY6BMYeE2wOKae9B2Uv0YiICkTE7gPgucLdvFEdohEhvyoVSpwAcBJxC7XtxUiyVMAJUZJH6rN/nSQS6ZUHhC1lau//A0vmxfWsl9u2fjnz8u3uw1+DUyOTV45fIEvM5+5ewoFd4OPsyikfU+PloVRgSk+0fgRq4igzSfRGPifG0aCeqDnBmMGDxGJlZVoiBW855tXjWhoODSxplTGgsHNH6jT9maHfVJKiZVFaVvFSB3zctThMKUPqmNh6YNZGKTZTDEZhB4spHxvLtvWLNg1DYjeKukmrsc1oXC3TNeEpjnbQ41ecVUh6fE0ZgEaP9Td7KcJ7NEQ8LCPTbOvnDj4WvppA3FQhp1v5IYFg8hP3pTMNrfcGflRIqhc7J4cYVrH0WcCQ+SnrBdaxxI6dX7i2JOdYv665LPDDPMXy4buVLYzVARVmd6fmX+uIyQIHnAeCGo4pFbmulWc2k1feuM9lUn0qx4A6sKhVz6iFqWxS1e6xSiX2zdzsh1bC1LpqXB1fCLXDRQh2KEaF7xL9PALacRpzc0fkjm+GfmJp0+fYXLVFCl+YVeJ6qDdpsTTXPshsCOnHzfZ1Gxo+5sbELKBUbrsUYC0i75aEHB7US2x//+JjSgzCE2wCKPYAEWTAO7VpbF92vBWxJLMjP50EyELCY58IhbDyJ+3k9dQe3I+NkNeASrYuc/cwZ1Uzq4ieyY4VyYRDr9MC3W1AmepOJdTx94APurBKWtSXw8Q76ec3c/PxktDE5RqhxY5t5bZ8hKkOb6CnwgOAn0V0/aVFGRlFCzKlfA+9Mpwi4QBaZj12cz51g+UT31xA3IsPI+skJi+dX6bYlE0adfjspyOFxJsBR/x4oeU/SJ2HYj1gVzHVG1pFhW4FoAw5d3mSbLfjQrqdyecBpPkXGVSeVO7cYni8yzRbDRUBl6hTAzmJZgDWTNYoQiU3wW21KyNk6liDNYOnT8ncLqm9AYKU7AB/Hat/TwMS9cw5WZXaO6O5g79aU/6HqdODjKwLYDCiJatGr7JdjzhrrwC0ISZhoaS8Xwsz71sQx9aAhk/rPScZHgJczVKkGWxcchYpFEJQh+3hR6mhMA06L+4y9ZixXEqr06wgPBriM7cO+ZDub66yErGBTRPsHwOu+lVCfSbsbzbbejPKEU8ksNHAt0umERbU/9uCB+a7rPbVRQ5Pv9MyX49m9OB17AGaSB788exG9mjXChgX1iBHe3mo7nKX0d9WfNnzqBo7x4y/rxbOKYfsdZ+CaJnwQI1eZJeSLlgIxNTEzbWrpEGuD4AeP5BL1RezDO6m0Gyz683c0u9B7pK/QW+gRErN3HHZrYysshvnlGb39qpo/D9FwyO2CAzRarYdWRxVN5fAbPuGej8ARQC5soJI+rvKbYz7Xc4Y7OjUimrUiC3Wblwr8Fya3cIkBZ5x4yTBMJFr2MiT8uSwZ0PdeXbUovdDy97sJnAC907d1O0fgRMlH5YzztpUWOI+oeC0s1swFXP641REIMMEJ+pQn2xo4k4SvXadOS+aIH5BG22+N24Krosfg9Z8/0Kuo/VuGnMcEEalaa/Bd8D/FENMbLwakSDTehEgHDf1SOzwYUV7tfdnDA0VESdddTtEM2dbVAccpVR/T9EsN/BZrnce/luv3N5dHBjHudDCC2imgCvfLLKwymt+AYtpJjPEh+bIvT/S2NHxsBjkzqiWaafvVKi2jOlu6XCm8r/O0t6Gu8yk0x9fEzMpry+aivIInwRE/W/PLjbqqNTCSGzuzS0VLi8nStEX+XcZCUjffRb/nRPMuQrnIYElhJW50nZq08h5w7jRmacdxKlSOcb5TPP+hlfgVcyen9CNLncYkI/uRVhfaVo2JGAj/I7+m0QHAxh3d9vglHt0wcn04JsWJ9aRM/A7YpjIeYW9X2YyiH2ABFWR5iwvpBtwxQUYGVJ5EABPYMVwx9600HFAkM6uu7fLSRkxP+h2lhrLfLDj1UkL9ymCTO0L7T5f5eMDOs1CQGiX/4qED+Y7Ll+0ftFf7wv6LfTG4qalRNLtSa24d1I8TdPmghI9BOygUpt1dYtqhxwyIf7pes8DbTkGCxsyBcz+6I3lnGhR9+Nih07+tpA4JcGj+O6nX+dndLFT7TXWdUSPmyjzEe0bTSZbGgc87B8Ws35xp/fXAqlo0IjQ1jFsaehtq6tmL8CTrsjCvdjV6/NNQupAV3AuHvvNJrKRQcUSUO6TVt8QRzUJrrEsrUt60TAses79Uqnub/zbbrm9Pyk820B97rqcfPD2IsdImhB6IHXkymRc0+NrlWuTApYhFNKEzC+SqxiRCc2EExnDkbO5Ej8rnJPrEKWbl13CmogsUja33FY9mwvkUiNaXHoqQ+FBYTUzjGCXWSaE2Ihv6QLO25RiDyJAzV3jE1R/xyxgIYz//z69+lL+ZJp8Jk86YDRCC0min5UlYOTJfGqvespO13SgndNIotCsYMNhUpVQCNCvXKO+uDGosyTwMRY35KzPaE8UG8r4CsgXjsXNZIzI6LEE8Q4Y3RJovrq5ipWR9oK4o9bA1bHRlDhdADyVDX28ufURD04VAJYx8uWnOE81XUDyq3PcYW58R9vvuIjcaJ60jhG1kaTeXD7BVUqmkJ//Xg8LMhT/Nq2mR1aEWoWX1+QBLtvwjsrY/fkprwNheIpOTU1x09Qpv+cM6+xoXN/+ORK3x7xfUlTF4ufS9dWnKcxVWl2VfM0kOtWF1jk17ARvm0+XyVaNhhg2bdOpc/f2ciPuTukNuovdHFL7xUyfiIwGY9N7GmFJTcsDt/bp9y9w7pnKKg6dtZpufjuQFj+KcYPydfvLuFXjanzDYH4x6D/BYO8k+FZbZhCyiYReFiqhS/W0IjVBcftP2zJlcIx4Nf51anHm1/wsndbaK6p3gwcfI5UOq8p5nlvbsV86m7lBc49JGEeH/8GqI8OtQ41pjb1Bk3PJk9J9uQjR/n/5O5FxfxT0U4MZHbs+Rf4sQcZEl/26eaz9KA1u4VzbB/heQ9k+0SEmv1jyGR0d6Fu3D6WG3hCCZb5J5F2yfhr18HwjDueavajVjM0Nt5oQfa4hkf/FIlyHjTirpV4eulrdmE35kS72+fO7I9MZQNlf+Cg1Xt+6pDWJ8oE9WX2DNxyIxqDY+32xXTOe+ejyAgWYQrtRfUPcdny7TatF5XX8lZi7afzDpfkYkgDKhr5tsMzY9OAiBArp5CXqIouIee8j9MKVnYoP3HE8tyVfRMaHEAzP1AXIqb5Pmu9/+bBX0LpsK12n074ftdVhGy6jbvg72qC0NfJUWbWUNbWlOnpYX6ymRadm0tnnDEQMeQNv/UEPnitIQEiwmSD3AWCtguzyXtT8QbdUPOTh0D23L8jasoPpUsLz8oc14H+5CH8wmWfwtq9Vop09N78QJO2/Aa3fgkx//QrEYo9TYg6paU8hSSFgVI09mJk5ZAcMNCbZpXAqtkG0m65Y1shDq6wnFkLBBpAjyS7JXuZeoh9ZNDg5O+KmQm8AmrPHJPGe6/YPppjowaSe5oj0d/owstGdexGg17vbhgBbfcSbm2K/N8hyQ+yow/J/Tf7hREGXjPGmTBB/H/QzokmNuxrxIPRSS+KLVeVuke1Rxx0IVLcXF7Bw0LL+7/OLYRz02oJGJzgoye7VnHow/7ewh1C3O0stWXzz2rw4v687Kq4GCUWqP3btlzJaqheIpE4C1KY+LIl1Ru7ON+1of1wPpEH2YHCG1r2PhvH8mgw0AT/3VNo9a4E4fNSTb2VvXHT6cfiQvMOAqWAH2ITXTZcnzW2EbyprClL9H5jzjWSLUv9nI7g7YwaL3GgTUdUWYfnGEQo+vFyUtmgngjwWwIAYaH9ijn4XF6oJVw1Y78PnQPBPrXRPkyiFq054Esx32cgS4p4RQi3RZo8yAWFCPpImnsv4UNr50CqUjXpEMgfUwV5rA8IjA2A5BdFpCXynS32M3zRZTLYV5+22x3veGQ4Sl+y+GyK5ng3u0ahDkOayFlH7y5oiM/AlNBAzXVCYm8yeOkPgxQciID1SsTdQyPqCYr92BgodEEM2CPwjHliBwOXzhvi0dTBYQPwuxF+haiitfvK4lAD/qRRPE9r8gofPi4HpAPSf6H5NFOcXgNCpFe+kKWCPebZG8SjsncUghyhaD+QXBU+OKPYWvUzIkHj+pUKMsEAkEZW6emeCwtmkQikzzVSZZJFS9RwPZVcLb2eeupPJy9xhelSAHeVaJGjnusEyX2FzND1gSKC6sUXTGMYie2F461GJpibFVhc/VhSWGu8sMH7uBEM0IfjenfF5JaioXV8ozTkCxO+zdJOaS/0CwRo0BC/GwPyV/9Rv07MOlrtoJtmO/rmRP4XlZ2emGGLywL9SgJre2OrnIF8mHi5xNZy1y+65wAt88Lgka9DnkdWHOtasbBrurE2IIAATeVuRZX7uSu5OqpVWmjBiiZItW3aJV3zc+3UW/wXcjqDFKsnmFCekYaEpLBwcZrw/uS7uuRuFXB0hpeT5GGZ7ma2tlkwpKuEiH9/JiOymfq4lmJwf41IWONUAd8tIcncOGYZXk97lm/+HQmbsHPqL00kcgubiMLt9Ads/abK9RAU/NwgOcuMZ1uI6PFm3vrjerP7jXFC8cQQpyOr6aQKZq/6JS4866WhlzSv/0m/ckstBnhUO0/9Q7iu+dErnd8DRM8LDVOmxc87UGdhSKAH/zTejAXrH73XqXWTb2ab33Z4hMq+69em0TdE4kPdKjp7JLaQn4MaboPGTO6tjDwVW27VPh+HApYeEjOeJBbe5XY7h7JErACtij0PIilkqT+7pfQhoqutPIdVS7R/PbExNd6UQO8R9qV84HQULzkwPNogO6bY+ANzU18vDB41lTad4I6UJYApeUnhsAzeg6UWxx+Db6H7EEuFJDmIowkfZ3GLlWqUNuX9YlCZLSfyHbajtMpF3V8Xcqc5pRYqSlcHuC9Yj21Yl3v/fVXxjAdpIyniVFAvhc60QhV5AxIJSpYU1aTSp7HNVC7KmJLrdCiu3xQKGEwI0qY1d3W25i4vcpeiIUzRB+iUmB934Kh5yjOS635Zfe9MKaVSMDxlMHkOi5yiXRjBch0aw2lFjBunlnpd7562cjY7NjiMefSzIFYyEZ9g0kZcZKaiUDsIF5zC4nKXecvIRO7HDiDqLedGNu5pzwMplyxm4t8Jhn1SCIzSsx2NvIjtPctKcEuEny/6f5K7A/B62E0KuAP+GBDOv4VMORb3S9StEqFqqZFs9qttHbG8CjkbZpbTpkNVR/7lQZbC8+ig6dRergZzmCGqxlGq6sSCV4/wHMHM2Xbd1RtZKqepWRzIiSHU5J1aPMT8bGRooN31CkWb+1/EdgO5XcXkp2g9B8LnABPQL2h80dAZmbU4hZP1nBYTa097VrHLYtxfHfqeX3akspeeDr5B+3+YjHR820cCz0nT/VOiyhjv5Fq7PyG3a9aVCzgvYzG7wl1/dy1hHurwoDdW+emcSw3c/hwBmvC1zP6yQ5X+ERGlhA2t+iza1N41nc5a6AwOiWDnr1l84EP1RqW7i1v1PTbeYX+URCwq3H51WQ5mRH8O/I08o2lvydUOgl1uUmxgo3dKV24eDx4aI8+Jd7MZRXDGmUwSlhTEHPzKqClIFa66g5zbByUyKugj/dEtVLqEOT4hHI3hLb0t9twd/rTbS1SbQ+grecdytMPY46LDJzyopjfWUhUNk56/82zRMY/7T/3JF7rZfixeIMcYAdvmK0MSNCZfEr3jDXf5qxMC4ZVi/WQtS7phaHTnrW3+4vO/MBhb3YnMCfkBasYGfhowRckwvMffYUD5QqlSCiDa8w9/wlaUbiI0eDyAtezUb/p0lumv7iPzEz4jgwiq3n5SvkColb10NNhqn4bcJGyttjzsI0996xabvcF0pYO1DNJZljH4WsnfKQtq1OxNZrClk17nGy+e7gSvS3Uq7pYfteJHkqtzNUpLX4iJksolYcSFU2g7m5bjCL3av3dSuGiqHO7QUOO8MBiAvJebFaRF2YwQ1YeOD46W6LFW4ITgtgzqVXul27B6Cx2eHOamzUF/ZrAsCyUFceF+5FcepwUSgmtxYu+BJXTSv2bqPaG4/YX6mXc2LVzLtW4l0p/ODM4d9blfw4oS38nAmXuco62Q4jRE/WMUh+QPUhq9tKv6U7KYVhbiMXSG95vMMb5IRfbBVH8DvpA9F5fIYSIARNw/2vuD6k4yOPVSkXTGb/MtSnpfc1JLTqXEEOYreiyexqf9ItP1PROabxA9pZzu72sp+5pSnaOvepeLml7uvXU6Vk0c1GI9QO2602npd213UxXhXDMB0gO3funeizLyN1RWJnfb8fJsT3coNQOQMkc88dAKVvyuwi6nOKwGbJk63+NUrEgBi7hybgsY6lks+3j/mcgBeY8Z+MvLRg9w6daYoMw5i20LUqSc5W26tq1aGOrb8zpz+6nn83NRbNaZaz/O+05PSdo5SgY2DLKI1VJ81kvFGGLqJneyKBJT9sOoXcDea3GCjpL5nx5r4TVAVjBkXkxmCurF1mYL5mVxe9gULkXyyQeU+z8r07JQYF5Sbg59mrYF3niHGDX7I4bxQ0FGb2mQbx1u5U/8l1UFzwvtu1qJNto4ZpjuRbmr62n5Adx2TWvaZEGgdWXSMaAfPqVSdvFE5sEbSsi+jplEVB2yazxyXf+tvda/yeUaH88VhTvlhbP2gt2PFJuk8/vuCafC+Jos8yOF7iKfp2DUI4T14VC/ZJyYdk03HgTX8BBPQQtzglDCjS15J7k6LfrVPufucnCWOJehgt29sNlP+ku2Xx2x4Y9nDXfQPT6AmN2R35w3QKtwfVHqfdqjFQ1kD8LozqmC1iVd7iHn2A3KNP81FTjJK5aWN97zH871TKkYPFKL/XGHB/UOILaIrUjWOM44JdTQ6C79Dy4Fmr2AZ7hfD0v0FZo8XIX+Xgaa/U+/cQ12Mfh0hwnWh4n13IpAcnpSjl04zjyqrahLwzF+gbpxHcAcayaDbJtnvhymDfpVpCKJ5Hk7yRbqAIvKt31oF9a938u+8JNIaVrWAB87sxCnFttMbGDJoRlXfsFtiZ04feGXz5M8KSblNJybd09jLgVtwRaiJy4uwo8S4/0Kg1IpYQG+Gi7a5l3mS6ZjinlgqnJ+BRtDfVGCs2bF9/HzNn5iOVFSKyISOuGDwIGU7i6Que6orjudKkOVuiqSET8PSMSNXxuXY+LB9uj2bE0LWVwDAWwzqxa649dOiVo8CkL3H+1j+ExmZm29Nw6bev8QFGklroqXupIKOimnGr9OKPdnFRXSon++WZC11HAROLcML+0DikdJVCGP4ZeHvH7B8fx+BcrZ/6SfE9R7fNDIv8gr2UzKcJbiSfOVqAUtkO/y1/6LVUWJ7Y/KHCjM6fcVUTKrvrJT97gTq3b7tcY3NFKUcUl7fxXdr4YfuPTKSbHLd6RJ83WZOm20qlPiNmSoBQvYYGoQLV4Mn/Msh7UR4duATEREvS0GywhZAdvazwHeiVkvf8SgaFmaV7OKlAwhkNdtvGK3mVf1DewzQgfpu9ISqC1YvUUMgL9SuBUWNnEilycyo9KIZdFKZmYv1+G+aqWdLcytBpY3qONngFdt/klvOcNdCMsnxQIorn2LKR3hFCc3dnB67GFR5MVd9aAP4rgFVdgzBQQN2zyReNDkjwqbZr7gxvZu4NnMPQERGscGfnR98DlAPeudoomUdYv2kgtdGvot88/F0VEQuEmzwpoShMOpcpHrpkY+3SnyRFLAHTDxq/uWqSbDVQePayN8nCnm573uq1RSbaQ/ff386/Y8bON6abnfTaANqiv5BLZjzi/3h6ptLrEcKMMA0T3hkbxpV7jSg0rL9EBKipWHXPhLgdt30GECPVwfjYYBMu6rzAUJvUz4Vx+p937N5p9jK9b+IsyRtZt8VHjAVIGNRMx8wWVo9QZQ6LFA7rWJDP0bCNhWwVCLuoJWKTqTk3l2HziUAWJs9HEZZpQ4PkWK6baI0Hvua2GqjqCwZyPaUuGicz5AHH2xiwvRk2BDlz3Gfls/3gtFXY67sYZMDO+6I0+nMFGbmPWWnG6kSf2yAk/v4JEp0aSsaEv4N2eVjy3MmEL4vjelv4vDm+44WwvNOfJ5JWYfCeoHzzKmZqTsvsHvf02kvlBYj7VGkbeJRU1qXYgvJQccxcZpo5/2oAaLPJCODG38/58stSrI3nSSH8jlEdtS6rcbFO8ba9X8TOL6hztBNoHLmTF1xNaO0E0yPHtHXNem1pyIiAPKqIXHB7mUZJtLqjJXupUeaFmH+/6u+WlUOyF+VkYa+C19tNZJT05pBULzcMqVZVmoCY0aed5Vi7mIQICoNqRobCuW1fy69JGx2jg6sU5sIm787TBreUyVVpzxrYOr7DUtX4QeOBCQKZ4op8yt9etLNguCp0cqLS60kh7zRhVuX056lieRJXcJ2BO6u+GGjAUmhWjIqLJfXfdficK9Z3OVWsG6NLjpN7TNj5y2slVMLTi2Bg4QHt306JZCJ/y5A/LevTmlMXa+q9k0SJ2Rb1U/9nIb8OpnSdczNzZVnOoYEKrMCSmORmWUFFte10XX/CiyqR0nEOO4FRpbWTol6UWz0ICOr3UjvFZDI5B39NEViC6FJ31jzTG0ZrLyCh1/xoeDsCMRLJOcOynJhu241yfZlbwAHoTxyHR05cwN7WDpTtos13TkVG7m22r0RcCycdANVUOqdu9ku/LHiwL4DNjnbR8l2fQqP719T5NnY/PxJxH0WqEIT19M15BlOvWCN3SF1qbfIkauMfWaOLr7FAG2U0IHJkctm7J9g67YOLPjsALG8FnNuLgQg5edJlYEL/PqrR5WkRsHSHBIQy0T1VWWHvjErMpmZMNERIQnR9SI4QiXA/3vyti/ufwHkjIVK4kr3hA5Yx5H3ZyBPveg1+XuHPWa0zIql+ikxqVZfFsPKtKIGPQWCy6UheoRPHAUPUFbGGddHt8Xl/bXeWczNYcNm345HwLd/BNZoZPDnbDP7Sw9ebFalm8M42cfAWbXRkmpN6R3TgSSUNczVGdXKLXcPIGRA/cMZGHokbAV4oWyqi6jFQPj6gACwAO7LcOfDx8AbgugJwiIEeFqtOXna6A7qzY56t2mZBo4kzqgIjinwQyZARTZw0PDAlPclJIkYb3kt1cNknhl40t0MCBEFFqnCvZnX9wa/zhtebF5/vmIHaQkKI9ca3Gezt+OWmG51TSU3mONeLXTUtvGI/V2v7gnNADpJUxdfAH8WddBHOquxENfERWaRey6KCrXbkUj/Afat7g9zy1BrSGd65k/E++o3cnn8syadYMJd7FJLMPUncEf32TJU6JCaI2g4ymXyJY4GRJaQvS04nUkTKlTpr3xq2QPBl+HeQVE1mseIbLSBrZlaIoQxHaUIQVu1l4IlMzKTNlM7DpvRgBBE6Wlu98ceig9WfFiOfoaQjyRauj+IY+VQxZy0NQu83mdDAfCsPGFB7e6tZNZ1VGv7pFY2oFXZfEBJjEqi3IFzgCAtnIjlj+MXc++EfEG93iXjFN2JnyVY3jSnE2crYoUEKSYtIoZRMMBmbH4avC5Epiv5v/zegWi4RCbCO2IcaDYfk0fSaP8jUeY+0Hy8gXaqFo+jr5RS3uZuec3PNGivTdvi1GEUvL+/iKl0PrjtFr8/Mr4+7AAj4ODU7BHVKa5RvaUuAGZR6rx3sT1BD40g4q5XZLCIVTQ1OecGkAGrpMGrVeyohbDTkyK3HMdknyKtHfNMrp+CDB44E8cvKVz5fzpILulL8tqASvFIpFvWnhQmJ85tMWMf+6iBwppa+bTroY4te9Zus8SAJTPLsO2ofWPWhSZ9+rl0ywxEx96Igb0z/S3JxEuzQySEpMcu0RMF27sSaX2HegqzZngHLQPsDTAqA5OkAn6abSJ+fEwK7FVOUeLO51VHbbAxAZjZWOODUqy62hJyCjHuyKwaveepnP/ywJE50sSvE8F070bcQU6oV9WL2UlcfFEicrjyIs/nPDHw1Qnw6bVFMP7HxUfLpe5ozYah4DEBUJ8yHdDDQ4Oh7t1dEw/kuijxO2WZ2g3/k8/+FcA9QxpYfIKMXb+vEtnvO24TlSapM6mmF8MuPy1Yq3zk890gmCobAsBxNCpba/GEHPjuWjoRwUiu6cvDUl+x3HCSgqOgmfjy14W3l580jPfrykv5fkEUcJ0kqNTNNXkpmvLmDy2u4X/NuQEqUs9GBi/hXVD/i6kYKxGhHU0zTE+pPOIZ+fCyuqcSyoc/9V/CcCBJ0S3Yq3AX7G+vHVpfbkJzIRO82wO6SZVvmJcqlz6rbVcEawDTF0Hgke63K3ZeSquTOkqpt9toRw0K5ckiHqWZCYlK+3z7yrW2BWU3LFzR06icXZf1b56SYWEkkXzgJNlUzcuMufM6BS2tddIR+uVnDNG2nVbnCz11Qa8to1SZLxwaAZDJVfpDdTo8yduK5TX+cu9+XZOrRoIhD5q/C5HIzm+crgPDVLqexeD4uqoqfguLHHYXIhrtL1ILzEeU6llBycvedEGgcvezu8GJOgCjzoKsbTp8tobTLiSmG12YDdTsvrGkH+wP6cDXh7/JbwbzFSe/+ha3wIp/2VhN9P3oO9cmRpUU4DbRgHFvVzNskDzEYDFGY62gYnRRRp/h82PT30F6jRHVnQL0Vj/i/Vt20N4VJjpYoS+UlKEbnvLvmPBdCoPZY/QN7rORAAoJXJz88jKUxQ0Vg91iOnjcF27Qqer362kfcMCEEmKQHF5suQs3HKWCGPQQMt0pxVosjdJ2Sy7BoO5LzG/8RQZQGYCCiHET+x73oMYS/2ME9hSaa4L7uWClQ6kUzzetvINejvUb8kx/ds6LaP/kZ7LF2WlvcvS8XBxqbgOUUTkuCTEzVuDRtKiqi2A5wCXIiHPrp832km6UNHhpUduVnKtL7tCbKagAMuCrBKop/ibdFscDprBmkh7igGlq+o/vWu8Zm4ocPSEZCllJqkItkWukDXxnSu6pcwSQEvNfxfCTUVsFMytXn7zb5uf13OXU9X8PWrLjrc2C4SUDS8GPzSIJKGHUtDzykI7uaAARyheCCJtZ7e7v2Mh7g6wXJfOiLo7SYJsKzbxXwFTdlS+6hZ14sRXSRxi5DeObQuUvWGZff/3S5wtOkR0EDyUS8+mXAH0gwzfq9fruJ6gZBkdPrLc+4VIuZed86H7Yl78hBBG1RlQBz+Xj7zap97Awaiobw0YApeuZPPOC3FyNHn4JaZE/F7JaboyD0PnIfwzNk2EicneKwXRFExXakMKEcRmo6/EqnetU2GLdHeyAGDVnEf+3mZlxfEaWrxotE9Jx0ZUbk+z9mbWgpbKkfMl8ttOg2HCjzPEVYz//MMj8P+h3K4K3lw+guEcEwU18v/nmnL5SsHA6/J4aM3D37wPX1q8F7XD+BImsO1v16GgEwUkYmLuBw7+ToZOHFa4TyhTwGzmMtKz5bSrX/+kbbPMIrQ1/8R8D18SU9DpPQN5ZDmo6owiGvb6hETAOykjiU5ABdFOysFW5Gj1GUrssDPEW5Olz9T9TGb9yQeAcBvs8hOzwlAOnHKzn2XM47ExkHEoUCPuiHNQUtLUBVUnjsPrYhVEyscQUn7y0gNOU1/7AZWDLokjAqECn0GCI9TisFz7rChC/mPg4ree2D13xBIFAGdZc51kVYsMpXax8/+KUFuqBbr8ojSNiVjep4jjqhL/vOaI4LXoqcUuhnBGeSJr+GbBDJj9aWYqxOw+QAPIOEX3b6cn5N2st5BYleTBtHp/x9vCzhg25YPQwxuTK4ALMOSJ2im1T4zX4ZnYzxB8HUL/OcZRcNLtvfAl0fJZq7yihVcAba/VXqATAFioGgQwFXfDRWSBON3fN82YpGmQLiPQWNzWPC2/VBdUdYHiWnad15yn/c01f7cI6pdcbReNybX06oXz6a/RftcmF+HvGPN7rJL9GWUi6bg8v0CXHe0z18TnSo2d9vfWGk2uWyzCXrFUsbIS8NIyrSQcUBJQTBTeziJejYTVugQLsw2zdq6KNOQnSHsyDzWA9YtTJSIPCiD+PXzCtw6SgLRple/of979i9PU+2fV5zlNVPduUu7jIF5GUDsXcuGB/a+klmhba4pYm+6ulfE3HYnNTnNiMLICjcA1LqhkBb70mkFdpIGVo3Akh5eZI7VFVL0sxH2VAucUTTpi5VPf7CTF7mm87rdrjv94+tpf/8vwTQDRQmQqByThxDVCEyV32E+bxoC5nbbM/3gj/iQQXCPKzz1R9eZvs5LFNYSOGkJUaDNAdYcqmDB8nvEoaGRfxUsGMq66bfyJKVv71BS1OK1pqAkV++QuBWdf9TczmcG+T/w46OrL6kle7ZR1LEfCwUWbPOrNgkFqtkN0Lhrt8n01rAUqZrQDGZ+d0b7eAokPmAZ7kqIWQAE59Zcc4W6dsAu1mlPfyzBgm70lGGAtyzgV5vW7B8OI84brHhZo6FA14selSlOyJ2icopOfL9Rte0PNAaj8Kn7WeoErmM0yCe8ZWmik248rUx1aCnjrjAefy0T42YAvexYTZroxdvVD4XDd1KwDYOX4lU2WfTJ4V0GP/RBufjVfMxoP0mVNPnEv1RUktLBjRiUalIly1Mbk/NtMU1WQdf9GYWl9z6FQPlSoQblp8tI6hlTZ/SZCS3mU2Nn7Gsop/a2EodmjxwrKr4jvKE08pcA1scj6Czl+jfSbFrhJAa9lsLkat9j9w/B22tmkxG1BP0Qt3iksHNikETqPX4nkdRurvZshOOKd2/rcQI2Hq3Cx9GcwNmj1NOPN98yUiyUi/pTdv1GY+Mb1XrhCyV8YbGSNpEa09gJb7O9fbBVw6AcMAwCeeJR9cqDwos1xpjscYkLeJP9NptsQBz/ddQ9yTCk60p2q8oQpgFo06lfDB3Lr7Dt2qodSmeNKECc05+8I/cVDVq2W2vQuJZK3GSPOnOexOulifswRRJ/WrXyjBcatX9RIaSJnbKV/fzXXvvFdzyD8/r3dkF/OMd65Mv5y+Eic9cRp1zS4zBx/NpZ+ZLPKW58culmF7qcfc8BaTQBuW4fpF4FhmNhNTzhGV2jfya6Jv3aOgM5cPjwhRHMFYZI1Jop0VsKYsjrCTUSZa+wF/WWYc4HtaIWsMFKNWRungAgWKq1WSNaM2GZlUWkQtxupXKQ4ZoGM/Ll1XOg0+JVKYtWC2GCYUaTjQT/jo+ESHlveGFSQDaUMgrKI/A7gTkySpL9/gn0QWKQ3JxjwiG0LDFcfD+bL5PTACDpRdLvVuogA1kLJIrM1d5WRCOUDv2ugnWFK3cDSAqTCvYHRiY65U1v81PiOsY1SQzwLXKX+3tEsOTF5Ykj30UWmefKs7CW39uTFY0m3vwpe/RQx5ZIfsdbcd6mQAWwHlEYPj8vhXB+H5t6CEYgKcAOG3bgHarQL0UBRfVm+OrclpiyB7xCeItrpd7/9bVePSJQVvrUZ4khSM4E0cJBMBkp4cV1lqvlF5N4lZLwTcbKt9kwqYxCt3VSzUqjbfPq3k8jC6T3PRVWuYXrwLSGTPJO//2Ex3/d7XjW2bVSZxCke30wrkvhRa15QI0OR14AalYb5mWOxmFE/9aaMELyZ6Mv6c1LfGZAP2XK5VWDXxvP624Upur0EShrFcmGe+/5ltd3qN7ekz8oB7cV6LaDMlRWO047v7mHc+JUbrmXJWE/mWVI70t8/tujSlYEkJHS35z5Wa9Mn7ecL08/xqvu4JYRijXF+qoWHgbA1cnkp3BJV/Re5NKUnMrI1O7j0eFy+tqyxn8JthBzFg9leybApSQS/trCvv+rhoijuiw1q8Q4XjerzS0ugIAErEmJ2wFpJTs+jghwVaZt9znpXb8pmrJpz9tFxxAL+cwFUpu7vdzbFqjxjDTPRaZulQ0CgOlI+x+KL/TwfPx8wRStTptpof+wOsQOEtAYaAiyWzmRa/HIo2mLUb1woOY/8FAH/FO6+jJX3nLjK68heJ3ZzmPBXfdz+zZm/Z6sbb37+OeM7oleco7y1lXn1h3k7CmULt9yzwTN5YGfYHCHC4oNwMMEomEwn3iqELrz4Yx8kM+OzoLDORyaHFV6n84vK7mxkPuxQ4eL6qG3mkSvcO3s4bsNpyFbvNc/4X3BMVyW58OUpoDWAZ9wIQ+CXVxCe+htGw8Js6O2vv/hglce9Jy+NPRBd+S75WPvrf1ZxEZbssVvq+wtPW3Kju9+EWeXlK7JDHa37UqF4GTSo56fBsYkmgtWUvAEknD9T9jJWYMhu+W1lE+sWtkpet/hmqva66yzIaceSSnKzpxyEo81kV0nSdvcLHqXa+vTAgSohdhPVy/eSaWSnhx2lIj5dICCdwAxyeD0O5QQpLXq5B1kaOikjeHh/wdQ3ck4sZtq7DSsflt8ZvGhCMVRA34eEP1B6EOOUpJtJfaRdFfQ3XWSOXLmTAhqnemyuKsIRXYNgKQ4ue8EO6lSaXP9jrejrZn2PYRS8epniFvx8C5my2rf+kDcUONlBmt23xRKcuZ3CMsTy2lhjw/jmNRTLLPW0sZm1rmSI6CuXBpSb568wfLI54ToimBQHSc2D0owjZrTqx0RJBYABtw0Pxv3/X+z+xv78bBrAx57yBpfFtmqtCHf8XzfUSccWkL6eZ5plCiXK2fDrF2mqcS+HlqzFgTGDp/DbnLKD+gUhTn3VPwU+h/xJalqlb5TX6WSAE44+b8TyLT2Ml69WrqXiXfj36wXh4koOSv/pgNS16g9FxcyvIvdmHEw1qgOogVIJ8NY/8yrAGXybwUbYYBqHN+hFm3BalzF38IvQ+VZKNGAUBJc4nszRVQR7R0tbmg/Ys5Me3+Y7L/GlxmqRm+Kk03BRClHFcv8PRXayHPVioff7BR/KeSvUGDi2RyKIWssXbWXmiIETBN5l3KWYQSIunW2faJ8jEb2O078iO/1GT60aHpxPRJ4pVzZVgvf6yY6s7N6OUJnwiE40Ip97IdyIRdGkLqMwT16lfJ3AegDzXSX2wx961IvZSvchA02t8MUhzAAzITsCjVy6FqHDkbPDT4FwZDBGmMOEvGnTzYXcZ7S3rmuC1uTLS34soO0jTvUXGMENq52JtzCbNwJynLvr3y1y7EEdTFOcPYGdBRjJflp9+bTCrz2RGBaVl0dJviXA4f+MNF9ceX1IXHKY+psWhFwuhNRhLy4rAMWYdC/7PMBVg6i8hJ+T0o7uK9DBLMKkER4b+ozP8aerg0iLOCL3yMfDjXusN2j8HgkNlcDq9MGZ5HMl9odSykKUiK4S0uMvq5+IWXkNwNr04fxjX0Ciy8xQrwYVFATj3G9Mtki8f4pf6ngD2ri99ml95Tt0nIYheDiVN2svAf19n6rsyO2wAoLsD5wZvlz5eV7RGhxdTz/wMM6aFRFYXhYDH0ePwa9gdl/5FoylFRE+N22ZeJwHa1G593hwXSOyQhm4NxH7t604Vy5PQR8EAg/Keew7xspxj87biAtF4tPJxdeM4alE6eUETu/sqqmavNPAnM3G/wYNsW4fH3/b1ck1UMgskspv8U3n81e3cv8yEmrHT/gxB71R5D0/snfIlxxmMZ3vW3yYLlmtBGCoYQFXDNW9OmFo8QGfGYXO16l1K9dk2BzUz1hjQvHUOH0HoQvTUT11TcxCvPfT4IiQ/cEJiyqKor2QSWUs82NGOTHoLiOPbqLGnKWj6gIUD8hNKiXRuKWWA5CORFLNuBtWF9bugNP91C3V1pdvNVVHyXekfYqAUopQFcqZns2JiTOyChqzcR6d8ZRZQFA4Q0Xl8aXc3/hmc2Yx+GIZ1GntqSqaor2ApsvPg2Z6kflRoy9WA4s1C5HyABRK1wDo6WGyxSgG8nUsIXozzz4c/Qds6yvgcgSTG51xQLoC8oGJzrOVnO+bZJ0+HVecimIkCrX5qYcf5mteTZVldEfbw9MSWTtxuFmeZjIIwyStzLhjsjsQkvGUm3AAA"
-             alt="Yura, fundador do VetScan"
+             alt="Yura, VetScan founder"
              width="88"
              height="88"
              loading="lazy"
              decoding="async">
       </div>
       <p class="founder-quote">
-        "Comecei a construir o VetScan depois de uma consulta de emergência de US$ 600 que acabou sendo nada. Há um grande vazio entre o pânico do Google e a conta do veterinário — e a IA finalmente pode preencher isso."
+        "I started building VetScan after a $600 emergency visit that turned out to be nothing. There's a huge gap between Google panic and a vet bill — and AI can finally fill it."
       </p>
-      <div class="founder-name">— Yura, fundador · trabalhando com veterinários em atividade</div>
+      <div class="founder-name">— Yura, founder · working with practicing veterinarians</div>
     </div>
   </div>
 </section>
 
 <!-- ========================================================= -->
-<!-- Perguntas -->
+<!-- FAQ -->
 <!-- ========================================================= -->
 <section class="atmo-mint">
   <div class="container">
-    <div class="section-eyebrow reveal">Perguntas</div>
-    <h2 class="reveal">Perguntas frequentes.</h2>
-    <p class="section-sub reveal">Respostas reais, sem rodeios.</p>
+    <div class="section-eyebrow reveal">FAQ</div>
+    <h2 class="reveal">Questions people ask.</h2>
+    <p class="section-sub reveal">Real answers, no fluff.</p>
 
     <div class="faq-list stagger">
       <details class="faq-item">
         <summary class="faq-summary">
-          O VetScan substitui meu veterinário?
+          Is VetScan a replacement for my vet?
           <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </summary>
-        <div class="faq-body">Não, e somos claros sobre isso. Somos um primeiro passo inteligente antes de você chamar o veterinário. Ajudamos a decidir se e quando ir — não o que prescrever.</div>
+        <div class="faq-body">No, and we're very clear about that. We're a smart first step before you call your vet. We help you decide if and when to go — not what to prescribe.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-summary">
-          Quão precisa é a IA?
+          How accurate is the AI?
           <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </summary>
-        <div class="faq-body">Nosso sistema de triagem foi construído com veterinários em atividade e treinado com milhares de casos reais. Em caso de dúvida, sempre recomendamos consultar um veterinário — melhor prevenir do que remediar.</div>
+        <div class="faq-body">Our triage is built with practicing veterinarians and trained on thousands of real cases. When in doubt, we always recommend seeing a vet — better safe than sorry.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-summary">
-          Quando estará disponível?
+          When will it be available?
           <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </summary>
-        <div class="faq-body">Estamos em beta privado agora. O acesso antecipado abre em ondas nos próximos meses. Inscreva-se para estar entre os primeiros.</div>
+        <div class="faq-body">We're in private beta now. Early access opens in waves over the next few months. Sign up to be among the first.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-summary">
-          Quanto vai custar?
+          How much will it cost?
           <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </summary>
-        <div class="faq-body"><span class="curr" data-key="vetscan-monthly-with-unit">$7.99/month</span> após o lançamento. Grátis durante todo o período beta para todos na lista de espera.</div>
+        <div class="faq-body"><span class="curr" data-key="vetscan-monthly-with-unit">$7.99/month</span> after launch. Free during the entire beta period for everyone on the waitlist.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-summary">
-          Vai funcionar com a minha raça?
+          Will it work for my breed?
           <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </summary>
-        <div class="faq-body">Estamos começando com cães de 0 a 2 anos, todas as raças. Gatos e cães idosos vêm depois — mas você pode se inscrever agora para ser avisado.</div>
+        <div class="faq-body">We're starting with dogs aged 0–2 years, all breeds. Cats and senior dogs are coming next — but you can sign up now to be notified.</div>
       </details>
       <details class="faq-item">
         <summary class="faq-summary">
-          Meus dados são privados?
+          Is my data private?
           <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </summary>
-        <div class="faq-body">Sim. Nunca compartilhamos os dados do seu cão com terceiros. Tudo é seu, e você pode exportar ou apagar quando quiser.</div>
+        <div class="faq-body">Yes. We never share your dog's data with third parties. You own everything, and you can export or delete it anytime.</div>
       </details>
     </div>
   </div>
@@ -4944,19 +5020,19 @@ body.page-hidden *::after {
 <section class="final-cta">
   <div class="container">
     <div class="final-cta-inner">
-      <h2 class="reveal">Pare de adivinhar sobre a saúde do seu cão.</h2>
-      <p class="final-cta-sub reveal">Junte-se a mais de 1.200 donos de cães esperando acesso antecipado.</p>
+      <h2 class="reveal">Stop guessing about your dog's health.</h2>
+      <p class="final-cta-sub reveal">Join 1,200+ dog parents waiting for early access.</p>
 
       <form class="email-form reveal" style="margin: 0 auto;" onsubmit="return handleSubmit(event, 'bottom')">
         <div class="email-input-wrap">
-          <input type="email" class="email-input" placeholder="seu@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false">
+          <input type="email" class="email-input" placeholder="your@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false">
           <button type="submit" class="btn-primary">
-            Acesso antecipado
+            Get early access
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
         </div>
         <div class="form-hint" data-hint-for="bottom"></div>
-        <div class="email-microcopy">Grátis durante o beta · Avisaremos por email quando o acesso abrir</div>
+        <div class="email-microcopy">Free during beta · We'll email you when access opens</div>
       </form>
     </div>
   </div>
@@ -4975,7 +5051,7 @@ body.page-hidden *::after {
           <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
         </svg>
         <span class="store-btn-text">
-          <span class="store-btn-pretext">Em breve em</span>
+          <span class="store-btn-pretext">Coming soon to</span>
           <span class="store-btn-name">App Store</span>
         </span>
       </a>
@@ -5006,7 +5082,7 @@ body.page-hidden *::after {
           </defs>
         </svg>
         <span class="store-btn-text">
-          <span class="store-btn-pretext">Em breve em</span>
+          <span class="store-btn-pretext">Coming soon to</span>
           <span class="store-btn-name">Google Play</span>
         </span>
       </a>
@@ -5032,37 +5108,37 @@ body.page-hidden *::after {
     
 <div class="footer-lang-switcher">
   <span class="footer-lang-label">🌐 Language:</span>
-  <a href="/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('en');}">English</a><span class="footer-lang-sep">·</span><a href="/es-ES/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ES');}">Español (España)</a><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><span class="footer-lang-current" aria-current="true">Português (Brasil)</span><span class="footer-lang-sep">·</span><a href="/pt-PT/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-PT');}">Português (Portugal)</a><span class="footer-lang-sep">·</span><a href="/fr/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('fr');}">Français</a><span class="footer-lang-sep">·</span><a href="/de/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('de');}">Deutsch</a><span class="footer-lang-sep">·</span><a href="/it/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('it');}">Italiano</a><span class="footer-lang-sep">·</span><a href="/nl/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('nl');}">Nederlands</a><span class="footer-lang-sep">·</span><a href="/sv/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('sv');}">Svenska</a><span class="footer-lang-sep">·</span><a href="/da/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('da');}">Dansk</a><span class="footer-lang-sep">·</span><a href="/pl/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pl');}">Polski</a><span class="footer-lang-sep">·</span><a href="/cs/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('cs');}">Čeština</a><span class="footer-lang-sep">·</span><a href="/hu/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('hu');}">Magyar</a><span class="footer-lang-sep">·</span><a href="/ro/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ro');}">Română</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a><span class="footer-lang-sep">·</span><a href="/ka/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ka');}">ქართული</a>
+  <a href="/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('en');}">English</a><span class="footer-lang-sep">·</span><a href="/es-ES/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ES');}">Español (España)</a><span class="footer-lang-sep">·</span><a href="/es-mx/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-mx');}">Español (México)</a><span class="footer-lang-sep">·</span><a href="/es-ar/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('es-ar');}">Español (Argentina)</a><span class="footer-lang-sep">·</span><a href="/pt-BR/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pt-BR');}">Português (Brasil)</a><span class="footer-lang-sep">·</span><span class="footer-lang-current" aria-current="true">Português (Portugal)</span><span class="footer-lang-sep">·</span><a href="/fr/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('fr');}">Français</a><span class="footer-lang-sep">·</span><a href="/de/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('de');}">Deutsch</a><span class="footer-lang-sep">·</span><a href="/it/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('it');}">Italiano</a><span class="footer-lang-sep">·</span><a href="/nl/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('nl');}">Nederlands</a><span class="footer-lang-sep">·</span><a href="/sv/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('sv');}">Svenska</a><span class="footer-lang-sep">·</span><a href="/da/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('da');}">Dansk</a><span class="footer-lang-sep">·</span><a href="/pl/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('pl');}">Polski</a><span class="footer-lang-sep">·</span><a href="/cs/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('cs');}">Čeština</a><span class="footer-lang-sep">·</span><a href="/hu/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('hu');}">Magyar</a><span class="footer-lang-sep">·</span><a href="/ro/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ro');}">Română</a><span class="footer-lang-sep">·</span><a href="/uk/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('uk');}">Українська</a><span class="footer-lang-sep">·</span><a href="/ru/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ru');}">Русский</a><span class="footer-lang-sep">·</span><a href="/ka/" onclick="if(window.VetScanSwitchLang){event.preventDefault();VetScanSwitchLang('ka');}">ქართული</a>
 </div>
     <div class="footer-legal">
-      <a href="/pt-BR/how-it-works.html">Como Funciona</a>
+      <a href="how-it-works.html">How It Works</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/methodology.html">Metodologia</a>
+      <a href="methodology.html">Methodology</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/pricing.html">Preços</a>
+      <a href="pricing.html">Pricing</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/compare.html">Comparar</a>
+      <a href="compare.html">Compare</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/faq.html">Perguntas</a>
+      <a href="faq.html">FAQ</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/about.html">Sobre</a>
+      <a href="about.html">About</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/veterinary-advisors.html">Veterinários</a>
+      <a href="veterinary-advisors.html">Vet Advisors</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/privacy.html">Privacidade</a>
+      <a href="privacy.html">Privacy</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/terms.html">Termos</a>
+      <a href="terms.html">Terms</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/disclaimer.html">Aviso médico</a>
+      <a href="disclaimer.html">Medical Disclaimer</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/cookies.html">Cookies</a>
+      <a href="cookies.html">Cookies</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/security.html">Segurança</a>
+      <a href="security.html">Security</a>
       <span class="footer-legal-sep">·</span>
-      <a href="/pt-BR/accessibility.html">Acessibilidade</a>
+      <a href="accessibility.html">Accessibility</a>
     </div>
     <div class="footer-disclaimer">
-      O VetScan oferece orientação geral assistida por IA e não substitui o cuidado veterinário profissional. Em caso de emergência, contate um veterinário imediatamente.
+      VetScan provides AI-assisted general guidance only and is not a substitute for professional veterinary care. In a pet emergency, contact a veterinarian immediately.
     </div>
   </div>
 </footer>
@@ -5072,7 +5148,7 @@ body.page-hidden *::after {
 <!-- ========================================================= -->
 <div class="sticky-mobile-cta" id="stickyMobileCta" aria-hidden="true">
   <a href="#waitlist">
-    Acesso antecipado
+    Get early access
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
   </a>
 </div>
@@ -5082,7 +5158,7 @@ body.page-hidden *::after {
 <!-- ========================================================= -->
 <div class="success-modal-backdrop" id="successModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="successTitle">
   <div class="success-modal">
-    <button class="success-close" aria-label="Fechar" id="successFechar">
+    <button class="success-close" aria-label="Close" id="successClose">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
 
@@ -5090,34 +5166,34 @@ body.page-hidden *::after {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
 
-    <h3 id="successTitle">Você está na lista!</h3>
+    <h3 id="successTitle">You're on the list!</h3>
     <div class="success-position">
-      Você está <span class="success-position-num" id="successPosition">#1248</span> na fila
+      You're <span class="success-position-num" id="successPosition">#1248</span> in the queue
     </div>
 
-    <p>Enviaremos um email em <strong>48 horas</strong> com detalhes do acesso antecipado. A primeira onda beta começa em <strong>Q2 2026</strong>.</p>
+    <p>We'll email you within <strong>48 hours</strong> with details on early access. The first beta wave starts in <strong>Q2 2026</strong>.</p>
 
     <div class="success-tip">
       <span class="success-tip-icon">📬</span>
       <div>
-        <strong>Adicione hello@vetscan.app aos seus contatos</strong>
-        para que nosso convite beta não vá para o spam. Prometemos nenhum marketing inútil — apenas atualizações importantes do produto.
+        <strong>Add hello@vetscan.app to your contacts</strong>
+        so our beta invitation doesn't end up in spam. We promise no marketing fluff — just product updates that matter.
       </div>
     </div>
 
     <div class="success-share">
-      <div class="success-share-label">Know a dog parent who'd love this? Compartilhar VetScan:</div>
+      <div class="success-share-label">Know a dog parent who'd love this? Share VetScan:</div>
       <div class="success-share-buttons">
-        <a class="success-share-btn" href="https://twitter.com/intent/tweet?text=Just%20joined%20the%20waitlist%20for%20%40vetscan_app%20%E2%80%94%20an%20AI%20vet%20triage%20tool%20for%20new%20dog%20parents.%20Looks%20genius.&url=https%3A%2F%2Fvetscan.app" target="_blank" rel="noopener" aria-label="Compartilhar on Twitter / X">
+        <a class="success-share-btn" href="https://twitter.com/intent/tweet?text=Just%20joined%20the%20waitlist%20for%20%40vetscan_app%20%E2%80%94%20an%20AI%20vet%20triage%20tool%20for%20new%20dog%20parents.%20Looks%20genius.&url=https%3A%2F%2Fvetscan.app" target="_blank" rel="noopener" aria-label="Share on Twitter / X">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
-        <a class="success-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvetscan.app" target="_blank" rel="noopener" aria-label="Compartilhar on Facebook">
+        <a class="success-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvetscan.app" target="_blank" rel="noopener" aria-label="Share on Facebook">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
-        <a class="success-share-btn" href="https://api.whatsapp.com/send?text=Just%20joined%20the%20VetScan%20waitlist%20%E2%80%94%20AI%20vet%20triage%20for%20new%20dog%20parents.%20https%3A%2F%2Fvetscan.app" target="_blank" rel="noopener" aria-label="Compartilhar on WhatsApp">
+        <a class="success-share-btn" href="https://api.whatsapp.com/send?text=Just%20joined%20the%20VetScan%20waitlist%20%E2%80%94%20AI%20vet%20triage%20for%20new%20dog%20parents.%20https%3A%2F%2Fvetscan.app" target="_blank" rel="noopener" aria-label="Share on WhatsApp">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         </a>
-        <button class="success-share-btn" id="successCopyLink" aria-label="Copiar link">
+        <button class="success-share-btn" id="successCopyLink" aria-label="Copy link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         </button>
       </div>
@@ -5128,15 +5204,15 @@ body.page-hidden *::after {
 <!-- ========================================================= -->
 <!-- COOKIE CONSENT BANNER -->
 <!-- ========================================================= -->
-<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Consentimento de cookies">
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent">
   <div class="cookie-icon">🍪</div>
   <div class="cookie-text">
-    <strong>Usamos cookies</strong>
-    Para análises e melhorar sua experiência. Veja nossa <a href="/pt-BR/cookies.html">Política de cookies</a>.
+    <strong>We use cookies</strong>
+    For analytics and to improve your experience. See our <a href="cookies.html">Cookie Policy</a>.
   </div>
   <div class="cookie-buttons">
-    <button class="cookie-btn cookie-btn-secondary" id="cookieRejeitar">Rejeitar</button>
-    <button class="cookie-btn cookie-btn-primary" id="cookieAceitar">Aceitar</button>
+    <button class="cookie-btn cookie-btn-secondary" id="cookieReject">Reject</button>
+    <button class="cookie-btn cookie-btn-primary" id="cookieAccept">Accept</button>
   </div>
 </div>
 
@@ -5146,7 +5222,7 @@ body.page-hidden *::after {
 <div class="exit-popup" id="exitPopup" aria-hidden="true" role="dialog" aria-labelledby="exitPopupTitle" aria-describedby="exitPopupDesc">
   <div class="exit-backdrop" id="exitBackdrop"></div>
   <div class="exit-card">
-    <button class="exit-close" id="exitFechar" aria-label="Fechar">
+    <button class="exit-close" id="exitClose" aria-label="Close">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
 
@@ -5191,17 +5267,17 @@ body.page-hidden *::after {
     </div>
 
     <div class="exit-content">
-      <div class="exit-eyebrow">Espere — antes de sair</div>
-      <h2 class="exit-title" id="exitPopupTitle">Não deixe seu cão sem um plano.</h2>
+      <div class="exit-eyebrow">Wait — before you go</div>
+      <h2 class="exit-title" id="exitPopupTitle">Don't leave your dog without a plan.</h2>
       <p class="exit-sub" id="exitPopupDesc">
-        A maioria dos sustos de emergência acontece às 2 da manhã quando ninguém está por perto. Receba triagem de emergência grátis — mesmo antes do lançamento oficial do VetScan.
+        Most ER scares happen at 2 a.m. when nobody's around. Get free emergency triage — even before VetScan officially launches.
       </p>
 
       <form class="exit-form" id="exitForm">
         <div class="email-input-wrap">
-          <input type="email" class="email-input" placeholder="seu@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false">
+          <input type="email" class="email-input" placeholder="your@email.com" required inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false">
           <button type="submit" class="btn-primary">
-            Reservar minha vaga
+            Save my spot
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
         </div>
@@ -5209,12 +5285,12 @@ body.page-hidden *::after {
       </form>
 
       <div class="exit-badges">
-        <span>✓ Grátis durante o beta</span>
-        <span>✓ Sem cartão de crédito</span>
-        <span>✓ Modo de emergência para sempre</span>
+        <span>✓ Free during beta</span>
+        <span>✓ No credit card</span>
+        <span>✓ Emergency mode forever</span>
       </div>
 
-      <button class="exit-decline" id="exitDecline">Não, obrigado, vou resolver sozinho</button>
+      <button class="exit-decline" id="exitDecline">No thanks, I'll figure it out alone</button>
     </div>
   </div>
 </div>
@@ -5229,7 +5305,7 @@ body.page-hidden *::after {
   const savingsEl = document.getElementById('calcSavings');
   const avoidedCountEl = document.getElementById('avoidedCount');
   const multipleEl = document.getElementById('calcMultiple');
-  const resultBlock = document.getElementById('calcResultado');
+  const resultBlock = document.getElementById('calcResult');
 
   if (!slider) return;
 
@@ -5257,7 +5333,7 @@ body.page-hidden *::after {
     const savings = (avoided * ER_AVG) - VETSCAN_YEAR;
     const mult = savings > 0 ? Math.round(savings / VETSCAN_YEAR) : 0;
 
-    spendEl.innerHTML = fmt(yearlySpend) + '<span class="calc-stat-unit">/ano</span>';
+    spendEl.innerHTML = fmt(yearlySpend) + '<span class="calc-stat-unit">/year</span>';
     avoidedCountEl.textContent = avoided;
     savingsEl.textContent = fmt(Math.max(savings, 0));
     multipleEl.textContent = (mult > 0 ? mult + 'x' : '—');
@@ -5269,7 +5345,7 @@ body.page-hidden *::after {
     } else {
       resultBlock.style.opacity = '1';
       resultBlock.querySelector('.calc-result-label').innerHTML =
-        'Se o VetScan te ajudar a evitar até <strong id="avoidedCount">' + avoided + '</strong> visita' + (avoided > 1 ? 's' : '') + ' desnecessária' + (avoided > 1 ? 's' : '') + ':';
+        'If VetScan helps you avoid even <strong id="avoidedCount">' + avoided + '</strong> unnecessary visit' + (avoided > 1 ? 's' : '') + ':';
     }
 
     slider.setAttribute('aria-valuenow', visits);
@@ -5304,11 +5380,11 @@ body.page-hidden *::after {
   const optButtons = stage.querySelectorAll('.demo-opt');
   const nextBtn = document.getElementById('demoNext2');
   const restartBtn = document.getElementById('demoRestart');
-  const resultCard = document.getElementById('demoResultadoCard');
+  const resultCard = document.getElementById('demoResultCard');
 
-  let chosenSintoma = null;
+  let chosenSymptom = null;
 
-  // Resultado content for each symptom
+  // Result content for each symptom
   const results = {
     vomiting: {
       tier: 'mid',
@@ -5321,7 +5397,7 @@ body.page-hidden *::after {
       tier: 'mid',
       tierLabel: 'See vet within 24-48h',
       headline: 'Probably a sprain — but worth a look.',
-      body: 'O mancar da pata traseira em um Golden Retriever jovem sem trauma óbvio é mais comumente uma <strong>entorse ou paniculite</strong>. Not critical, but warrants a professional exam if it persists more than 24 hours.',
+      body: 'Hind-leg limping in a young Golden Retriever without obvious trauma is most often a <strong>sprain or panniculitis</strong>. Not critical, but warrants a professional exam if it persists more than 24 hours.',
       actions: '<strong>Today</strong>Ice the leg for 10 min every 4 hours. Limit running, jumping, and stairs. <strong style="margin-top:8px">Red flags</strong>Severe swelling, can\'t bear weight at all, visible deformity — go to ER.'
     },
     lethargy: {
@@ -5351,8 +5427,8 @@ body.page-hidden *::after {
     });
   }
 
-  function renderResultado() {
-    const r = results[chosenSintoma] || results.limping;
+  function renderResult() {
+    const r = results[chosenSymptom] || results.limping;
     resultCard.className = 'demo-result urgent-' + r.tier;
     resultCard.innerHTML = `
       <div class="demo-result-tier">
@@ -5367,21 +5443,21 @@ body.page-hidden *::after {
 
   optButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      chosenSintoma = btn.dataset.symptom;
+      chosenSymptom = btn.dataset.symptom;
       showStep(2);
     });
   });
 
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      renderResultado();
+      renderResult();
       showStep(3);
     });
   }
 
   if (restartBtn) {
     restartBtn.addEventListener('click', () => {
-      chosenSintoma = null;
+      chosenSymptom = null;
       showStep(1);
     });
   }
@@ -5392,7 +5468,7 @@ body.page-hidden *::after {
 // =========================================================
 (function() {
   const popup = document.getElementById('exitPopup');
-  const closeBtn = document.getElementById('exitFechar');
+  const closeBtn = document.getElementById('exitClose');
   const declineBtn = document.getElementById('exitDecline');
   const backdrop = document.getElementById('exitBackdrop');
   const exitForm = document.getElementById('exitForm');
@@ -5493,7 +5569,7 @@ body.page-hidden *::after {
 })();
 
 // =========================================================
-// Menu mobile (hamburger) toggle
+// Mobile menu (hamburger) toggle
 // =========================================================
 (function() {
   const hamburger = document.querySelector('.nav-hamburger');
@@ -5512,19 +5588,19 @@ body.page-hidden *::after {
 
   hamburger.addEventListener('click', () => toggleMenu());
 
-  // Fechar when any link is clicked
+  // Close when any link is clicked
   mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => toggleMenu(false));
   });
 
-  // Fechar on Escape key
+  // Close on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
       toggleMenu(false);
     }
   });
 
-  // Fechar when window resizes above mobile breakpoint
+  // Close when window resizes above mobile breakpoint
   window.addEventListener('resize', () => {
     if (window.innerWidth > 860 && mobileMenu.classList.contains('open')) {
       toggleMenu(false);
@@ -5595,7 +5671,7 @@ function animateCounter(el) {
 }
 
 // =========================================================
-// Partículas flutuantes — adaptive count by viewport
+// Floating particles — adaptive count by viewport
 // Deferred to idle time to not block initial render
 // =========================================================
 const initParticles = () => {
@@ -5740,7 +5816,7 @@ document.querySelectorAll('.email-form').forEach(form => {
 // =========================================================
 const successModal = document.getElementById('successModal');
 const successPosition = document.getElementById('successPosition');
-const successFechar = document.getElementById('successFechar');
+const successClose = document.getElementById('successClose');
 const successCopyLink = document.getElementById('successCopyLink');
 
 function showSuccessModal(position) {
@@ -5750,7 +5826,7 @@ function showSuccessModal(position) {
   successModal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
   // Focus close button for accessibility
-  setTimeout(() => successFechar && successFechar.focus(), 350);
+  setTimeout(() => successClose && successClose.focus(), 350);
 }
 function hideSuccessModal() {
   if (!successModal) return;
@@ -5758,7 +5834,7 @@ function hideSuccessModal() {
   successModal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
-if (successFechar) successFechar.addEventListener('click', hideSuccessModal);
+if (successClose) successClose.addEventListener('click', hideSuccessModal);
 if (successModal) {
   successModal.addEventListener('click', (e) => {
     if (e.target === successModal) hideSuccessModal();
@@ -5770,7 +5846,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Copiar link with feedback
+// Copy link with feedback
 if (successCopyLink) {
   successCopyLink.addEventListener('click', async () => {
     try {
@@ -5963,8 +6039,8 @@ function handleSubmit(e, location) {
 // =========================================================
 (function() {
   const banner = document.getElementById('cookieBanner');
-  const acceptBtn = document.getElementById('cookieAceitar');
-  const rejectBtn = document.getElementById('cookieRejeitar');
+  const acceptBtn = document.getElementById('cookieAccept');
+  const rejectBtn = document.getElementById('cookieReject');
   const COOKIE_NAME = 'vetscan_consent';
 
   if (!banner) return;
