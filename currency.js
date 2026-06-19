@@ -17,6 +17,7 @@
   'use strict';
 
   function detectCurrency() {
+    // 1. Explicit override (?currency=XXX) — always wins. QA + manual selection.
     try {
       var params = new URLSearchParams(window.location.search);
       var override = params.get('currency');
@@ -30,16 +31,20 @@
       }
     } catch (e) {}
 
-    var tz = '';
-    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; }
-    catch (e) {}
-
-    var tzCurrency = currencyFromTimezone(tz);
-    if (tzCurrency) return tzCurrency;
-
+    // 2. Locale path is authoritative on /xx/ pages: currency follows the PAGE,
+    //    not the visitor's timezone. (/uk/ -> UAH even for a US visitor.)
     var pathCurrency = currencyFromPath(window.location.pathname);
     if (pathCurrency) return pathCurrency;
 
+    // 3. English root (no locale prefix): refine by timezone ONLY among
+    //    English-speaking-market currencies; anything else -> USD.
+    var tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; }
+    catch (e) {}
+    var tzCurrency = currencyFromTimezone(tz);
+    if (tzCurrency === 'GBP' || tzCurrency === 'CAD' || tzCurrency === 'AUD') {
+      return tzCurrency;
+    }
     return 'USD';
   }
 
